@@ -39,9 +39,9 @@ public class VKApiPoll : VKAttachments.VKApiAttachment {
     public VKList<Answer> answers;
 
     /**
-     * Fills a Poll instance from JSONObject.
+     * Fills a Poll instance from JObject.
      */
-    public VKApiPoll parse(JSONObject source) {
+    public VKApiPoll parse(JObject source) {
         id = source.optInt("id");
         owner_id = source.optInt("owner_id");
         created = source.optLong("created");
@@ -112,7 +112,7 @@ public class VKApiPoll : VKAttachments.VKApiAttachment {
          */
         public double rate;
 
-        public Answer parse(JSONObject source) {
+        public Answer parse(JObject source) {
             id = source.optInt("id");
             text = source.optstring("text");
             votes = source.optInt("votes");

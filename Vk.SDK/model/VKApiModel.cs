@@ -1,8 +1,11 @@
+using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
+
 namespace Vk.SDK.model
 {
     public abstract class VKApiModel {
 
-        public JSONObject fields;
+        public JObject fields;
         /**
      * The model's tag.
      */
@@ -11,7 +14,7 @@ namespace Vk.SDK.model
         /**
      * Map used to store model's tags.
      */
-        private SparseArray<object> mKeyedTags;
+        private List<object> mKeyedTags;
 
         /**
      * Returns this model's tag.
@@ -74,7 +77,7 @@ namespace Vk.SDK.model
      * @return this object.
      * @throws JSONException if any critical error occurred while parsing.
      */
-        public VKApiModel parse(JSONObject response) {
+        public VKApiModel parse(JObject response) {
             return ParseUtils.parseViaReflection(this, response);
         }
     }

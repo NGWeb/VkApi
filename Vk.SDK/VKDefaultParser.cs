@@ -10,7 +10,7 @@ namespace Vk.SDK
             mModelClass = objectModel;
         }
     
-        public object createModel(JSONObject jsobject) {
+        public object createModel(JObject jsobject) {
             try {
                 VKApiModel model = mModelClass.newInstance();
                 model.parse(jsobject);

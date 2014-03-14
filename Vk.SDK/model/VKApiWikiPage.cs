@@ -73,9 +73,9 @@ public class VKApiWikiPage : VKAttachments.VKApiAttachment{
     public string parent2;
 
     /**
-     * Fills a WikiPage instance from JSONObject.
+     * Fills a WikiPage instance from JObject.
      */
-    public VKApiWikiPage parse(JSONObject source) {
+    public VKApiWikiPage parse(JObject source) {
         id = source.optInt("id");
         group_id = source.optInt("group_id");
         creator_id = source.optInt("creator_id");

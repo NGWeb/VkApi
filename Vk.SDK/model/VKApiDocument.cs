@@ -1,3 +1,5 @@
+using System.Text;
+
 namespace Vk.SDK.model
 {
     public class VKApiDocument : VKApiAttachment ,IIdentifiable {
@@ -56,9 +58,9 @@ namespace Vk.SDK.model
         private bool mIsImage;
 
         /**
-     * Fills a Doc instance from JSONObject.
+     * Fills a Doc instance from JObject.
      */
-        public VKApiDocument parse(JSONObject jo) {
+        public VKApiDocument parse(JObject jo) {
             id = jo.optInt("id");
             owner_id = jo.optInt("owner_id");
             title = jo.optstring("title");
@@ -82,21 +84,7 @@ namespace Vk.SDK.model
         /**
      * Creates a Doc instance from Parcel.
      */
-        public VKApiDocument(Parcel in) {
-            this.id = in.readInt();
-            this.owner_id = in.readInt();
-            this.title = in.readstring();
-            this.size = in.readLong();
-            this.ext = in.readstring();
-            this.url = in.readstring();
-            this.photo_100 = in.readstring();
-            this.photo_130 = in.readstring();
-            this.photo = in.readParcelable(VKPhotoSizes.class.getClassLoader());
-            this.access_key = in.readstring();
-            this.mIsImage = in.readByte() != 0;
-            this.mIsGif = in.readByte() != 0;
-        }
-
+      
         /**
      * Creates empty Doc instance.
      */
@@ -106,20 +94,20 @@ namespace Vk.SDK.model
 
         public bool isImage() {
             mIsImage = mIsImage ||
-                       "jpg".equals(ext) ||
-                       "jpeg".equals(ext) ||
-                       "png".equals(ext) ||
-                       "bmp".equals(ext);
+                       "jpg".Equals(ext) ||
+                       "jpeg".Equals(ext) ||
+                       "png".Equals(ext) ||
+                       "bmp".Equals(ext);
             return mIsImage;
         }
 
         public bool isGif() {
-            mIsGif = mIsGif || "gif".equals(ext);
+            mIsGif = mIsGif || "gif".Equals(ext);
             return mIsGif;
         }
 
     
-        public int GetId() {
+        public override int GetId() {
             return id;
         }
 
@@ -129,13 +117,13 @@ namespace Vk.SDK.model
         }
 
     
-        public CharSequence toAttachmentstring() {
-            stringBuilder result = new stringBuilder(TYPE_DOC).append(owner_id).append('_').append(id);
+        public string toAttachmentstring() {
+            StringBuilder result = new StringBuilder(TYPE_DOC).Append(owner_id).Append('_').Append(id);
             if(!TextUtils.isEmpty(access_key)) {
-                result.append('_');
-                result.append(access_key);
+                result.Append('_');
+                result.Append(access_key);
             }
-            return result;
+            return result.ToString();
         }
 
     
@@ -148,28 +136,7 @@ namespace Vk.SDK.model
             return 0;
         }
 
-    
-        public void writeToParcel(Parcel dest, int flags) {
-            dest.writeInt(this.id);
-            dest.writeInt(this.owner_id);
-            dest.writestring(this.title);
-            dest.writeLong(this.size);
-            dest.writestring(this.ext);
-            dest.writestring(this.url);
-            dest.writestring(this.photo_100);
-            dest.writestring(this.photo_130);
-            dest.writeParcelable(this.photo, flags);
-            dest.writestring(this.access_key);
-            dest.writeByte(mIsImage ? (byte) 1 : (byte) 0);
-            dest.writeByte(mIsGif ? (byte) 1 : (byte) 0);
-        }
-
-        public static Creator<VKApiDocument> CREATOR = new Creator<VKApiDocument>() {
-        public VKApiDocument createFromParcel(Parcel source) {
-    return new VKApiDocument(source);
-        }
-
-        public VKApiDocument[] newArray(int size) {
+    public VKApiDocument[] newArray(int size) {
             return new VKApiDocument[size];
         }
     };

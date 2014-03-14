@@ -129,7 +129,7 @@ namespace Vk.SDK.httpClient
      * Set listener for current operation
      * @param listener Listener subclasses VKHTTPOperationCompleteListener
      */
-        public void setHttpOperationListener(readonly VKHTTPOperationCompleteListener listener) {
+        public void setHttpOperationListener(VKHTTPOperationCompleteListener listener) {
             this.setCompleteListener(new VKOperationCompleteListener() {
             
             public void onComplete() {

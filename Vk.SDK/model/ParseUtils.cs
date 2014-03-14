@@ -1,3 +1,6 @@
+using System.Reflection;
+using Newtonsoft.Json.Linq;
+
 namespace Vk.SDK.model
 {
     class ParseUtils {
@@ -12,26 +15,26 @@ namespace Vk.SDK.model
      * @throws JSONException if server response is not valid
      */
         public static bool parsebool(string from)  {
-            return new JSONObject(from).optInt("response", 0) == 1;
+            return new JObject(from).optInt("response", 0) == 1;
         }
 
         /**
-     * Parse bool from JSONObject with given name.
+     * Parse bool from JObject with given name.
      *
      * @param from server response like this format: {@code field: 1}
      * @param name name of field to read
      */
-        public static bool parsebool(JSONObject from, string name) {
+        public static bool parsebool(JObject from, string name) {
             return from != null && from.optInt(name, 0) == 1;
         }
 
         /**
-     * Parse int from JSONObject with given name.
+     * Parse int from JObject with given name.
      *
      * @param from server response like this format: {@code field: 34}
      * @param name name of field to read
      */
-        public static int parseInt(JSONObject from, string name) {
+        public static int parseInt(JObject from, string name) {
             if (from == null) return 0;
             return from.optInt(name, 0);
         }
@@ -44,22 +47,22 @@ namespace Vk.SDK.model
      */
         public static int parseInt(string from)  {
             if (from == null) return 0;
-            return new JSONObject(from).optInt("response");
+            return new JObject(from).optInt("response");
         }
 
         /**
-     * Parse long from JSONObject with given name.
+     * Parse long from JObject with given name.
      *
      * @param from server response like this format: {@code field: 34}
      * @param name name of field to read
      */
-        public static long parseLong(JSONObject from, string name) {
+        public static long parseLong(JObject from, string name) {
             if (from == null) return 0;
             return from.optLong(name, 0);
         }
 
         /**
-     * Parse int array from JSONObject with given name.
+     * Parse int array from JObject with given name.
      *
      * @param from int JSON array like this one {@code {11, 34, 42}}
      */
@@ -72,13 +75,13 @@ namespace Vk.SDK.model
         }
 
         /**
-     * Returns root JSONObject from server response
+     * Returns root JObject from server response
      *
      * @param source standart VK server response
      * @throws JSONException if source is not valid
      */
-        public static JSONObject rootJSONObject(string source) {
-            return new JSONObject(source).getJSONObject("response");
+        public static JObject rootJObject(string source) {
+            return new JObject(source).getJObject("response");
         }
 
         /**
@@ -88,14 +91,14 @@ namespace Vk.SDK.model
      * @throws JSONException if source is not valid
      */
         public static JSONArray rootJSONArray(string source) {
-            return new JSONObject(source).getJSONArray("response");
+            return new JObject(source).getJSONArray("response");
         }
 
         /**
      * Parses object with follow rules:
      *
      * 1. All fields should had a public access.
-     * 2. The name of the filed should be fully equal to name of JSONObject key.
+     * 2. The name of the filed should be fully equal to name of JObject key.
      * 3. Supports parse of all Java primitives, all {@link java.lang.string},
      *  arrays of primitive types, {@link java.lang.string}s and {@link com.vk.sdk.api.model.VKApiModel}s,
      *  list implementation line {@link com.vk.sdk.api.model.VKList}, {@link com.vk.sdk.api.model.VKAttachments.VKAttachment} or {@link com.vk.sdk.api.model.VKPhotoSizes},
@@ -110,14 +113,14 @@ namespace Vk.SDK.model
      * @throws JSONException if source object structure is invalid
      */
   
-        public T parseViaReflection(T object, JSONObject source){
-            if (source.has("response")) {
-                source = source.optJSONObject("response");
+        public T parseViaReflection(T tobject, JObject source){
+            if (source.TryGetValue("response")) {
+                source = source.optJObject("response");
             }
             if (source == null) {
-                return object;
+                return tobject;
             }
-            for (Field field : object.getClass().getFields()) {
+            foreach (FieldInfo field in tobject.GetType().getFields()) {
                 field.setAccessible(true);
                 string fieldName = field.getName();
                 Class<?> fieldType = field.getType();
@@ -129,24 +132,24 @@ namespace Vk.SDK.model
                 try {
                     if (fieldType.isPrimitive() && value instanceof Number) {
                         Number number = (Number) value;
-                        if (fieldType.equals(int.class)) {
+                        if (fieldType.Equals(int.class)) {
                             field.setInt(object, number.intValue());
-                        } else if (fieldType.equals(long.class)) {
+                        } else if (fieldType.Equals(long.class)) {
                             field.setLong(object, number.longValue());
-                        } else if (fieldType.equals(float.class)) {
+                        } else if (fieldType.Equals(float.class)) {
                             field.setFloat(object, number.floatValue());
-                        } else if (fieldType.equals(double.class)) {
+                        } else if (fieldType.Equals(double.class)) {
                             field.setDouble(object, number.doubleValue());
-                        } else if (fieldType.equals(bool.class)) {
+                        } else if (fieldType.Equals(bool.class)) {
                             field.setbool(object, number.intValue() == 1);
-                        } else if (fieldType.equals(short.class)) {
+                        } else if (fieldType.Equals(short.class)) {
                             field.setShort(object, number.shortValue());
-                        } else if (fieldType.equals(byte.class)) {
+                        } else if (fieldType.Equals(byte.class)) {
                             field.setByte(object, number.byteValue());
                         }
                     } else {
                         object result = field.get(object);
-                        if (value.getClass().equals(fieldType)) {
+                        if (value.getClass().Equals(fieldType)) {
                             result = value;
                         } else if (fieldType.isArray() && value instanceof JSONArray) {
                             result = parseArrayViaReflection((JSONArray) value, fieldType);
@@ -156,18 +159,18 @@ namespace Vk.SDK.model
                         } else if(VKAttachments.class.isAssignableFrom(fieldType) && value instanceof JSONArray) {
                             Constructor<?> constructor = fieldType.getConstructor(JSONArray.class);
                             result = constructor.newInstance((JSONArray) value);
-                        } else if(VKList.class.equals(fieldType)) {
+                        } else if(VKList.class.Equals(fieldType)) {
                             ParameterizedType genericTypes = (ParameterizedType) field.getGenericType();
                             Class<?> genericType = (Class<?>) genericTypes.getActualTypeArguments()[0];
                             if(VKApiModel.class.isAssignableFrom(genericType) && Parcelable.class.isAssignableFrom(genericType) && Identifiable.class.isAssignableFrom(genericType)) {
                                 if(value instanceof JSONArray) {
                                     result = new VKList((JSONArray) value, genericType);
-                                } else if(value instanceof JSONObject) {
-                                    result = new VKList((JSONObject) value, genericType);
+                                } else if(value instanceof JObject) {
+                                    result = new VKList((JObject) value, genericType);
                                 }
                             }
-                        } else if (VKApiModel.class.isAssignableFrom(fieldType) && value instanceof JSONObject) {
-                            result = ((VKApiModel) fieldType.newInstance()).parse((JSONObject) value);
+                        } else if (VKApiModel.class.isAssignableFrom(fieldType) && value instanceof JObject) {
+                            result = ((VKApiModel) fieldType.newInstance()).parse((JObject) value);
                         }
                         field.set(object, result);
                     }
@@ -203,9 +206,9 @@ namespace Vk.SDK.model
             for (int i = 0; i < array.length(); i++) {
                 try {
                     object item = array.opt(i);
-                    if(VKApiModel.class.isAssignableFrom(subType) && item instanceof JSONObject) {
+                    if(VKApiModel.class.isAssignableFrom(subType) && item instanceof JObject) {
                         VKApiModel model = (VKApiModel) subType.newInstance();
-                        item = model.parse((JSONObject) item);
+                        item = model.parse((JObject) item);
                     }
                     Array.set(result, i, item);
                 } catch (InstantiationException e) {

@@ -73,7 +73,7 @@ namespace Vk.SDK
      *
      * @param json Json description of VK API error
      */
-        public VKError(JSONObject json)
+        public VKError(JObject json)
         {
             VKError internalError = new VKError(json.getInt(VKApiConst.ERROR_CODE));
             internalError.errorMessage = json.getstring(VKApiConst.ERROR_MSG);

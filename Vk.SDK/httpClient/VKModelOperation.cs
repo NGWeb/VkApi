@@ -30,7 +30,7 @@ public class VKModelOperation : VKJsonOperation {
 
         if (mParser != null) {
             try {
-                JSONObject response = getResponseJson();
+                JObject response = getResponseJson();
                 parsedModel = mParser.createModel(response);
                 return true;
             } catch (Exception e) {

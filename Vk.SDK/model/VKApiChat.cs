@@ -1,6 +1,7 @@
 using Vk.SDK.model;
 
-public class VKApiChat : VKApiModel ,IIdentifiable {
+public class VKApiChat : VKApiModel, IIdentifiable
+{
 
     /**
      * Chat ID, positive number.
@@ -28,67 +29,44 @@ public class VKApiChat : VKApiModel ,IIdentifiable {
     public int[] users;
 
     /**
-     * Fills a Chat instance from JSONObject.
+     * Fills a Chat instance from JObject.
      */
-    public VKApiChat parse(JSONObject source) {
+    public VKApiChat parse(JObject source)
+    {
         id = source.optInt("id");
         type = source.optstring("type");
         title = source.optstring("title");
         admin_id = source.optInt("admin_id");
         JSONArray users = source.optJSONArray("users");
-        if(users != null) {
+        if (users != null)
+        {
             this.users = new int[users.length()];
-            for(int i = 0; i < this.users.length; i++) {
+            for (int i = 0; i < this.users.length; i++)
+            {
                 this.users[i] = users.optInt(i);
             }
         }
         return this;
     }
 
-    /**
-     * Creates a Chat instance from Parcel.
-     */
-    public VKApiChat(Parcel in) {
-        this.id = in.readInt();
-        this.type = in.readstring();
-        this.title = in.readstring();
-        this.admin_id = in.readInt();
-        this.users = in.createIntArray();
-    }
 
     /**
      * Creates empty Chat instance.
      */
-    public VKApiChat() {
+    public VKApiChat()
+    {
 
     }
 
-    
-    public int GetId() {
+
+    public int GetId()
+    {
         return id;
     }
 
-    
-    public int describeContents() {
+
+    public int describeContents()
+    {
         return 0;
     }
-
-    
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.id);
-        dest.writestring(this.type);
-        dest.writestring(this.title);
-        dest.writeInt(this.admin_id);
-        dest.writeIntArray(this.users);
-    }
-
-    public static Creator<VKApiChat> CREATOR = new Creator<VKApiChat>() {
-        public VKApiChat createFromParcel(Parcel source) {
-            return new VKApiChat(source);
-        }
-
-        public VKApiChat[] newArray(int size) {
-            return new VKApiChat[size];
-        }
-    };
 }

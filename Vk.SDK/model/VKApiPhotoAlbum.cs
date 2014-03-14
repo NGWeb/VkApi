@@ -78,9 +78,9 @@ public class VKApiPhotoAlbum : VKAttachments.VKApiAttachment ,IIdentifiable {
     public VKPhotoSizes photo = new VKPhotoSizes();
 
     /**
-     * Creates a PhotoAlbum instance from JSONObject.
+     * Creates a PhotoAlbum instance from JObject.
      */
-    public VKApiPhotoAlbum parse(JSONObject from) {
+    public VKApiPhotoAlbum parse(JObject from) {
         id = from.optInt("id");
         thumb_id = from.optInt("thumb_id");
         owner_id = from.optInt("owner_id");
@@ -94,7 +94,7 @@ public class VKApiPhotoAlbum : VKAttachments.VKApiAttachment ,IIdentifiable {
         if(from.has("privacy")) {
             privacy = from.optInt("privacy");
         } else {
-            privacy = VKPrivacy.parsePrivacy(from.optJSONObject("privacy_view"));
+            privacy = VKPrivacy.parsePrivacy(from.optJObject("privacy_view"));
         }
         JSONArray sizes = from.optJSONArray("sizes");
         if(sizes != null) {

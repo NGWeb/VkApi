@@ -13,22 +13,13 @@ public class VKApiCity : VKApiModel, IIdentifiable {
     public string title;
 
     /**
-     * Fills a City instance from JSONObject.
+     * Fills a City instance from JObject.
      */
-    public VKApiCity parse(JSONObject from) {
+    public VKApiCity parse(JObject from) {
         id = from.optInt("id");
         title = from.optstring("title");
         return this;
     }
-
-    /**
-     * Creates a City instance from Parcel.
-     */
-    public VKApiCity(Parcel in) {
-        this.id = in.readInt();
-        this.title = in.readstring();
-    }
-
     /**
      * Creates empty City instance.
      */
@@ -50,17 +41,6 @@ public class VKApiCity : VKApiModel, IIdentifiable {
     public int describeContents() {
         return 0;
     }
-
-    
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.id);
-        dest.writestring(this.title);
-    }
-
-    public static Creator<VKApiCity> CREATOR = new Creator<VKApiCity>() {
-        public VKApiCity createFromParcel(Parcel source) {
-            return new VKApiCity(source);
-        }
 
         public VKApiCity[] newArray(int size) {
             return new VKApiCity[size];

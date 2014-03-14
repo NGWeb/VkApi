@@ -3,9 +3,9 @@ namespace Vk.SDK.model
     public class VKApiPostedPhoto : VKApiPhoto {
 
         /**
-     * Fills a PostedPhoto instance from JSONObject.
+     * Fills a PostedPhoto instance from JObject.
      */
-        public VKApiPostedPhoto parse(JSONObject from) {
+        public VKApiPostedPhoto parse(JObject from) {
             super.parse(from);
             return this;
         }

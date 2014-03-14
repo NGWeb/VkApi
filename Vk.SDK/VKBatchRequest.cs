@@ -98,7 +98,7 @@ namespace Vk.SDK
         private int indexOfRequest(VKRequest request)
         {
             for (int i = 0; i < mRequests.length; i++)
-                if (mRequests[i].equals(request)) return i;
+                if (mRequests[i].Equals(request)) return i;
             return -1;
         }
 

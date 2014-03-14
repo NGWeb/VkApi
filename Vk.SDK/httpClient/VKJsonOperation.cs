@@ -1,8 +1,10 @@
+using System;
 using System.Net;
+using Newtonsoft.Json.Linq;
 using Vk.SDK.httpClient;
 
 public class VKJsonOperation : VKHttpOperation {
-	private JSONObject mResponseJson;
+	private JObject mResponseJson;
 
     /**
      * Create new operation with request
@@ -15,13 +17,13 @@ public class VKJsonOperation : VKHttpOperation {
      * Generate JSON-response for current operation
      * @return Parsed JSON object from response string
      */
-    public JSONObject getResponseJson() {
+    public JObject getResponseJson() {
         if (mResponseJson == null) {
             string response = getResponsestring();
             if (response == null)
                 return null;
             try {
-                mResponseJson = new JSONObject(response);
+                mResponseJson = new JObject(response);
             } catch (Exception e) {
                 mLastException = e;
             }
@@ -51,7 +53,7 @@ public class VKJsonOperation : VKHttpOperation {
      * Sets that json operation listener
      * @param listener Listener object for that operation
      */
-    public void setJsonOperationListener(readonly VKJSONOperationCompleteListener listener) {
+    public void setJsonOperationListener(Func<VKJsonOperation ,JObject, Void> expression) {
         if (listener == null) {
             super.setCompleteListener(null);
             return;
@@ -72,8 +74,8 @@ public class VKJsonOperation : VKHttpOperation {
     /**
      * Class representing operation listener for VKJsonOperation
      */
-    public static abstract class VKJSONOperationCompleteListener : VKAbstractCompleteListener<VKJsonOperation, JSONObject> {
-        public void onComplete(VKJsonOperation operation, JSONObject response) {
+    public static abstract class VKJSONOperationCompleteListener : VKAbstractCompleteListener<VKJsonOperation, JObject> {
+        public void onComplete(VKJsonOperation operation, JObject response) {
         }
 
         public void onError(VKJsonOperation operation, VKError error) {

@@ -29,7 +29,7 @@ namespace Vk.SDK.photo
         }
 
 
-        protected VKRequest getSaveRequest(JSONObject response)
+        protected VKRequest getSaveRequest(JObject response)
         {
             VKRequest saveRequest;
             try

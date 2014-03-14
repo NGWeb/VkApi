@@ -48,9 +48,9 @@ namespace Vk.SDK.model
         public string speciality;
 
         /**
-     * Fills a School instance from JSONObject.
+     * Fills a School instance from JObject.
      */
-        public VKApiSchool parse(JSONObject from) {
+        public VKApiSchool parse(JObject from) {
             id = from.optInt("id");
             country_id = from.optInt("country_id");
             city_id = from.optInt("city_id");

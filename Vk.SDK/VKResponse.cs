@@ -8,7 +8,7 @@ namespace Vk.SDK
         /**
      * Json content of response. Can be array or object.
      */
-        public JSONObject json;
+        public JObject json;
         /**
      * Model parsed from response
      */

@@ -54,7 +54,7 @@ namespace Vk.SDK.model
         public VKAttachments attachments = new VKAttachments();
 
         /**
-     * Fills a Comment instance from JSONObject.
+     * Fills a Comment instance from JObject.
      */
 
 

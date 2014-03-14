@@ -46,7 +46,7 @@ namespace Vk.SDK.model
      */
         private readonly Parser<VKApiPhotoSize> parser = new Parser<VKApiPhotoSize>() {
         
-        public VKApiPhotoSize parseObject(JSONObject source)  {
+        public VKApiPhotoSize parseObject(JObject source)  {
             return VKApiPhotoSize.parse(source, mOriginalWidth, mOriginalHeight);
         }
         };

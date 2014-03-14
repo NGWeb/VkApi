@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Net;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Vk.SDK.httpClient;
 using Vk.SDK.Vk;
@@ -7,7 +8,6 @@ using Vk.SDK.Vk;
 namespace Vk.SDK
 {
     public class VKRequest : VKObject {
-
 
         public enum VKProgressType {
             Download,
@@ -64,9 +64,6 @@ namespace Vk.SDK
         private string mPreferredLang;
 
         /**
-     * Specify listener for current request
-     */
-        public VKRequestListener requestListener;
         /**
      * Specify attempts for request loading if caused HTTP-error. 0 for infinite
      */
@@ -244,26 +241,15 @@ namespace Vk.SDK
             }
             if (mLoadingOperation == null)
                 mLoadingOperation = new VKJsonOperation(getPreparedRequest());
-            ((VKJsonOperation) mLoadingOperation).setJsonOperationListener(
-                new VKJSONOperationCompleteListener() {
-                    
-                public void onComplete(VKJsonOperation operation, JSONObject response) {
-    if (response.has("error")) {
-    try {
-    VKError error = new VKError(response.getJSONObject("error"));
-    if (processCommonError(error)) return;
-    provideError(error);
-                } catch (JSONException e) {
-                    if (VKSdk.DEBUG)
-                        e.printStackTrace();
-                }
-
-            return;
+            ((VKJsonOperation) mLoadingOperation).setJsonOperationListener( (operation,response)=> {
+  
+                if (response.GetValue("error")!=null) {
+                         VKError error = JsonConvert.DeserializeObject<VKError>(response.GetValue("error").ToString());
+                return;
         }
             provideResponse(response,
                 mLoadingOperation instanceof VKModelOperation ?
-                    ((VKModelOperation) mLoadingOperation).parsedModel :
-                    null);
+                    ((VKModelOperation) mLoadingOperation).parsedModel :null);
         }
 
                     
@@ -417,7 +403,7 @@ namespace Vk.SDK
             string result = mPreferredLang;
             if (useSystemLanguage) {
                 result = Locale.getDefault().getLanguage();
-                if (result.equals("uk")) {
+                if (result.Equals("uk")) {
                     result = "ua";
                 }
 
@@ -459,14 +445,16 @@ namespace Vk.SDK
      * Created by Roman Truba on 02.12.13.
      * Copyright (c) 2013 VK. All rights reserved.
      */
+
+
+    public static VKRequest getRegisteredRequest(long requestId) {
+        return (VKRequest) getRegisteredObject(requestId);
+    }
+}
+
         public abstract class VKRequestListener{
-            /**
-         * Called if there were no HTTP or API errors, returns execution result.
-         *
-         * @param response response from VKRequest
-         */
-            public void onComplete(VKResponse response) {
-            }
+     
+            public abstract void onComplete(VKResponse response) {}
 
         /**
          * Called when request has failed attempt, and ready to do next attempt
@@ -496,9 +484,3 @@ namespace Vk.SDK
         public void onProgress(VKRequest.VKProgressType progressType, long bytesLoaded, long bytesTotal) {
         }
     }
-
-    public static VKRequest getRegisteredRequest(long requestId) {
-        return (VKRequest) getRegisteredObject(requestId);
-    }
-}
-}

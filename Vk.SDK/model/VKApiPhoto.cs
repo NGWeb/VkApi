@@ -105,9 +105,9 @@ public class VKApiPhoto : VKAttachments.VKApiAttachment , IIdentifiable {
     public string access_key;
 
     /**
-     * Fills a Photo instance from JSONObject.
+     * Fills a Photo instance from JObject.
      */
-    public VKApiPhoto parse(JSONObject from) {
+    public VKApiPhoto parse(JObject from) {
         album_id = from.optInt("album_id");
         date = from.optLong("date");
         height = from.optInt("height");
@@ -124,11 +124,11 @@ public class VKApiPhoto : VKAttachments.VKApiAttachment , IIdentifiable {
         photo_1280 = from.optstring("photo_1280");
         photo_2560 = from.optstring("photo_2560");
 
-        JSONObject likes = from.optJSONObject("likes");
+        JObject likes = from.optJObject("likes");
         this.likes = ParseUtils.parseInt(likes, "count");
         this.user_likes = ParseUtils.parsebool(likes, "user_likes");
-        comments = parseInt(from.optJSONObject("comments"), "count");
-        tags = parseInt(from.optJSONObject("tags"), "count");
+        comments = parseInt(from.optJObject("comments"), "count");
+        tags = parseInt(from.optJObject("tags"), "count");
         can_comment = parsebool(from, "can_comment");
 
         src.setOriginalDimension(width, height);

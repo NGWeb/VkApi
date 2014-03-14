@@ -135,7 +135,7 @@ namespace Vk.SDK.Vk
         if (!forceOAuth
                 && VKUtil.isAppInstalled(sInstance.getContext(),VK_APP_PACKAGE_ID)
                 && VKUtil.isIntentAvailable(sInstance.getContext(), VK_APP_AUTH_ACTION)
-                && fingerprints[0].equals(VK_APP_FINGERPRINT)) {
+                && fingerprints[0].Equals(VK_APP_FINGERPRINT)) {
             intent = new Intent(VK_APP_AUTH_ACTION, null);
         } else {
             intent = new Intent(sInstance.getContext(), VKOpenAuthActivity.class);
@@ -182,7 +182,7 @@ namespace Vk.SDK.Vk
      */
     public static bool processActivityResult(int resultCode, Intent result) {
         if (result != null && resultCode == Activity.RESULT_OK) {
-            if (VKOpenAuthActivity.VK_RESULT_INTENT_NAME.equals(result.getAction())) {
+            if (VKOpenAuthActivity.VK_RESULT_INTENT_NAME.Equals(result.getAction())) {
                 if (result.hasExtra(VKOpenAuthActivity.VK_EXTRA_TOKEN_DATA)) {
                     string tokenInfo = result.getstringExtra(VKOpenAuthActivity.VK_EXTRA_TOKEN_DATA);
                     Dictionary<string, string> tokenParams = VKUtil.explodeQuerystring(tokenInfo);

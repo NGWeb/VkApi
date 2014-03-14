@@ -58,9 +58,9 @@ namespace Vk.SDK.model
         public bool deleted;
 
         /**
-     * Fills a Message instance from JSONObject.
+     * Fills a Message instance from JObject.
      */
-        public VKApiMessage parse(JSONObject source)  {
+        public VKApiMessage parse(JObject source)  {
             id = source.optInt("id");
             user_id = source.optInt("user_id");
             date = source.optLong("date");
@@ -75,26 +75,7 @@ namespace Vk.SDK.model
             return this;
         }
 
-        /**
-     * Creates a Message instance from Parcel.
-     */
-        public VKApiMessage(Parcel in) {
-            this.id = in.readInt();
-            this.user_id = in.readInt();
-            this.date = in.readLong();
-            this.read_state = in.readByte() != 0;
-            this.out = in.readByte() != 0;
-            this.title = in.readstring();
-            this.body = in.readstring();
-            this.attachments = in.readParcelable(VKAttachments.class.getClassLoader());
-            this.fwd_messages = in.readParcelable(VKList.class.getClassLoader());
-            this.emoji = in.readByte() != 0;
-            this.deleted = in.readByte() != 0;
-        }
-
-        /**
-     * Creates empty Country instance.
-     */
+   
         public VKApiMessage() {
 
         }
@@ -110,28 +91,8 @@ namespace Vk.SDK.model
         }
 
     
-        public void writeToParcel(Parcel dest, int flags) {
-            dest.writeInt(this.id);
-            dest.writeInt(this.user_id);
-            dest.writeLong(this.date);
-            dest.writeByte(read_state ? (byte) 1 : (byte) 0);
-            dest.writeByte(out ? (byte) 1 : (byte) 0);
-            dest.writestring(this.title);
-            dest.writestring(this.body);
-            dest.writeParcelable(attachments, flags);
-            dest.writeParcelable(this.fwd_messages, flags);
-            dest.writeByte(emoji ? (byte) 1 : (byte) 0);
-            dest.writeByte(deleted ? (byte) 1 : (byte) 0);
-        }
-
-        public static Creator<VKApiMessage> CREATOR = new Creator<VKApiMessage>() {
-        public VKApiMessage createFromParcel(Parcel source) {
-    return new VKApiMessage(source);
-        }
-
-        public VKApiMessage[] newArray(int size) {
+     public VKApiMessage[] newArray(int size) {
             return new VKApiMessage[size];
         }
     };
-}
 }

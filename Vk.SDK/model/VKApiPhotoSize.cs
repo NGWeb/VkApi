@@ -189,7 +189,7 @@ public class VKApiPhotoSize : VKApiModel,IIdentifiable {
      * @param originalWidth original image width in pixels
      * @param originalHeight original image height in pixels
      */
-    public static VKApiPhotoSize parse(JSONObject source, int originalWidth, int originalHeight) {
+    public static VKApiPhotoSize parse(JObject source, int originalWidth, int originalHeight) {
         VKApiPhotoSize result = new VKApiPhotoSize();
         result.src = source.optstring("src");
         result.width = source.optInt("width");

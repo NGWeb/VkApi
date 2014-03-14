@@ -23,7 +23,7 @@ namespace Vk.SDK.photo
 
         protected abstract VKRequest getServerRequest();
 
-        protected abstract VKRequest getSaveRequest(JSONObject response);
+        protected abstract VKRequest getSaveRequest(JObject response);
 
         public VKUploadPhotoBase() {
             super(null);
@@ -74,11 +74,11 @@ namespace Vk.SDK.photo
                 public void onComplete(VKResponse response) {
     try {
     VKJsonOperation postFileRequest = new VKJsonOperation(
-    VKHttpClient.fileUploadRequest(response.json.getJSONObject("response").getstring("upload_url"), mImage));
+    VKHttpClient.fileUploadRequest(response.json.getJObject("response").getstring("upload_url"), mImage));
     postFileRequest.setJsonOperationListener(new VKJSONOperationCompleteListener() {
                             
     public void onComplete(VKJsonOperation operation,
-                    JSONObject response) {
+                    JObject response) {
 
     VKRequest saveRequest = getSaveRequest(response);
     saveRequest.setRequestListener(new VKRequestListener() {

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 using Vk.SDK.model;
 using Vk.SDK.Vk;
 
@@ -7,12 +8,12 @@ public abstract class VKApiArray<T> : VKApiModel where T:VKApiModel {
     private int count;
 
     
-    public VKApiModel parse(JSONObject object) {
+    public VKApiModel parse(JObject object) {
         try {
             JSONArray jsonArray;
             if ((jsonArray = object.optJSONArray("response")) == null)
             {
-                object    = object.getJSONObject("response");
+                object    = object.getJObject("response");
                 count     = object.getInt("count");
                 jsonArray = object.getJSONArray("items");
             }
@@ -29,7 +30,7 @@ public abstract class VKApiArray<T> : VKApiModel where T:VKApiModel {
         items = new List<T>(jsonArray.length());
         for (int i = 0; i < jsonArray.length(); i++) {
             try {
-                items.add(parseNextObject(jsonArray.getJSONObject(i)));
+                items.add(parseNextObject(jsonArray.getJObject(i)));
             } catch (JSONException e) {
                 if (VKSdk.DEBUG)
                     e.printStackTrace();
@@ -39,7 +40,7 @@ public abstract class VKApiArray<T> : VKApiModel where T:VKApiModel {
             count = items.size();
     }
 
-    protected T parseNextObject(JSONObject object) {
+    protected T parseNextObject(JObject object) {
         try {
             T model = createObject();
             model.parse(object);
@@ -50,11 +51,4 @@ public abstract class VKApiArray<T> : VKApiModel where T:VKApiModel {
         }
     }
     protected abstract T createObject();
-
-    public T get(int index) {
-        if (items == null) return null;
-        return items.get(index);
-    }
-
-    public int size() { return count; }
 }

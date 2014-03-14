@@ -75,7 +75,7 @@ namespace Vk.SDK.model
         /**
      * Fills an user object from server response.
      */
-        public VKApiUser parse(JSONObject from) {
+        public VKApiUser parse(JObject from) {
             super.parse(from);
             first_name = from.optstring("first_name", first_name);
             last_name = from.optstring("last_name", last_name);

@@ -17,9 +17,9 @@ namespace Vk.SDK.model
         }
 
         /**
-     * Fills an owner from JSONObject
+     * Fills an owner from JObject
      */
-        public VKApiOwner parse(JSONObject from) {
+        public VKApiOwner parse(JObject from) {
             id = from.optInt("id");
             return this;
         }

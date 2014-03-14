@@ -108,9 +108,9 @@ namespace Vk.SDK.model
         public VKList<VKApiPost> copy_history;
 
         /**
-     * Fills a Post instance from JSONObject.
+     * Fills a Post instance from JObject.
      */
-        public VKApiPost parse(JSONObject source) {
+        public VKApiPost parse(JObject source) {
             id = source.optInt("id");
             to_id = source.optInt("to_id");
             from_id = source.optInt("from_id");
@@ -119,26 +119,26 @@ namespace Vk.SDK.model
             reply_owner_id = source.optInt("reply_owner_id");
             reply_post_id = source.optInt("reply_post_id");
             friends_only = ParseUtils.parsebool(source, "friends_only");
-            JSONObject comments = source.optJSONObject("comments");
+            JObject comments = source.optJObject("comments");
             if(comments != null) {
                 comments_count = comments.optInt("count");
                 can_post_comment = ParseUtils.parsebool(comments, "can_post");
             }
-            JSONObject likes = source.optJSONObject("likes");
+            JObject likes = source.optJObject("likes");
             if(likes != null) {
                 likes_count = likes.optInt("count");
                 user_likes = ParseUtils.parsebool(likes, "user_likes");
                 can_like = ParseUtils.parsebool(likes, "can_like");
                 can_publish = ParseUtils.parsebool(likes, "can_publish");
             }
-            JSONObject reposts = source.optJSONObject("reposts");
+            JObject reposts = source.optJObject("reposts");
             if(reposts != null) {
                 reposts_count = reposts.optInt("count");
                 user_reposted = ParseUtils.parsebool(reposts, "user_reposted");
             }
             post_type = source.optstring("post_type");
             attachments.fill(source.optJSONArray("attachments"));
-            JSONObject geo = source.optJSONObject("geo");
+            JObject geo = source.optJObject("geo");
             if(geo != null) {
                 this.geo = new VKApiPlace().parse(geo);
             }

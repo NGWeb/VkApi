@@ -1,6 +1,7 @@
 namespace Vk.SDK.model
 {
-    public class VKApiCountry : VKApiModel,IIdentifiable {
+    public class VKApiCountry : VKApiModel, IIdentifiable
+    {
 
         /**
      * Country ID.
@@ -13,9 +14,10 @@ namespace Vk.SDK.model
         public string title;
 
         /**
-     * Fills a Country instance from JSONObject.
+     * Fills a Country instance from JObject.
      */
-        public VKApiCountry parse(JSONObject from) {
+        public VKApiCountry parse(JObject from)
+        {
             id = from.optInt("id");
             title = from.optstring("title");
             return this;
@@ -24,48 +26,35 @@ namespace Vk.SDK.model
         /**
      * Creates a Country instance from Parcel.
      */
-        public VKApiCountry(Parcel in) {
-            this.id = in.readInt();
-            this.title = in.readstring();
-        }
-
         /**
-     * Creates empty Country instance.
-     */
-        public VKApiCountry() {
+         * Creates empty Country instance.
+         */
+        public VKApiCountry()
+        {
 
         }
 
-    
-        public int GetId() {
+
+        public int GetId()
+        {
             return id;
         }
 
-    
-        public string tostring() {
+
+        public string tostring()
+        {
             return title;
         }
 
-    
-        public int describeContents() {
+
+        public int describeContents()
+        {
             return 0;
         }
 
-    
-        public void writeToParcel(Parcel dest, int flags) {
-            dest.writeInt(this.id);
-            dest.writestring(this.title);
-        }
-
-        public static Creator<VKApiCountry> CREATOR = new Creator<VKApiCountry>() {
-        public VKApiCountry createFromParcel(Parcel source) {
-    return new VKApiCountry(source);
-        }
-
-        public VKApiCountry[] newArray(int size) {
+        public VKApiCountry[] newArray(int size)
+        {
             return new VKApiCountry[size];
         }
     };
-}
-
 }

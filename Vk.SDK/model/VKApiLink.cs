@@ -1,6 +1,8 @@
+using System;
 using Vk.SDK.model;
 
-public class VKApiLink : VKAttachments.VKApiAttachment{
+public class VKApiLink : VKAttachments.VKApiAttachment
+{
 
     /**
      * Link URL
@@ -32,14 +34,16 @@ public class VKApiLink : VKAttachments.VKApiAttachment{
      * Creates link attachment to attach it to the post
      * @param url full URL of link
      */
-    public VKApiLink(string url) {
+    public VKApiLink(string url)
+    {
         this.url = url;
     }
 
     /**
-     * Fills a Link instance from JSONObject.
+     * Fills a Link instance from JObject.
      */
-    public VKApiLink parse(JSONObject source) {
+    public VKApiLink parse(JObject source)
+    {
         url = source.optstring("url");
         title = source.optstring("title");
         description = source.optstring("description");
@@ -51,57 +55,39 @@ public class VKApiLink : VKAttachments.VKApiAttachment{
     /**
      * Creates a Link instance from Parcel.
      */
-    private VKApiLink(Parcel in) {
-        this.url = in.readstring();
-        this.title = in.readstring();
-        this.description = in.readstring();
-        this.image_src = in.readstring();
-        this.preview_page = in.readstring();
-    }
-
-    /**
-     * Creates empty Link instance.
-     */
-    public VKApiLink() {
+    public VKApiLink()
+    {
 
     }
 
-    
-    public CharSequence toAttachmentstring() {
+
+    public String toAttachmentstring()
+    {
         return url;
     }
 
-    
-    public string getType() {
+
+    public string getType()
+    {
         return TYPE_LINK;
     }
 
-    
-    public int describeContents() {
+
+    public int describeContents()
+    {
         return 0;
     }
 
-    
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writestring(this.url);
-        dest.writestring(this.title);
-        dest.writestring(this.description);
-        dest.writestring(this.image_src);
-        dest.writestring(this.preview_page);
+
+
+
+
+    public VKApiLink[] newArray(int size)
+    {
+        return new VKApiLink[size];
     }
-
-    public static Creator<VKApiLink> CREATOR = new Creator<VKApiLink>() {
-        public VKApiLink createFromParcel(Parcel source) {
-            return new VKApiLink(source);
-        }
-
-        public VKApiLink[] newArray(int size) {
-            return new VKApiLink[size];
-        }
-    };
-
-    
-    public int getId() {
+    public int GetId()
+    {
         return 0;
     }
-}
+};

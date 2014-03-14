@@ -53,9 +53,9 @@ public class VKApiPlace : VKApiModel ,IIdentifiable {
     public string address;
 
     /**
-     * Fills a Place instance from JSONObject.
+     * Fills a Place instance from JObject.
      */
-    public VKApiPlace parse(JSONObject from) {
+    public VKApiPlace parse(JObject from) {
         id = from.optInt("id");
         title = from.optstring("title");
         latitude = from.optDouble("latitude");

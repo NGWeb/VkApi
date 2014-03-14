@@ -145,9 +145,9 @@ public class VKApiVideo : VKAttachments.VKApiAttachment, IIdentifiable {
     public string external;
 
     /**
-     * Fills a Video instance from JSONObject.
+     * Fills a Video instance from JObject.
      */
-    public VKApiVideo parse(JSONObject from) {
+    public VKApiVideo parse(JObject from) {
         id = from.optInt("id");
         owner_id = from.optInt("owner_id");
         title = from.optstring("title");
@@ -161,7 +161,7 @@ public class VKApiVideo : VKAttachments.VKApiAttachment, IIdentifiable {
         access_key = from.optstring("access_key");
         album_id = from.optInt("album_id");
 
-        JSONObject likes = from.optJSONObject("likes");
+        JObject likes = from.optJObject("likes");
         if(likes != null) {
             this.likes = likes.optInt("count");
             user_likes = parsebool(likes, "user_likes");
@@ -170,10 +170,10 @@ public class VKApiVideo : VKAttachments.VKApiAttachment, IIdentifiable {
         can_repost = parsebool(from, "can_repost");
         repeat = parsebool(from, "repeat");
 
-        privacy_view = VKPrivacy.parsePrivacy(from.optJSONObject("privacy_view"));
-        privacy_comment = VKPrivacy.parsePrivacy(from.optJSONObject("privacy_comment"));
+        privacy_view = VKPrivacy.parsePrivacy(from.optJObject("privacy_view"));
+        privacy_comment = VKPrivacy.parsePrivacy(from.optJObject("privacy_comment"));
 
-        JSONObject files = from.optJSONObject("files");
+        JObject files = from.optJObject("files");
         if(files != null) {
             mp4_240 = files.optstring("mp4_240");
             mp4_360 = files.optstring("mp4_360");

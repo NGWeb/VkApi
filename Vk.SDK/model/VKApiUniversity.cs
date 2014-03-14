@@ -58,9 +58,9 @@ public class VKApiUniversity : VKApiModel, IIdentifiable {
     public string education_status;
 
     /**
-     * Fills a University instance from JSONObject.
+     * Fills a University instance from JObject.
      */
-    public VKApiUniversity parse(JSONObject from) {
+    public VKApiUniversity parse(JObject from) {
         id = from.optInt("id");
         country_id = from.optInt("country_id");
         city_id = from.optInt("city_id");

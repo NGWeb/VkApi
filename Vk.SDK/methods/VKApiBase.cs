@@ -30,7 +30,7 @@ namespace Vk.SDK.methods
                 return new VKRequest(string.format(Locale.US, "%s.%s", mMethodGroup, methodName),
                     methodParameters, httpMethod, modelClass);
             }
-      protected  VKRequest prepareRequest(string methodName, VKParameters methodParameters,VKRequest.HttpMethod httpMethod,Func<JSONObject> responseParser) {
+      protected  VKRequest prepareRequest(string methodName, VKParameters methodParameters,VKRequest.HttpMethod httpMethod,Func<JObject> responseParser) {
      
     VKRequest result = new VKRequest(string.format(Locale.US, "%s.%s", mMethodGroup, methodName),
                 methodParameters, httpMethod);
