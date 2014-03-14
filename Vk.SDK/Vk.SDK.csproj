@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{65F3757C-10DB-49A1-889A-C34AB7B76B29}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Vk.SDK</RootNamespace>
+    <AssemblyName>Vk.SDK</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Vk\VKAccessToken.cs" />
+    <Compile Include="Vk\VKCaptchaDialog.cs" />
+    <Compile Include="Vk\VKObject.cs" />
+    <Compile Include="Vk\VKOpenAuthActivity.cs" />
+    <Compile Include="Vk\VKScope.cs" />
+    <Compile Include="Vk\VKSdk.cs" />
+    <Compile Include="Vk\VKSdkListener.cs" />
+    <Compile Include="Vk\VKSdkVersion.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="httpClient\VKAbstractOperation.cs" />
+    <Compile Include="httpClient\VKHttpClient.cs" />
+    <Compile Include="httpClient\VKHttpOperation.cs" />
+    <Compile Include="httpClient\VKJsonOperation.cs" />
+    <Compile Include="httpClient\VKModelOperation.cs" />
+    <Compile Include="httpClient\VKMultipartEntity.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="methods\VKApiBase.cs" />
+    <Compile Include="methods\VKApiCaptcha.cs" />
+    <Compile Include="methods\VKApiFriends.cs" />
+    <Compile Include="methods\VKApiGroups.cs" />
+    <Compile Include="methods\VKApiPhotos.cs" />
+    <Compile Include="methods\VKApiUsers.cs" />
+    <Compile Include="methods\VKApiWall.cs" />
+    <Compile Include="model\Identifiable.cs" />
+    <Compile Include="model\ParseUtils.cs" />
+    <Compile Include="model\VKApiApplicationContent.cs" />
+    <Compile Include="model\VKApiArray.cs" />
+    <Compile Include="model\VKApiAudio.cs" />
+    <Compile Include="model\VKApiChat.cs" />
+    <Compile Include="model\VKApiCity.cs" />
+    <Compile Include="model\VKApiComment.cs" />
+    <Compile Include="model\VKApiCommunity.cs" />
+    <Compile Include="model\VKApiCommunityArray.cs" />
+    <Compile Include="model\VKApiCommunityFull.cs" />
+    <Compile Include="model\VKApiCountry.cs" />
+    <Compile Include="model\VKApiDocument.cs" />
+    <Compile Include="model\VKApiLink.cs" />
+    <Compile Include="model\VKApiMessage.cs" />
+    <Compile Include="model\VKApiModel.cs" />
+    <Compile Include="model\VKApiNote.cs" />
+    <Compile Include="model\VKApiOwner.cs" />
+    <Compile Include="model\VKApiPhoto.cs" />
+    <Compile Include="model\VKApiPhotoAlbum.cs" />
+    <Compile Include="model\VKApiPhotoSize.cs" />
+    <Compile Include="model\VKApiPlace.cs" />
+    <Compile Include="model\VKApiPoll.cs" />
+    <Compile Include="model\VKApiPost.cs" />
+    <Compile Include="model\VKApiPostedPhoto.cs" />
+    <Compile Include="model\VKApiSchool.cs" />
+    <Compile Include="model\VKApiUniversity.cs" />
+    <Compile Include="model\VKApiUser.cs" />
+    <Compile Include="model\VKApiUserFull.cs" />
+    <Compile Include="model\VKApiVideo.cs" />
+    <Compile Include="model\VKApiWikiPage.cs" />
+    <Compile Include="model\VKAttachments.cs" />
+    <Compile Include="model\VKCommentArray.cs" />
+    <Compile Include="model\VKList.cs" />
+    <Compile Include="model\VKPhotoArray.cs" />
+    <Compile Include="model\VKPhotoSizes.cs" />
+    <Compile Include="model\VKPostArray.cs" />
+    <Compile Include="model\VKPrivacy.cs" />
+    <Compile Include="model\VKScopes.cs" />
+    <Compile Include="model\VKUsersArray.cs" />
+    <Compile Include="model\VKWallPostResult.cs" />
+    <Compile Include="photo\VKImageParameters.cs" />
+    <Compile Include="photo\VKUploadAlbumPhotoRequest.cs" />
+    <Compile Include="photo\VKUploadImage.cs" />
+    <Compile Include="photo\VKUploadPhotoBase.cs" />
+    <Compile Include="photo\VKUploadWallPhotoRequest.cs" />
+    <Compile Include="StreamExtension.cs" />
+    <Compile Include="VKApi.cs" />
+    <Compile Include="VKApiConst.cs" />
+    <Compile Include="VKBatchRequest.cs" />
+    <Compile Include="VKDefaultParser.cs" />
+    <Compile Include="VKError.cs" />
+    <Compile Include="VKParameters.cs" />
+    <Compile Include="VKParser.cs" />
+    <Compile Include="VKRequest.cs" />
+    <Compile Include="VKResponse.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
