@@ -1,6 +1,8 @@
+using System;
+using System.Text;
 using Vk.SDK.model;
 
-public class VKApiVideo : VKAttachments.VKApiAttachment, IIdentifiable {
+public class VKApiVideo : VKApiAttachment, IIdentifiable {
 
     /**
      * Video ID.
@@ -240,19 +242,20 @@ public class VKApiVideo : VKAttachments.VKApiAttachment, IIdentifiable {
 
     }
 
-    
-    public int GetId() {
-        return id;
+
+    public int Id
+    {
+        get { return id; }
     }
 
-    
-    public CharSequence toAttachmentstring() {
-        stringBuilder result = new stringBuilder(TYPE_VIDEO).append(owner_id).append('_').append(id);
+
+    public String toAttachmentstring() {
+        StringBuilder result = new StringBuilder(TYPE_VIDEO).Append(owner_id).Append('_').Append(id);
         if(!TextUtils.isEmpty(access_key)) {
-            result.append('_');
-            result.append(access_key);
+            result.Append('_');
+            result.Append(access_key);
         }
-        return result;
+        return result.ToString();
     }
 
     
@@ -269,46 +272,4 @@ public class VKApiVideo : VKAttachments.VKApiAttachment, IIdentifiable {
     public int describeContents() {
         return 0;
     }
-
-    
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.id);
-        dest.writeInt(this.owner_id);
-        dest.writeInt(this.album_id);
-        dest.writestring(this.title);
-        dest.writestring(this.description);
-        dest.writeInt(this.duration);
-        dest.writestring(this.link);
-        dest.writeLong(this.date);
-        dest.writeInt(this.views);
-        dest.writestring(this.player);
-        dest.writestring(this.photo_130);
-        dest.writestring(this.photo_320);
-        dest.writestring(this.photo_640);
-        dest.writeParcelable(this.photo, flags);
-        dest.writestring(this.access_key);
-        dest.writeInt(this.comments);
-        dest.writeByte(can_comment ? (byte) 1 : (byte) 0);
-        dest.writeByte(can_repost ? (byte) 1 : (byte) 0);
-        dest.writeByte(user_likes ? (byte) 1 : (byte) 0);
-        dest.writeByte(repeat ? (byte) 1 : (byte) 0);
-        dest.writeInt(this.likes);
-        dest.writeInt(this.privacy_view);
-        dest.writeInt(this.privacy_comment);
-        dest.writestring(this.mp4_240);
-        dest.writestring(this.mp4_360);
-        dest.writestring(this.mp4_480);
-        dest.writestring(this.mp4_720);
-        dest.writestring(this.external);
-    }
-
-    public static Creator<VKApiVideo> CREATOR = new Creator<VKApiVideo>() {
-        public VKApiVideo createFromParcel(Parcel source) {
-            return new VKApiVideo(source);
-        }
-
-        public VKApiVideo[] newArray(int size) {
-            return new VKApiVideo[size];
-        }
-    };
 }

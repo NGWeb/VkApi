@@ -59,9 +59,9 @@ public class VKApiChat : VKApiModel, IIdentifiable
     }
 
 
-    public int GetId()
+    public int Id
     {
-        return id;
+        get { return id; }
     }
 
 

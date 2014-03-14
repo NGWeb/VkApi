@@ -120,12 +120,13 @@ public class VKApiUniversity : VKApiModel, IIdentifiable {
         return fullName;
     }
 
-    
-    public int GetId() {
-        return id;
+
+    public int Id
+    {
+        get { return id; }
     }
 
-    
+
     public int describeContents() {
         return 0;
     }

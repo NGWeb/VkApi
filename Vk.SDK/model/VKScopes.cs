@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Vk.SDK.model
 {
     public class VKScopes
@@ -109,22 +111,22 @@ namespace Vk.SDK.model
         public static List<string> parse(int permissions)
         {
             List<string> result = new List<string>();
-            if ((permissions & 1) > 0) result.add(NOTIFY);
-            if ((permissions & 2) > 0) result.add(FRIENDS);
-            if ((permissions & 4) > 0) result.add(PHOTOS);
-            if ((permissions & 8) > 0) result.add(AUDIO);
-            if ((permissions & 16) > 0) result.add(VIDEO);
-            if ((permissions & 128) > 0) result.add(PAGES);
-            if ((permissions & 1024) > 0) result.add(STATUS);
-            if ((permissions & 2048) > 0) result.add(NOTES);
-            if ((permissions & 4096) > 0) result.add(MESSAGES);
-            if ((permissions & 8192) > 0) result.add(WALL);
-            if ((permissions & 32768) > 0) result.add(ADS);
-            if ((permissions & 65536) > 0) result.add(OFFLINE);
-            if ((permissions & 131072) > 0) result.add(DOCS);
-            if ((permissions & 262144) > 0) result.add(GROUPS);
-            if ((permissions & 524288) > 0) result.add(NOTIFICATIONS);
-            if ((permissions & 1048576) > 0) result.add(STATS);
+            if ((permissions & 1) > 0) result.Add(NOTIFY);
+            if ((permissions & 2) > 0) result.Add(FRIENDS);
+            if ((permissions & 4) > 0) result.Add(PHOTOS);
+            if ((permissions & 8) > 0) result.Add(AUDIO);
+            if ((permissions & 16) > 0) result.Add(VIDEO);
+            if ((permissions & 128) > 0) result.Add(PAGES);
+            if ((permissions & 1024) > 0) result.Add(STATUS);
+            if ((permissions & 2048) > 0) result.Add(NOTES);
+            if ((permissions & 4096) > 0) result.Add(MESSAGES);
+            if ((permissions & 8192) > 0) result.Add(WALL);
+            if ((permissions & 32768) > 0) result.Add(ADS);
+            if ((permissions & 65536) > 0) result.Add(OFFLINE);
+            if ((permissions & 131072) > 0) result.Add(DOCS);
+            if ((permissions & 262144) > 0) result.Add(GROUPS);
+            if ((permissions & 524288) > 0) result.Add(NOTIFICATIONS);
+            if ((permissions & 1048576) > 0) result.Add(STATS);
             return result;
         }
 

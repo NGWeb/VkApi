@@ -106,12 +106,13 @@ namespace Vk.SDK.model
             return mIsGif;
         }
 
-    
-        public override int GetId() {
-            return id;
+
+        public override int Id
+        {
+            get { return id; }
         }
 
-    
+
         public string tostring() {
             return title;
         }

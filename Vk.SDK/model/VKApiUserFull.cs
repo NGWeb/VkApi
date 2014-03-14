@@ -290,9 +290,9 @@ namespace Vk.SDK.model
             public string name;
 
 
-            public int GetId()
+            public int Id
             {
-                return id;
+                get { return id; }
             }
 
 

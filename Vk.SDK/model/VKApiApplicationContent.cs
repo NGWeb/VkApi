@@ -43,9 +43,9 @@ namespace Vk.SDK.model
             throw new System.NotImplementedException();
         }
 
-        public override int GetId()
+        public override int Id
         {
-            throw new System.NotImplementedException();
+            get { throw new System.NotImplementedException(); }
         }
     }
 }

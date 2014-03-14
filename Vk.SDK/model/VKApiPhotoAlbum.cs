@@ -1,6 +1,7 @@
+using Newtonsoft.Json.Linq;
 using Vk.SDK.model;
 
-public class VKApiPhotoAlbum : VKAttachments.VKApiAttachment ,IIdentifiable {
+public class VKApiPhotoAlbum : VKApiAttachment ,IIdentifiable {
 
     /**
      * URL for empty album cover with max width at 75px
@@ -111,24 +112,6 @@ public class VKApiPhotoAlbum : VKAttachments.VKApiAttachment ,IIdentifiable {
     /**
      * Creates a PhotoAlbum instance from Parcel.
      */
-    public VKApiPhotoAlbum(Parcel in) {
-        this.id = in.readInt();
-        this.title = in.readstring();
-        this.size = in.readInt();
-        this.privacy = in.readInt();
-        this.description = in.readstring();
-        this.owner_id = in.readInt();
-        this.can_upload = in.readByte() != 0;
-        this.updated = in.readLong();
-        this.created = in.readLong();
-        this.thumb_id = in.readInt();
-        this.thumb_src = in.readstring();
-        this.photo = in.readParcelable(VKPhotoSizes.class.getClassLoader());
-    }
-
-    /**
-     * Creates empty PhotoAlbum instance.
-     */
     public VKApiPhotoAlbum() {
 
     }
@@ -137,12 +120,13 @@ public class VKApiPhotoAlbum : VKAttachments.VKApiAttachment ,IIdentifiable {
         return privacy != VKPrivacy.PRIVACY_ALL;
     }
 
-    
-    public int GetId() {
-        return id;
+
+    public int Id
+    {
+        get { return id; }
     }
 
-    
+
     public string tostring() {
         return title;
     }

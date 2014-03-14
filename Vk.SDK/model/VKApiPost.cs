@@ -1,4 +1,4 @@
-namespace Vk.SDK.model
+﻿namespace Vk.SDK.model
 {
     public class VKApiPost : VKAttachments.VKApiAttachment, IIdentifiable {
 
@@ -155,12 +155,13 @@ namespace Vk.SDK.model
 
         }
 
-    
-        public int GetId() {
-            return id;
+
+        public int Id
+        {
+            get { return id; }
         }
 
-    
+
         public CharSequence toAttachmentstring() {
             return new stringBuilder(VKAttachments.TYPE_POST).append(to_id).append('_').append(id);
         }

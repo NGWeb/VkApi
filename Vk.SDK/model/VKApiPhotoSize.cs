@@ -1,4 +1,4 @@
-
+﻿
 /**
  * Describes an photo info in <a href="http://vk.com/dev/photo_sizes">special format<a/>.
  *
@@ -61,6 +61,7 @@
  *
  */
 
+using Newtonsoft.Json.Linq;
 using Vk.SDK.model;
 
 public class VKApiPhotoSize : VKApiModel,IIdentifiable {
@@ -140,13 +141,6 @@ public class VKApiPhotoSize : VKApiModel,IIdentifiable {
 
     }
 
-    private VKApiPhotoSize(Parcel in) {
-        this.src = in.readstring();
-        this.width = in.readInt();
-        this.height = in.readInt();
-        this.type = (char) in.readInt();
-    }
-
     
     public int compareTo(VKApiPhotoSize another) {
         // Так как основной превалирующий элемент в фотографиях именно ширина и все фотографии пропорциональны,
@@ -160,28 +154,12 @@ public class VKApiPhotoSize : VKApiModel,IIdentifiable {
     }
 
     
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writestring(this.src);
-        dest.writeInt(this.width);
-        dest.writeInt(this.height);
-        dest.writeInt((int)this.type);
+    public int Id
+    {
+        get { return 0; }
     }
 
     
-    public int GetId() {
-        return 0;
-    }
-
-    public static Creator<VKApiPhotoSize> CREATOR = new Creator<VKApiPhotoSize>() {
-        public VKApiPhotoSize createFromParcel(Parcel source) {
-            return new VKApiPhotoSize(source);
-        }
-
-        public VKApiPhotoSize[] newArray(int size) {
-            return new VKApiPhotoSize[size];
-        }
-    };
-
     /**
      * Creates dimension from {@code source}. Used in parsing.
      * If size is not specified copies calculates them based on internal algorithms.

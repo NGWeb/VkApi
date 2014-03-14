@@ -65,19 +65,19 @@ namespace Vk.SDK.model
         }
 
 
-        public int GetId()
+        public override int Id
         {
-            return id;
+            get { return id; }
         }
 
 
-        public string toAttachmentstring()
+        public override string toAttachmentstring()
         {
             return new StringBuilder(TYPE_NOTE).Append(user_id).Append('_').Append(id);
         }
 
 
-        public string getType()
+        public override string getType()
         {
             return TYPE_NOTE;
         }

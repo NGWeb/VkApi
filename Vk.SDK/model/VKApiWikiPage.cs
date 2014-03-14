@@ -1,6 +1,9 @@
+using System.IO;
+using System.Text;
+using Newtonsoft.Json.Linq;
 using Vk.SDK.model;
 
-public class VKApiWikiPage : VKAttachments.VKApiAttachment{
+public class VKApiWikiPage : VKApiAttachment{
 
     /**
      * Wiki page ID;
@@ -96,23 +99,7 @@ public class VKApiWikiPage : VKAttachments.VKApiAttachment{
     /**
      * Creates a WikiPage instance from Parcel.
      */
-    public VKApiWikiPage(Parcel in) {
-        this.id = in.readInt();
-        this.group_id = in.readInt();
-        this.creator_id = in.readInt();
-        this.title = in.readstring();
-        this.source = in.readstring();
-        this.current_user_can_edit = in.readByte() != 0;
-        this.current_user_can_edit_access = in.readByte() != 0;
-        this.who_can_view = in.readInt();
-        this.who_can_edit = in.readInt();
-        this.editor_id = in.readInt();
-        this.edited = in.readLong();
-        this.created = in.readLong();
-        this.parent = in.readstring();
-        this.parent2 = in.readstring();
-    }
-
+   
     /**
      * Creates empty WikiPage instance.
      */
@@ -121,50 +108,23 @@ public class VKApiWikiPage : VKAttachments.VKApiAttachment{
     }
 
     
-    public CharSequence toAttachmentstring() {
-        return new stringBuilder(TYPE_WIKI_PAGE).append(group_id).append('_').append(id);
+    public string toAttachmentstring() {
+        return new StringBuilder(TYPE_WIKI_PAGE).Append(group_id).Append('_').Append(id);
     }
 
     
-    public string getType() {
+    public override string getType() {
         return TYPE_WIKI_PAGE;
     }
 
-    
-    public int describeContents() {
+    public override int Id
+    {
+        get { throw new System.NotImplementedException(); }
+    }
+
+
+    public int describeContents()
+    {
         return 0;
-    }
-
-    
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.id);
-        dest.writeInt(this.group_id);
-        dest.writeInt(this.creator_id);
-        dest.writestring(this.title);
-        dest.writestring(this.source);
-        dest.writeByte(current_user_can_edit ? (byte) 1 : (byte) 0);
-        dest.writeByte(current_user_can_edit_access ? (byte) 1 : (byte) 0);
-        dest.writeInt(this.who_can_view);
-        dest.writeInt(this.who_can_edit);
-        dest.writeInt(this.editor_id);
-        dest.writeLong(this.edited);
-        dest.writeLong(this.created);
-        dest.writestring(this.parent);
-        dest.writestring(this.parent2);
-    }
-
-    public static Creator<VKApiWikiPage> CREATOR = new Creator<VKApiWikiPage>() {
-        public VKApiWikiPage createFromParcel(Parcel source) {
-            return new VKApiWikiPage(source);
-        }
-
-        public VKApiWikiPage[] newArray(int size) {
-            return new VKApiWikiPage[size];
-        }
-    };
-
-    
-    public int getId() {
-        return id;
     }
 }

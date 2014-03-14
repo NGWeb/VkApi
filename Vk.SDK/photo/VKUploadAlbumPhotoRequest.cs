@@ -6,8 +6,7 @@ namespace Vk.SDK.photo
 	 */
         private static readonly long serialVersionUID = 5439648671595840976L;
 
-        public VKUploadAlbumPhotoRequest(File image, long albumId, long groupId) {
-            super();
+        public VKUploadAlbumPhotoRequest(byte[] image, long albumId, long groupId) {
             mAlbumId = albumId;
             mGroupId = groupId;
             mImage = image;

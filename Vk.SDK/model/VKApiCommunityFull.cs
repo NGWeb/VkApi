@@ -242,9 +242,9 @@ public class Contact : VKApiModel, IIdentifiable
     }
 
 
-    public int GetId()
+    public int Id
     {
-        return user_id;
+        get { return user_id; }
     }
 }
 
@@ -256,8 +256,8 @@ public class Link : VKApiModel, IIdentifiable
     public string desc;
     public VKPhotoSizes photo = new VKPhotoSizes();
 
-    public int GetId()
+    public int Id
     {
-        return 0;
+        get { return 0; }
     }
 }

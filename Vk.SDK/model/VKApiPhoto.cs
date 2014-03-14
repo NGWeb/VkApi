@@ -1,7 +1,8 @@
 
+using System.Text;
 using Vk.SDK.model;
 
-public class VKApiPhoto : VKAttachments.VKApiAttachment , IIdentifiable {
+public class VKApiPhoto : VKApiAttachment , IIdentifiable {
 
     /**
      * Photo ID, positive number
@@ -162,28 +163,7 @@ public class VKApiPhoto : VKAttachments.VKApiAttachment , IIdentifiable {
     /**
      * Creates a Photo instance from Parcel.
      */
-    public VKApiPhoto(Parcel in) {
-        this.id = in.readInt();
-        this.album_id = in.readInt();
-        this.owner_id = in.readInt();
-        this.width = in.readInt();
-        this.height = in.readInt();
-        this.text = in.readstring();
-        this.date = in.readLong();
-        this.src = in.readParcelable(VKPhotoSizes.class.getClassLoader());
-        this.photo_75 = in.readstring();
-        this.photo_130 = in.readstring();
-        this.photo_604 = in.readstring();
-        this.photo_807 = in.readstring();
-        this.photo_1280 = in.readstring();
-        this.photo_2560 = in.readstring();
-        this.user_likes = in.readByte() != 0;
-        this.can_comment = in.readByte() != 0;
-        this.likes = in.readInt();
-        this.comments = in.readInt();
-        this.tags = in.readInt();
-        this.access_key = in.readstring();
-    }
+   
 
     /**
      * Creates empty Photo instance.
@@ -192,23 +172,24 @@ public class VKApiPhoto : VKAttachments.VKApiAttachment , IIdentifiable {
 
     }
 
-    
-    public int GetId() {
-        return id;
+
+    public override int Id
+    {
+        get { return id; }
     }
 
-    
-    public CharSequence toAttachmentstring() {
-        stringBuilder result = new stringBuilder(TYPE_PHOTO).append(owner_id).append('_').append(id);
+
+    public override string toAttachmentstring() {
+        StringBuilder result = new StringBuilder(TYPE_PHOTO).Append(owner_id).Append('_').Append(id);
         if(!TextUtils.isEmpty(access_key)) {
-            result.append('_');
-            result.append(access_key);
+            result.Append('_');
+            result.Append(access_key);
         }
-        return result;
+        return result.ToString();
     }
 
     
-    public string getType() {
+    public override string getType() {
         return TYPE_PHOTO;
     }
 
@@ -216,39 +197,5 @@ public class VKApiPhoto : VKAttachments.VKApiAttachment , IIdentifiable {
     public int describeContents() {
         return 0;
     }
-
-    
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.id);
-        dest.writeInt(this.album_id);
-        dest.writeInt(this.owner_id);
-        dest.writeInt(this.width);
-        dest.writeInt(this.height);
-        dest.writestring(this.text);
-        dest.writeLong(this.date);
-        dest.writeParcelable(this.src, flags);
-        dest.writestring(this.photo_75);
-        dest.writestring(this.photo_130);
-        dest.writestring(this.photo_604);
-        dest.writestring(this.photo_807);
-        dest.writestring(this.photo_1280);
-        dest.writestring(this.photo_2560);
-        dest.writeByte(user_likes ? (byte) 1 : (byte) 0);
-        dest.writeByte(can_comment ? (byte) 1 : (byte) 0);
-        dest.writeInt(this.likes);
-        dest.writeInt(this.comments);
-        dest.writeInt(this.tags);
-        dest.writestring(this.access_key);
-    }
-
-    public static Creator<VKApiPhoto> CREATOR = new Creator<VKApiPhoto>() {
-        public VKApiPhoto createFromParcel(Parcel source) {
-            return new VKApiPhoto(source);
-        }
-
-        public VKApiPhoto[] newArray(int size) {
-            return new VKApiPhoto[size];
-        }
-    };
 
 }

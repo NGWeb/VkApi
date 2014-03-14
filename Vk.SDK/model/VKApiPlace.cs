@@ -92,12 +92,13 @@ public class VKApiPlace : VKApiModel ,IIdentifiable {
 
     }
 
-    
-    public int GetId() {
-        return id;
+
+    public int Id
+    {
+        get { return id; }
     }
 
-    
+
     public int describeContents() {
         return 0;
     }

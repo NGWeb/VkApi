@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using Vk.SDK.Vk;
 
@@ -34,7 +35,7 @@ namespace Vk.SDK.httpClient
                     PlainSocketFactory.getSocketFactory(), 80));
                 schemeRegistry.register(new Scheme("https",
                     SSLSocketFactory.getSocketFactory(), 443));
-                HttpParams params = new BasicHttpParams();
+                HttpParams parameters = new BasicHttpParams();
                 Context ctx = VKUIHelper.getTopActivity();
 
                 try {
@@ -43,7 +44,7 @@ namespace Vk.SDK.httpClient
                         PackageManager packageManager = ctx.getPackageManager();
                         if (packageManager != null) {
                             PackageInfo info = packageManager.getPackageInfo(ctx.getPackageName(), 0);
-                            params.setParameter(CoreProtocolPNames.USER_AGENT,
+                            parameters.setParameter(CoreProtocolPNames.USER_AGENT,
                                 string.format(Locale.US,
                                     "%s/%s (%s; Android %d; Scale/%.2f; VK SDK %s; %s)",
                                     VKUtil.getApplicationName(ctx), info.versionName,

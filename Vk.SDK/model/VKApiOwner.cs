@@ -1,6 +1,9 @@
+using Newtonsoft.Json.Linq;
+
 namespace Vk.SDK.model
 {
-    public class VKApiOwner : VKApiModel, IIdentifiable {
+    public class VKApiOwner : VKApiModel, IIdentifiable
+    {
 
         /**
      * User or group ID.
@@ -12,14 +15,16 @@ namespace Vk.SDK.model
         /**
      * Creates an owner with empty ID.
      */
-        public VKApiOwner() {
+        public VKApiOwner()
+        {
 
         }
 
         /**
      * Fills an owner from JObject
      */
-        public VKApiOwner parse(JObject from) {
+        public VKApiOwner parse(JObject from)
+        {
             id = from.optInt("id");
             return this;
         }
@@ -27,40 +32,25 @@ namespace Vk.SDK.model
         /**
      * Creates according with given ID.
      */
-        public VKApiOwner(int id) {
+        public VKApiOwner(int id)
+        {
             this.id = id;
         }
 
         /**
      * Creates an owner from Parcel.
      */
-        public VKApiOwner(Parcel in) {
-            this.id = in.readInt();
+
+        public int Id
+        {
+            get { return id; }
         }
 
-    
-        public int GetId() {
-            return id;
-        }
 
-    
-        public int describeContents() {
+        public int describeContents()
+        {
             return 0;
         }
 
-    
-        public void writeToParcel(Parcel dest, int flags) {
-            dest.writeInt(this.id);
-        }
-
-        public static Creator<VKApiOwner> CREATOR = new Creator<VKApiOwner>() {
-        public VKApiOwner createFromParcel(Parcel source) {
-    return new VKApiOwner(source);
-        }
-
-        public VKApiOwner[] newArray(int size) {
-            return new VKApiOwner[size];
-        }
-    };
-}
+    }
 }

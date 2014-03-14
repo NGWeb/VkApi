@@ -155,14 +155,13 @@ namespace Vk.SDK.model
         /**
              * Convert attachment to special string to attach it to the post, message or comment.
              */
-        public abstract String toAttachmentstring();
+        public abstract string toAttachmentstring();
 
         /**
          * @return type of this attachment
          */
         public abstract string getType();
-        public abstract int GetId();
-
+        public abstract int Id { get; }
     };
 
 }

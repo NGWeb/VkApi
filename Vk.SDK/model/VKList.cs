@@ -8,9 +8,10 @@ using Vk.SDK.Vk;
 
 namespace Vk.SDK.model
 {
-    public class VKList<T> : VKApiModel, IList<T> where T: VKApiModel{
+    public class VKList<T> : VKApiModel, IList<T> where T : VKApiModel
+    {
 
-     private readonly static int NO_COUNT = -1;
+        private static readonly int NO_COUNT = -1;
 
         /**
      * Decorated list
@@ -25,15 +26,19 @@ namespace Vk.SDK.model
         /**
      * Creates empty list.
      */
-        public VKList() {
+
+        public VKList()
+        {
 
         }
 
         /**
      * Creates list and fills it according with given data.
      */
-        public VKList(IEnumerable<T> data) {
-          items = new List<T>(data);
+
+        public VKList(IEnumerable<T> data)
+        {
+            items = new List<T>(data);
         }
 
         /**
@@ -41,7 +46,9 @@ namespace Vk.SDK.model
      * @param from an object that represents a list adopted in accordance with VK API format. You can use null.
      * @param clazz class represents a model that has a public constructor with {@link org.json.JObject} argument.
      */
-        public VKList(JObject from, System.Type clazz) {
+
+        public VKList(JObject from, System.Type clazz)
+        {
             fill(from, clazz);
         }
 
@@ -50,7 +57,9 @@ namespace Vk.SDK.model
      * @param from an array of items in the list. You can use null.
      * @param clazz class represents a model that has a public constructor with {@link org.json.JObject} argument.
      */
-        public VKList(JSONArray from, System.Type clazz) {
+
+        public VKList(JSONArray from, System.Type clazz)
+        {
             fill(from, clazz);
         }
 
@@ -59,7 +68,9 @@ namespace Vk.SDK.model
      * @param from an object that represents a list adopted in accordance with VK API format. You can use null.
      * @param creator interface implementation to parse objects.
      */
-        public VKList(JObject from, Parser<T> creator) {
+
+        public VKList(JObject from, Parser<T> creator)
+        {
 
             fill(from, creator);
         }
@@ -69,7 +80,9 @@ namespace Vk.SDK.model
      * @param from an array of items in the list. You can use null.
      * @param creator interface implementation to parse objects.
      */
-        public VKList(JSONArray from, Parser<T> creator) {
+
+        public VKList(JSONArray from, Parser<T> creator)
+        {
 
             fill(from, creator);
         }
@@ -79,16 +92,23 @@ namespace Vk.SDK.model
      * @param from an object that represents a list adopted in accordance with VK API format. You can use null.
      * @param clazz class represents a model that has a public constructor with {@link org.json.JObject} argument.
      */
-        public void fill(JObject from, Type clazz) {
-            if (from.has("response")) {
+
+        public void fill(JObject from, Type clazz)
+        {
+            if (from.has("response"))
+            {
                 JSONArray array = from.optJSONArray("response");
-                if (array != null) {
+                if (array != null)
+                {
                     fill(array, clazz);
                 }
-                else {
+                else
+                {
                     fill(from.optJObject("response"), clazz);
                 }
-            } else {
+            }
+            else
+            {
                 fill(from, new ReflectParser<T>(clazz));
             }
         }
@@ -98,7 +118,9 @@ namespace Vk.SDK.model
      * @param from an array of items in the list. You can use null.
      * @param clazz class represents a model that has a public constructor with {@link org.json.JObject} argument.
      */
-        public void fill(JArray from, System.Type clazz) {
+
+        public void fill(JArray from, System.Type clazz)
+        {
             fill(from, new ReflectParser<T>(clazz));
         }
 
@@ -107,8 +129,11 @@ namespace Vk.SDK.model
      * @param from an object that represents a list adopted in accordance with VK API format. You can use null.
      * @param creator interface implementation to parse objects.
      */
-        public void fill(JObject from,Func<JObject> creator) {
-            if(from != null) {
+
+        public void fill(JObject from, Func<JObject> creator)
+        {
+            if (from != null)
+            {
                 fill(from.GetValue("items"), creator);
                 count = from.optInt("count", count);
             }
@@ -119,24 +144,35 @@ namespace Vk.SDK.model
      * @param from an array of items in the list. You can use null.
      * @param creator interface implementation to parse objects.
      */
-        public void fill(JArray from, Func<JObject,VKList<T>> creator) {
-            if(from != null) {
+
+        public void fill(JArray from, Func<JObject, VKList<T>> creator)
+        {
+            if (from != null)
+            {
                 foreach (var jo in from)
                 {
 
-                for(int i = 0; i < from.length(); i++) {
-                    try {
-                        T object = creator.parseObject(from.getJObject(i));
-                        if(object != null) {
-                            items.Add(object);
+                    for (int i = 0; i < from.length(); i++)
+                    {
+                        try
+                        {
+                            T tobject =
+                            creator.parseObject(from.getJObject(i));
+                            if (tobject !=
+                            null)
+                            {
+                                items.Add(tobject);
+                            }
                         }
-                    } catch (Exception e) {
-                        if (VKSdk.DEBUG)
-                            e.printStackTrace();
+                        catch (Exception e)
+                        {
+                            if (VKSdk.DEBUG)
+                                e.printStackTrace();
+                        }
                     }
                 }
             }
-        }
 
+        }
     }
 }

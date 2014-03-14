@@ -27,12 +27,13 @@ public class VKApiCity : VKApiModel, IIdentifiable {
 
     }
 
-    
-    public int GetId() {
-        return id;
+
+    public int Id
+    {
+        get { return id; }
     }
 
-    
+
     public string tostring() {
         return title;
     }

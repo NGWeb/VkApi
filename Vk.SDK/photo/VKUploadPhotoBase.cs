@@ -1,3 +1,5 @@
+using Newtonsoft.Json.Linq;
+using Vk.SDK.httpClient;
 using Vk.SDK.Vk;
 
 namespace Vk.SDK.photo
@@ -19,15 +21,13 @@ namespace Vk.SDK.photo
         /**
      * Image to upload
      */
-        protected File mImage;
+        protected byte[] mImage;
 
         protected abstract VKRequest getServerRequest();
 
         protected abstract VKRequest getSaveRequest(JObject response);
 
-        public VKUploadPhotoBase() {
-            super(null);
-        }
+        public VKUploadPhotoBase() {}
 
     
         public VKAbstractOperation getOperation() {
