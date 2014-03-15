@@ -1,7 +1,10 @@
+using Newtonsoft.Json.Linq;
+using Vk.SDK.model;
+
 namespace Vk.SDK
 {
-    public abstract class VKParser
+    public interface VKParser
     {
-        public abstract object createModel(JObject jsobject);
+        VKApiModel CreateModel(JObject jsobject);
     }
 }

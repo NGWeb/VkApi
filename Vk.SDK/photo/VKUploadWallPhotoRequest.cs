@@ -1,10 +1,12 @@
+using Newtonsoft.Json.Linq;
+
 namespace Vk.SDK.photo
 {
     public class VKUploadWallPhotoRequest : VKUploadPhotoBase
     {
         private static readonly long serialVersionUID = 4732771149932923938L;
 
-        public VKUploadWallPhotoRequest(File image, long userId, int groupId)
+        public VKUploadWallPhotoRequest(byte[] image, long userId, int groupId)
         {
             mUserId = userId;
             mGroupId = groupId;
@@ -13,7 +15,6 @@ namespace Vk.SDK.photo
 
         public VKUploadWallPhotoRequest(VKUploadImage image, long userId, int groupId)
         {
-            super();
             mUserId = userId;
             mGroupId = groupId;
             mImage = image.getTmpFile();
@@ -22,10 +23,7 @@ namespace Vk.SDK.photo
 
         protected VKRequest getServerRequest()
         {
-            if (mGroupId != 0)
-                return VKApi.photos().getWallUploadServer(mGroupId);
-            else
-                return VKApi.photos().getWallUploadServer();
+            return mGroupId != 0 ? VKApi.photos().getWallUploadServer(mGroupId) : VKApi.photos().getWallUploadServer();
         }
 
 

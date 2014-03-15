@@ -1,25 +1,18 @@
 using System;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Vk.SDK.model;
 using Vk.SDK.Vk;
 
 namespace Vk.SDK
 {
-    public class VKDefaultParser : VKParser {
-        private readonly Class<? : VKApiModel> mModelClass;
-        public VKDefaultParser(Class<? : VKApiModel> objectModel) {
-            mModelClass = objectModel;
-        }
-    
-        public object createModel(JObject jsobject) {
-            try {
-                VKApiModel model = mModelClass.newInstance();
-                model.parse(jsobject);
-                return model;
-            } catch (Exception e) {
-                if (VKSdk.DEBUG)
-                    e.printStackTrace();
-            }
-            return null;
+    public class VKDefaultParser<T> : VKParser where T : VKApiModel
+    {
+        public VKApiModel CreateModel(JObject jsobject)
+        {
+            VKApiModel model = JsonConvert.DeserializeObject<T>(jsobject.ToString());
+            model.parse(jsobject);
+            return model;
         }
     }
 }

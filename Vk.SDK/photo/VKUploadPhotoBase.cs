@@ -39,7 +39,7 @@ namespace Vk.SDK.photo
 
         
             public void start() {
-            readonly VKRequestListener originalListener = VKUploadPhotoBase.this.requestListener;
+            VKRequestListener originalListener = VKUploadPhotoBase.this.requestListener;
 
                 VKUploadPhotoBase.this.requestListener = new VKRequestListener() {
                 

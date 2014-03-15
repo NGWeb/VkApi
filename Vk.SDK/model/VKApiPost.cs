@@ -1,6 +1,9 @@
-﻿namespace Vk.SDK.model
+﻿using System;
+using System.Text;
+
+namespace Vk.SDK.model
 {
-    public class VKApiPost : VKAttachments.VKApiAttachment, IIdentifiable {
+    public class VKApiPost : VKApiAttachment, IIdentifiable {
 
         /**
      * Post ID on the wall, positive number
@@ -143,7 +146,7 @@
                 this.geo = new VKApiPlace().parse(geo);
             }
             signer_id = source.optInt("signer_id");
-            copy_history = new VKList<VKApiPost>(source.optJSONArray("copy_history"), VKApiPost.class);
+            copy_history = new VKList<VKApiPost>(source.optJSONArray("copy_history"), typeof(VKApiPost));
             return this;
         }
 
@@ -162,8 +165,8 @@
         }
 
 
-        public CharSequence toAttachmentstring() {
-            return new stringBuilder(VKAttachments.TYPE_POST).append(to_id).append('_').append(id);
+        public string toAttachmentstring() {
+            return new StringBuilder(VKAttachments.TYPE_POST).Append(to_id).Append('_').Append(id);
         }
 
     

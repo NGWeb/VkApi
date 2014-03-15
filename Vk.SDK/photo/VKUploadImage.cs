@@ -17,7 +17,7 @@ namespace Vk.SDK.photo
             mParameters = params;
         }
 
-        public File getTmpFile() {
+        public byte[] getTmpFile() {
             Context ctx = VKUIHelper.getTopActivity();
             File outputDir = null;
             if (ctx != null) {

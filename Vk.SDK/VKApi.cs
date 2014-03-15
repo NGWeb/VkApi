@@ -48,7 +48,7 @@ namespace Vk.SDK
          * @param groupId Group id or 0
          * @return Prepared vk request for photo upload
          */
-        public static VKRequest uploadWallPhotoRequest(File image, long userId, int groupId)
+        public static VKRequest uploadWallPhotoRequest(byte[] image, long userId, int groupId)
         {
             return new VKUploadWallPhotoRequest(image, userId, groupId);
         }
@@ -71,7 +71,7 @@ namespace Vk.SDK
          * @param groupId Group id or 0
          * @return Prepared vk request for photo upload
          */
-        public static VKRequest uploadAlbumPhotoRequest(File image, long albumId, int groupId)
+        public static VKRequest uploadAlbumPhotoRequest(byte[] image, long albumId, int groupId)
         {
             return new VKUploadAlbumPhotoRequest(image, albumId, groupId);
         }

@@ -29,11 +29,9 @@ namespace Vk.SDK
             }
             this.requestListener = listener;
 
-            for (VKRequest request :
-            mRequests)
+            foreach (VKRequest request in mRequests)
             {
-            readonly
-                VKRequest.VKRequestListener originalListener = request.requestListener;
+             VKRequest.VKRequestListener originalListener = request.requestListener;
                 request.setRequestListener(new VKRequest.VKRequestListener()
                 {
                     
