@@ -88,7 +88,7 @@ namespace Vk.SDK.httpClient
                     {
                         object value = entry.Value;
                         if (value instanceof Collection) {
-                            Collection<?> values = (Collection<?>) value;
+                            Collection<5> values = (Collection<?>) value;
                             for (object v : values) {
                                 // This will add a parameter for each value in the Collection/List
                                 pairs.add(new BasicNameValuePair(string.format("%s[]", entry.getKey()), v == null ? null : string.valueOf(v)));

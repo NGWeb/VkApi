@@ -4,7 +4,7 @@ using System.Net;
 
 namespace Vk.SDK.httpClient
 {
-    public class VKHttpOperation : VKAbstractOperation {
+    public class VKHttpOperation : VKAbstractOperation<> {
         /**
      * Request initialized this object
      */
@@ -59,12 +59,10 @@ namespace Vk.SDK.httpClient
                 }
 
                 stream.CopyTo(outputStream);
-
-
-             
+         
                 outputStream.Flush();
                 mResponseBytes = outputStream.ToArray();
-                outputStream.close();
+                outputStream.Close();
             } catch (Exception e) {
                 mLastException = e;
             }
@@ -91,7 +89,7 @@ namespace Vk.SDK.httpClient
     
         public void cancel() {
             request.abort();
-            super.cancel();
+            base.cancel();
         }
 
         /**
@@ -118,42 +116,11 @@ namespace Vk.SDK.httpClient
      */
         protected VKError generateError(Exception e) {
             VKError error = new VKError(VKError.VK_API_REQUEST_HTTP_FAILED);
-            error.errorMessage = e.getMessage();
+            error.errorMessage = e.Message;
             if (error.errorMessage == null)
-                error.errorMessage = e.tostring();
+                error.errorMessage = e.Source;
             error.httpError = e;
             return error;
-        }
-
-        /**
-     * Set listener for current operation
-     * @param listener Listener subclasses VKHTTPOperationCompleteListener
-     */
-        public void setHttpOperationListener(VKHTTPOperationCompleteListener listener) {
-            this.setCompleteListener(new VKOperationCompleteListener() {
-            
-            public void onComplete() {
-    if (mLastException != null) {
-    listener.onError(VKHttpOperation.this, generateError(mLastException));
-            } else {
-                listener.onComplete(VKHttpOperation.this, mResponseBytes);
-            }
-        }
-        });
-        }
-
-        /**
-     * Class representing operation listener for VKHttpOperation
-     */
-        public static abstract class VKHTTPOperationCompleteListener : VKAbstractCompleteListener<VKHttpOperation, byte[]>
-        {
-        
-            public void onComplete(VKHttpOperation operation, byte[] response) {
-            }
-
-        
-            public void onError(VKHttpOperation operation, VKError error) {
-            }
         }
     }
 }

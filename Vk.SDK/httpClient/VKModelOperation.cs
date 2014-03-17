@@ -4,7 +4,7 @@ using Vk.SDK.model;
 
 namespace Vk.SDK.httpClient
 {
-    public class VKModelOperation<T> : VKJsonOperation where T : VKApiModel
+    public class VKModelOperation<T> : VKAbstractOperation<T> where T:VKApiModel 
     {
         protected readonly VKParser mParser;
         public object parsedModel;
@@ -41,6 +41,11 @@ namespace Vk.SDK.httpClient
                 return true;
             }
             return false;
+        }
+
+        public override void start()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

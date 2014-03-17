@@ -1,7 +1,7 @@
 namespace Vk.SDK.methods
 {
     public class VKApiCaptcha : VKApiBase {
-        public VKRequest force() {
+        public VKRequest Force() {
             return prepareRequest("force", null);
         }
     }

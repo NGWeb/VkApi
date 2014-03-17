@@ -1,18 +1,25 @@
-using Vk.SDK.httpClient;
+using System;
 using Vk.SDK.Vk;
 
 namespace Vk.SDK
 {
+    public delegate void OnComplete(object sender, VKResponse e);
+    public delegate void OnError(object sender, VKError e);
+    public delegate void OnProgress(object sender, EventArgs e);
     public class VKBatchRequest : VKObject
     {
         private readonly VKRequest[] mRequests;
         private readonly VKResponse[] mResponses;
         private bool mCanceled = false;
 
+
+        public event OnComplete Complete;
+        public event OnError Error;
+        public event OnProgress Progress;
+
         /**
      * Specify listener for current request
      */
-        public VKBatchRequestListener requestListener;
 
         public VKBatchRequest(params VKRequest[] requests)
         {
@@ -20,50 +27,49 @@ namespace Vk.SDK
             mResponses = new VKResponse[mRequests.Length];
         }
 
-        public void executeWithListener(VKBatchRequestListener listener)
+        public void executeWithListener()
         {
             if (mRequests == null)
             {
                 provideError(new VKError(VKError.VK_API_REQUEST_NOT_PREPARED));
                 return;
             }
-            this.requestListener = listener;
 
             foreach (VKRequest request in mRequests)
             {
-             VKRequest.VKRequestListener originalListener = request.requestListener;
-                request.setRequestListener(new VKRequest.VKRequestListener()
-                {
-                    
-                public void onComplete(VKResponse response) {
-    if (originalListener != null)
-    originalListener.onComplete(response);
-    provideResponse(response);
-                }
+                //         VKRequest.VKRequestListener originalListener = request.requestListener;
+                //            request.setRequestListener(new VKRequest.VKRequestListener()
+                //            {
 
-                
-                public
-                void onError 
-                (VKError
-                error)
-                {
-                    if (originalListener != null)
-                        originalListener.onError(error);
-                    provideError(error);
-                }
+                //            public void onComplete(VKResponse response) {
+                //if (originalListener != null)
+                //originalListener.onComplete(response);
+                //provideResponse(response);
+                //            }
 
-                
-                public
-                void onProgress 
-                (VKRequest.VKProgressType progressType, long bytesLoaded, long bytesTotal)
-                {
-                    if (originalListener != null)
-                        originalListener.onProgress(progressType, bytesLoaded, bytesTotal);
-                }
-            }
-            )
-                ;
-                VKHttpClient.enqueueOperation(request.getOperation());
+
+                //            public
+                //            void onError 
+                //            (VKError
+                //            error)
+                //            {
+                //                if (originalListener != null)
+                //                    originalListener.onError(error);
+                //                provideError(error);
+                //            }
+
+
+                //            public
+                //            void onProgress 
+                //            (VKRequest.VKProgressType progressType, long bytesLoaded, long bytesTotal)
+                //            {
+                //                if (originalListener != null)
+                //                    originalListener.onProgress(progressType, bytesLoaded, bytesTotal);
+                //            }
+                //        }
+                //        )
+                //            ;
+                //            VKHttpClient.enqueueOperation(request.getOperation());
             }
 
         }
@@ -76,21 +82,19 @@ namespace Vk.SDK
         {
             if (mCanceled) return;
             mCanceled = true;
-            for (VKRequest request :
-            mRequests)
-            request.cancel();
+            foreach (VKRequest request in mRequests)
+                request.Cancel();
 
         }
 
         protected void provideResponse(VKResponse response)
         {
             mResponses[indexOfRequest(response.request)] = response;
-            for (VKResponse resp :
-            mResponses)
-            if (resp == null) return;
+            foreach (VKResponse resp in mResponses)
+                if (resp == null) return;
 
-            if (requestListener != null)
-                requestListener.onComplete(mResponses);
+            if (Complete != null)
+                Complete(this, response);
         }
 
         private int indexOfRequest(VKRequest request)
@@ -104,36 +108,14 @@ namespace Vk.SDK
         {
             if (mCanceled)
                 return;
-            if (requestListener != null)
-                requestListener.onError(error);
+            if (Error != null)
+                Error(this, error);
+
             cancel();
         }
 
         /**
      * Extend listeners for requests from that class
      */
-
-        public abstract class VKBatchRequestListener
-        {
-            /**
-         * Called if there were no HTTP or API errors, returns execution result.
-         *
-         * @param responses responses from VKRequests in passing order of construction
-         */
-
-            public void onComplete(VKResponse[] responses)
-            {
-            }
-
-            /**
-         * Called immediately if there was API error, or after <b>attempts</b> tries if there was an HTTP error
-         *
-         * @param error error for VKRequest
-         */
-
-            public void onError(VKError error)
-            {
-            }
-        }
     }
 }
