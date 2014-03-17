@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Net;
 using System.Net.Http;
 using System.Runtime.Remoting.Contexts;
@@ -87,7 +88,7 @@ namespace Vk.SDK.httpClient
                     foreach (var entry  in preparedParameters)
                     {
                         object value = entry.Value;
-                        if (value instanceof Collection) {
+                        if (value is Collection<object>) {
                             Collection<5> values = (Collection<?>) value;
                             for (object v : values) {
                                 // This will add a parameter for each value in the Collection/List
