@@ -1,6 +1,7 @@
 namespace Vk.SDK.model
 {
-    public class VKApiMessage : VKApiModel,IIdentifiable{
+    public class VKApiMessage : VKApiModel, IIdentifiable
+    {
 
         /**
      * 	Message ID. (Not returned for forwarded messages), positive number
@@ -60,23 +61,8 @@ namespace Vk.SDK.model
         /**
      * Fills a Message instance from JObject.
      */
-        public VKApiMessage parse(JObject source)  {
-            id = source.optInt("id");
-            user_id = source.optInt("user_id");
-            date = source.optLong("date");
-            read_state = ParseUtils.parsebool(source, "read_state");
-            @out = ParseUtils.parsebool(source, "out");
-            title = source.optstring("title");
-            body = source.optstring("body");
-            attachments .fill(source.optJSONArray("attachments"));
-            fwd_messages = new VKList<VKApiMessage>(source.optJSONArray("fwd_messages"), VKApiMessage.class);
-            emoji = ParseUtils.parsebool(source, "emoji");
-            deleted = ParseUtils.parsebool(source, "deleted");
-            return this;
-        }
-
-   
-        public VKApiMessage() {
+        public VKApiMessage()
+        {
 
         }
 
@@ -87,12 +73,14 @@ namespace Vk.SDK.model
         }
 
 
-        public int describeContents() {
+        public int describeContents()
+        {
             return 0;
         }
 
-    
-     public VKApiMessage[] newArray(int size) {
+
+        public VKApiMessage[] newArray(int size)
+        {
             return new VKApiMessage[size];
         }
     };

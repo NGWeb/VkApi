@@ -1,6 +1,9 @@
+using System.Text;
+
 namespace Vk.SDK.model
 {
-    public class VKApiSchool : VKApiModel , IIdentifiable {
+    public class VKApiSchool : VKApiModel, IIdentifiable
+    {
 
         /**
      * School ID, positive number
@@ -50,38 +53,29 @@ namespace Vk.SDK.model
         /**
      * Fills a School instance from JObject.
      */
-        public VKApiSchool parse(JObject from) {
-            id = from.optInt("id");
-            country_id = from.optInt("country_id");
-            city_id = from.optInt("city_id");
-            name = from.optstring("name");
-            year_from = from.optInt("year_from");
-            year_to = from.optInt("year_to");
-            year_graduated = from.optInt("year_graduated");
-            clazz = from.optstring("class");
-            speciality = from.optstring("speciality");
-            return this;
-        }
+        ////public VKApiSchool parse(JObject from) {
+        ////    id = from.optInt("id");
+        ////    country_id = from.optInt("country_id");
+        ////    city_id = from.optInt("city_id");
+        ////    name = from.optstring("name");
+        ////    year_from = from.optInt("year_from");
+        ////    year_to = from.optInt("year_to");
+        ////    year_graduated = from.optInt("year_graduated");
+        ////    clazz = from.optstring("class");
+        ////    speciality = from.optstring("speciality");
+        ////    return this;
+        ////}
 
         /**
      * Creates a School instance from Parcel.
      */
-        public VKApiSchool(Parcel in) {
-            this.id = in.readInt();
-            this.country_id = in.readInt();
-            this.city_id = in.readInt();
-            this.name = in.readstring();
-            this.year_from = in.readInt();
-            this.year_to = in.readInt();
-            this.year_graduated = in.readInt();
-            this.clazz = in.readstring();
-            this.speciality = in.readstring();
-        }
+
 
         /**
      * Creates empty School instance.
      */
-        public VKApiSchool() {
+        public VKApiSchool()
+        {
 
         }
 
@@ -93,61 +87,44 @@ namespace Vk.SDK.model
 
         private string fullName;
 
-    
-        public string tostring() {
-            if(fullName == null) {
-                stringBuilder builder = new stringBuilder(name);
-                if(year_graduated != 0) {
-                    builder.append(" \'");
-                    builder.append(string.format("%02d", year_graduated % 100));
+
+        public string ToString()
+        {
+            if (fullName == null)
+            {
+                StringBuilder builder = new StringBuilder(name);
+                if (year_graduated != 0)
+                {
+                    builder.Append(" \'");
+                    builder.AppendFormat("{0}", year_graduated % 100);
                 }
-                if(year_from != 0 && year_to != 0) {
-                    builder.append(", ");
-                    builder.append(year_from);
-                    builder.append('-');
-                    builder.append(year_to);
+                if (year_from != 0 && year_to != 0)
+                {
+                    builder.Append(", ");
+                    builder.Append(year_from);
+                    builder.Append('-');
+                    builder.Append(year_to);
                 }
-                if(!isEmpty(clazz)) {
-                    builder.append('(');
-                    builder.append(clazz);
-                    builder.append(')');
+                if (!isEmpty(clazz))
+                {
+                    builder.Append('(');
+                    builder.Append(clazz);
+                    builder.Append(')');
                 }
-                if(!isEmpty(speciality)) {
-                    builder.append(", ");
-                    builder.append(speciality);
+                if (!isEmpty(speciality))
+                {
+                    builder.Append(", ");
+                    builder.Append(speciality);
                 }
-                fullName = builder.tostring();
+                fullName = builder.ToString();
             }
             return fullName;
         }
 
-    
-        public int describeContents() {
+
+        public int describeContents()
+        {
             return 0;
         }
-
-    
-        public void writeToParcel(Parcel dest, int flags) {
-            dest.writeInt(this.id);
-            dest.writeInt(this.country_id);
-            dest.writeInt(this.city_id);
-            dest.writestring(this.name);
-            dest.writeInt(this.year_from);
-            dest.writeInt(this.year_to);
-            dest.writeInt(this.year_graduated);
-            dest.writestring(this.clazz);
-            dest.writestring(this.speciality);
-        }
-
-        public static Creator<VKApiSchool> CREATOR = new Creator<VKApiSchool>() {
-        public VKApiSchool createFromParcel(Parcel source) {
-    return new VKApiSchool(source);
-        }
-
-        public VKApiSchool[] newArray(int size) {
-            return new VKApiSchool[size];
-        }
-    };
-}
-
+    }
 }

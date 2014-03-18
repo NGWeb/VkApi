@@ -36,8 +36,6 @@ namespace Vk.SDK.Vk
 
         }
 
-
-
         //Context getContext() {
         //    return VKUIHelper.getTopActivity();
         //}
@@ -95,7 +93,7 @@ namespace Vk.SDK.Vk
      *
      * @param scope array of permissions for your applications. All permissions you can
      */
-    public static void authorize(string... scope) {
+    public static void authorize(params string[] scope) {
         authorize(scope, false, false);
     }
 
@@ -130,7 +128,7 @@ namespace Vk.SDK.Vk
         string[] fingerprints = VKUtil.getCertificateFingerprint(sInstance.getContext(),
                 VK_APP_PACKAGE_ID);
 
-        readonly Intent intent;
+        Intent intent;
 
         if (!forceOAuth
                 && VKUtil.isAppInstalled(sInstance.getContext(),VK_APP_PACKAGE_ID)

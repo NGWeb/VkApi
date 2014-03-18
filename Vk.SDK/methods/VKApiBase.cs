@@ -1,4 +1,5 @@
 using System;
+using Newtonsoft.Json.Linq;
 using Vk.SDK.model;
 
 namespace Vk.SDK.methods
@@ -12,7 +13,7 @@ namespace Vk.SDK.methods
         public VKApiBase() {
             string className = this.getClass().getSimpleName();
             if (className == null) {
-                throw new ClassCastException("Enclosing classes denied");
+                throw new Exception("Enclosing classes denied");
             }
             mMethodGroup = className.substring("VKApi".length()).toLowerCase();
         }
@@ -27,8 +28,7 @@ namespace Vk.SDK.methods
             }
 
        protected VKRequest prepareRequest(string methodName, VKParameters methodParameters,VKRequest.HttpMethod httpMethod,System.Type type) {
-                return new VKRequest(string.format(Locale.US, "%s.%s", mMethodGroup, methodName),
-                    methodParameters, httpMethod, modelClass);
+                return new VKRequest(string.Format( "{0}.{1}", mMethodGroup, methodName),methodParameters, httpMethod, modelClass);
             }
       protected  VKRequest prepareRequest(string methodName, VKParameters methodParameters,VKRequest.HttpMethod httpMethod,Func<JObject> responseParser) {
      

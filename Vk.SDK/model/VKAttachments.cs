@@ -5,7 +5,7 @@ using Vk.SDK.model;
 
 namespace Vk.SDK.model
 {
-    public class VKAttachments : VKList<VKAttachments.VKApiAttachment>
+    public class VKAttachments : VKList<VKApiAttachment>
     {
 
         /**
@@ -85,9 +85,10 @@ namespace Vk.SDK.model
         {
         }
 
-        public VKAttachments(List<VKApiAttachment> data):base(data)
+        public VKAttachments(List<VKApiAttachment> data)
+            : base(data)
         {
-           
+
         }
 
         public VKAttachments(JObject from)
@@ -161,7 +162,12 @@ namespace Vk.SDK.model
          * @return type of this attachment
          */
         public abstract string getType();
-        public abstract int Id { get; }
+
+        public abstract int Id
+        {
+            get;
+            protected set;
+        }
     };
 
 }

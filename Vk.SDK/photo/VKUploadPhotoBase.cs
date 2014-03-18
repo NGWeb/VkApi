@@ -5,7 +5,6 @@ using Vk.SDK.Vk;
 namespace Vk.SDK.photo
 {
     public abstract class VKUploadPhotoBase : VKRequest {
-        private static readonly long serialVersionUID = -4566961568409572159L;
         /**
      * ID of album to upload
      */
@@ -34,8 +33,8 @@ namespace Vk.SDK.photo
             return new VKUploadImageOperation();
         }
 
-        protected class VKUploadImageOperation : VKAbstractOperation {
-            protected VKAbstractOperation lastOperation;
+        protected class VKUploadImageOperation : VKAbstractOperation<VKResponse> {
+        
 
         
             public void start() {
