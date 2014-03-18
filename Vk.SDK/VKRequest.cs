@@ -261,10 +261,10 @@ namespace Vk.SDK
         }
 
         public VKAbstractOperation<T> getOperation() {
-            if (this.parseModel) {
-                if (this.mModelClass != null) {
+            if (parseModel) {
+                if (mModelClass != null) {
                     mLoadingOperation = new VKModelOperation<T>(getPreparedRequest());
-                } else if (this.mModelParser != null){
+                } else if (mModelParser != null){
                     mLoadingOperation = new VKModelOperation<T>(getPreparedRequest(), this.mModelParser);
                 }
             }
