@@ -142,4 +142,3 @@ namespace Vk.SDK.model
         }
     };
 }
-}

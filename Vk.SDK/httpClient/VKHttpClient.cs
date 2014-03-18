@@ -11,8 +11,8 @@ namespace Vk.SDK.httpClient
 {
     public class VKHttpClient : HttpClient
     {
-        private static VKHttpClient sInstance;
 
+        private static Lazy<VKHttpClient> sInstance = new Lazy<VKHttpClient>(() => new VKHttpClient());
         /**
      * Default constructor from basic class
      *

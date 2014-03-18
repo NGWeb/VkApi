@@ -6,15 +6,15 @@ namespace Vk.SDK.photo
         /**
      * Bitmap representation of image
      */
-        public readonly Bitmap mImageData;
+        public readonly byte[] mImageData;
         /**
      * Image basic info
      */
         public readonly VKImageParameters mParameters;
 
-        public VKUploadImage(Bitmap data, VKImageParameters params) {
+        public VKUploadImage(byte[] data, VKImageParameters parameters) {
             mImageData = data;
-            mParameters = params;
+            mParameters = parameters;
         }
 
         public byte[] getTmpFile() {

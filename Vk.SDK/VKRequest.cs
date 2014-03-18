@@ -1,17 +1,19 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
+using System.Threading;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Vk.SDK.httpClient;
 using Vk.SDK.model;
+using Vk.SDK.Util;
 using Vk.SDK.Vk;
 
 namespace Vk.SDK
 {
     public class VKRequest<T> : VKObject where T:VKApiModel
     {
-
-
+        private readonly string _method;
 
         public event OnError Error;
         public enum VKProgressType {
@@ -43,7 +45,7 @@ namespace Vk.SDK
         /**
      * HTTP loading operation
      */
-        private VKAbstractOperation mLoadingOperation;
+        private VKAbstractOperation<T> mLoadingOperation;
         /**
      * How much times request was loaded
      */
@@ -52,7 +54,7 @@ namespace Vk.SDK
         /**
      * Requests that should be called after current request.
      */
-        private List<VKRequest> mPostRequestsQueue;
+        private List<VKRequest<T>> mPostRequestsQueue;
         /**
      * Class for model parsing
      */
@@ -145,33 +147,19 @@ namespace Vk.SDK
             this.useSystemLanguage = true;
         }
 
-        /**
-     * Creates new request with parameters. See documentation for methods here https://vk.com/dev/methods
-     *
-     * @param method     API-method name, e.g. audio.get
-     * @param parameters method parameters
-     * @param httpMethod HTTP method for execution, e.g. GET, POST
-     * @param modelClass class for automatic parse
-     */
-        public VKRequest(string method, VKParameters parameters, HttpMethod httpMethod,System.Type modelClass):this(method, parameters, httpMethod) {
-             setModelClass(modelClass);
-            }
-
-      
-        /**
+    /**
      * Register current request for execute after passed request, if passed request is successful. If it's not, errorBlock will be called.
      *
      * @param request  after which request must be called that request
      * @param listener listener for request events
      */
-        public void executeAfterRequest(VKRequest request, VKRequestListener listener) {
-            this.requestListener = listener;
+        public void executeAfterRequest(VKRequest request) {
             request.addPostRequest(this);
         }
 
         private void addPostRequest(VKRequest postRequest) {
             if (mPostRequestsQueue == null) {
-                mPostRequestsQueue = new List<VKRequest>();
+                mPostRequestsQueue = new List<VKRequest<T>>();
             }
             mPostRequestsQueue.Add(postRequest);
         }
@@ -214,13 +202,62 @@ namespace Vk.SDK
      * @return Prepared HttpUriRequest for that VKRequest
      */
         public WebRequest getPreparedRequest() {
-            WebRequest request = VKHttpClient.requestWithVkRequest(this);
-            if (request == null) {
-                VKError error = new VKError(VKError.VK_API_REQUEST_NOT_PREPARED);
-                Error(this,error);
-                return null;
+            var request = VKHttpClient.requestWithVkRequest(this);
+            if (request != null) 
+                return request;
+            var error = new VKError(VKError.VK_API_REQUEST_NOT_PREPARED);
+            Error(this,error);
+            return null;
+        }
+
+         public void start() {
+            if ((mLoadingOperation = getOperation()) == null) {
+                return;
             }
-            return request;
+            VKHttpClient.enqueueOperation(mLoadingOperation);
+        }
+          public void cancel() {
+            if (mLoadingOperation != null)
+                mLoadingOperation.cancel();
+            else
+               Error(this,new VKError(VKError.VK_API_CANCELED));
+        }
+
+          public void repeat() {
+            this.mAttemptsUsed = 0;
+            this.mPreparedParameters = null;
+            start();
+        }
+
+        public void addExtraParameter(string key, object value) {
+            mMethodParameters.Add(key, value);
+        }
+
+          private string getLang() {
+            string result = mPreferredLang;
+            if (useSystemLanguage)
+            {
+                result = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName.ToLower();
+
+                if (result.Equals("uk")) {
+                    result = "ua";
+                }
+
+                if (new string[]{"ru", "en", "ua", "es", "fi", "de", "it"}.Contains(result)) {
+                        result = mPreferredLang;
+                    }
+            }
+            return result;
+        }
+
+           private string generateSig(VKAccessToken token) {
+            //Read description here https://vk.com/dev/api_nohttps
+            //At first, we need key-value pairs in order of request
+            string querystring = VKstringJoiner.joinParams(mPreparedParameters);
+            //Then we generate "request string" /method/{METHOD_NAME}?{GET_PARAMS}{POST_PARAMS}
+            querystring = string.Format("/method/{0}?{1}", methodName, querystring);
+            return VKUtil.md5(querystring + token.secret);
+
         }
 
         public VKAbstractOperation<T> getOperation() {
@@ -233,6 +270,8 @@ namespace Vk.SDK
             }
             if (mLoadingOperation == null)
                 mLoadingOperation = new VKJsonOperation(getPreparedRequest());
+
+            mLoadingOperation.
             ((VKJsonOperation) mLoadingOperation).setJsonOperationListener( (operation,response)=> {
   
                 if (response.GetValue("error")!=null) {
@@ -272,32 +311,18 @@ namespace Vk.SDK
         /**
      * Starts loading of prepared request. You can use it instead of executeWithResultBlock
      */
-        public void start() {
-            if ((mLoadingOperation = getOperation()) == null) {
-                return;
-            }
-            VKHttpClient.enqueueOperation(mLoadingOperation);
-        }
+       
 
         /**
      * Repeats this request with initial parameters and blocks.
      * Used attempts will be set to 0.
      */
-        public void repeat() {
-            this.mAttemptsUsed = 0;
-            this.mPreparedParameters = null;
-            start();
-        }
+      
 
         /**
      * Cancel current request. Result will be not passed. errorBlock will be called with error code
      */
-        public void cancel() {
-            if (mLoadingOperation != null)
-                mLoadingOperation.cancel();
-            else
-                provideError(new VKError(VKError.VK_API_CANCELED));
-        }
+      
 
         /**
      * Method used for errors processing
@@ -345,9 +370,7 @@ namespace Vk.SDK
      * @param key   parameter name
      * @param value parameter value
      */
-        public void addExtraParameter(string key, object value) {
-            mMethodParameters.put(key, value);
-        }
+        
 
         /**
      * Adds additional parameters to that request
@@ -358,15 +381,7 @@ namespace Vk.SDK
             mMethodParameters.putAll(extraParameters);
         }
 
-        private string generateSig(VKAccessToken token) {
-            //Read description here https://vk.com/dev/api_nohttps
-            //At first, we need key-value pairs in order of request
-            string querystring = VKstringJoiner.joinParams(mPreparedParameters);
-            //Then we generate "request string" /method/{METHOD_NAME}?{GET_PARAMS}{POST_PARAMS}
-            querystring = string.format(Locale.US, "/method/%s?%s", methodName, querystring);
-            return VKUtil.md5(querystring + token.secret);
-
-        }
+     
 
         private bool processCommonError(VKError error) {
             if (error.errorCode == VKError.VK_API_ERROR) {
@@ -391,21 +406,7 @@ namespace Vk.SDK
             return false;
         }
 
-        private string getLang() {
-            string result = mPreferredLang;
-            if (useSystemLanguage) {
-                result = Locale.getDefault().getLanguage();
-                if (result.Equals("uk")) {
-                    result = "ua";
-                }
-
-                if (!Arrays.asList(new string[]{"ru", "en", "ua", "es", "fi", "de", "it"})
-                    .contains(result)) {
-                        result = mPreferredLang;
-                    }
-            }
-            return result;
-        }
+      
 
         /**
      * Sets preferred language for api results.
@@ -416,33 +417,11 @@ namespace Vk.SDK
             mPreferredLang = lang;
         }
 
-        /**
-     * Sets class for parse object model
-     * @param modelClass Class : VKApiModel
-     */
-        public void setModelClass(System.Type modelClass) {
-            mModelClass = modelClass;
-            if (mModelClass != null)
-                parseModel = true;
-        }
-
-        public void setResponseParser(VKParser parser) {
-            mModelParser = parser;
-            if (mModelParser != null)
-                parseModel = true;
-        }
-
-        /**
-     * Extend listeners for requests from that class
-     * Created by Roman Truba on 02.12.13.
-     * Copyright (c) 2013 VK. All rights reserved.
-     */
-
-
+      
     public static VKRequest getRegisteredRequest(long requestId) {
         return (VKRequest) getRegisteredObject(requestId);
     }
-}
+}}
 
         public abstract class VKRequestListener{
      
