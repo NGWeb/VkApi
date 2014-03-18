@@ -51,7 +51,7 @@ namespace Vk.SDK.photo
 
                 
                 public void onError(VKError error) {
-                    setState(VKOperationState.Finished);
+                    SetState(VKOperationState.Finished);
                     error.request = VKUploadPhotoBase.this;
                     if (originalListener != null)
                         originalListener.onError(error);
@@ -64,7 +64,7 @@ namespace Vk.SDK.photo
                         originalListener.onProgress(progressType, bytesLoaded, bytesTotal);
                 }
             };
-                setState(VKOperationState.Executing);
+                SetState(VKOperationState.Executing);
 
                 VKRequest serverRequest = getServerRequest();
 

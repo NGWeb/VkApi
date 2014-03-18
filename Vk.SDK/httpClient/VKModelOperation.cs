@@ -1,13 +1,15 @@
+using System.ComponentModel;
 using System.Net;
+using System.Net.Http;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Vk.SDK.model;
 
 namespace Vk.SDK.httpClient
 {
-    public class VKModelOperation<T> : VKAbstractOperation<T> where T:VKApiModel 
+    public class VKModelOperation<T> : VKHttpOperation where T : VKApiModel
     {
-        protected readonly VKParser mParser;
-        public object parsedModel;
+        public T parsedModel;
 
         /**
      * Create new model operation
@@ -15,37 +17,15 @@ namespace Vk.SDK.httpClient
      * @param modelClass Model for parsing response
      */
         public VKModelOperation(WebRequest uriRequest)
+            : base(uriRequest)
         {
-            mParser = new VKDefaultParser<T>();
-        }
-        /**
-     * Create new model operation
-     * @param uriRequest Prepared request
-     * @param parser Parser for create response
-     */
-        public VKModelOperation(WebRequest uriRequest, VKParser parser)
-        {
-            mParser = parser;
+            FinishRequest += PostExecution;
         }
 
-
-        protected bool postExecution()
+        protected void PostExecution(object sender)
         {
-            if (!base.postExecution())
-                return false;
-
-            if (mParser != null)
-            {
-                JObject response = getResponseJson();
-                parsedModel = mParser.CreateModel(response);
-                return true;
-            }
-            return false;
-        }
-
-        public override void start()
-        {
-            throw new System.NotImplementedException();
+            var str = System.Text.Encoding.Default.GetString(ResponseBytes);
+            parsedModel = JsonConvert.DeserializeObject<T>(str);
         }
     }
 }

@@ -4,17 +4,14 @@ using System.Threading;
 namespace Vk.SDK.httpClient
 {
 
-    public delegate void CompleteDelegate<T>(object sender, T response) where T : class;
-
     public delegate void ErrorDelegate(object sender, VKError error);
 
     /**
      * Class for executing any kind of asynchronous operation
      */
-    public abstract class VKAbstractOperation<T> where T : class
+    public abstract class VKAbstractOperation
     {
 
-        public event CompleteDelegate<T> Complete;
         public event ErrorDelegate Error;
 
         protected virtual void OnError(VKError error)
@@ -22,13 +19,6 @@ namespace Vk.SDK.httpClient
             ErrorDelegate handler = Error;
             if (handler != null) handler(this, error);
         }
-
-        protected virtual void OnComplete(T response)
-        {
-            var handler = Complete;
-            if (handler != null) handler(this, response);
-        }
-
 
         public enum VKOperationState
         {
@@ -43,36 +33,29 @@ namespace Vk.SDK.httpClient
         /**
          * Flag for cancel
          */
-        private bool mCanceled = false;
 
-
-        public VKAbstractOperation()
+        protected VKAbstractOperation()
         {
-            setState(VKOperationState.Ready);
+            SetState(VKOperationState.Ready);
         }
 
         /**
          * Entry point for operation
          */
-        public abstract void start();
+        public abstract void Start();
 
         /**
          * Cancels current operation and finishes it
          */
-        public void cancel()
+        public virtual void Cancel()
         {
-            mCanceled = true;
-            setState(VKOperationState.Finished);
+            SetState(VKOperationState.Finished);
         }
 
 
-        protected void setState(VKOperationState state)
+        protected void SetState(VKOperationState state)
         {
             mState = state;
-            if (mState == VKOperationState.Finished)
-            {
-                OnComplete(null);
-            }
         }
     }
 }

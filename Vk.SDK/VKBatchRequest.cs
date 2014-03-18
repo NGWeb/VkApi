@@ -3,9 +3,9 @@ using Vk.SDK.Vk;
 
 namespace Vk.SDK
 {
-    public delegate void OnComplete(object sender, VKResponse e);
-    public delegate void OnError(object sender, VKError e);
-    public delegate void OnProgress(object sender, EventArgs e);
+    public delegate void CompleteDelegate(object sender, VKResponse e);
+    public delegate void ErrorDelegate(object sender, VKError e);
+    public delegate void ProgressDelegate(object sender, EventArgs e);
     public class VKBatchRequest : VKObject
     {
         private readonly VKRequest[] mRequests;
@@ -13,9 +13,9 @@ namespace Vk.SDK
         private bool mCanceled = false;
 
 
-        public event OnComplete Complete;
-        public event OnError Error;
-        public event OnProgress Progress;
+        public event CompleteDelegate Complete;
+        public event ErrorDelegate Error;
+        public event ProgressDelegate Progress;
 
         /**
      * Specify listener for current request

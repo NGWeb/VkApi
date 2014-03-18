@@ -2,20 +2,37 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using Vk.SDK.httpClient;
-using Vk.SDK.model;
 using Vk.SDK.Util;
 using Vk.SDK.Vk;
 
 namespace Vk.SDK
 {
-    public class VKRequest<T> : VKObject where T:VKApiModel
+    public class VKRequest : VKObject
     {
-        private readonly string _method;
+        public event ErrorDelegate Error;
+        public event CompleteDelegate Complete;
 
-        public event OnError Error;
+        protected virtual void OnComplete(VKResponse e)
+        {
+            var handler = Complete;
+            if (handler != null) handler(this, e);
+        }
+
+        private void OnError(VKError error)
+        {
+                   error.request = this;
+            if (Error != null) {
+                Error(this,error);
+            }
+
+            if (_postRequestsQueue == null || _postRequestsQueue.Count <= 0) return;
+            foreach (var postRequest in _postRequestsQueue.Where(postRequest => postRequest.Error != null))
+            {
+                postRequest.Error(this, error);
+            }
+        }
+
         public enum VKProgressType {
             Download,
             Upload
@@ -45,7 +62,7 @@ namespace Vk.SDK
         /**
      * HTTP loading operation
      */
-        private VKAbstractOperation<T> mLoadingOperation;
+        private VKAbstractOperation mLoadingOperation;
         /**
      * How much times request was loaded
      */
@@ -54,16 +71,7 @@ namespace Vk.SDK
         /**
      * Requests that should be called after current request.
      */
-        private List<VKRequest<T>> mPostRequestsQueue;
-        /**
-     * Class for model parsing
-     */
-        private System.Type mModelClass;
-
-        /**
-     * Response parser
-     */
-        private VKParser mModelParser;
+        private List<VKRequest> _postRequestsQueue;
 
         /**
      * Specify language for API request
@@ -158,10 +166,10 @@ namespace Vk.SDK
         }
 
         private void addPostRequest(VKRequest postRequest) {
-            if (mPostRequestsQueue == null) {
-                mPostRequestsQueue = new List<VKRequest<T>>();
+            if (_postRequestsQueue == null) {
+                _postRequestsQueue = new List<VKRequest>();
             }
-            mPostRequestsQueue.Add(postRequest);
+            _postRequestsQueue.Add(postRequest);
         }
 
         public VKParameters getPreparedParameters() {
@@ -179,7 +187,7 @@ namespace Vk.SDK
                 //Set actual version of API
                 mPreparedParameters.Add(VKApiConst.VERSION, VKSdkVersion.API_VERSION);
                 //Set preferred language for request
-                mPreparedParameters.Add(VKApiConst.LANG, getLang());
+                mPreparedParameters.Add(VKApiConst.LANG, GetLang());
 
                 if (this.secure) {
                     //If request is secure, we need all urls as https
@@ -187,7 +195,7 @@ namespace Vk.SDK
                 }
                 if (token != null && token.secret != null) {
                     //If it not, generate signature of request
-                    string sig = generateSig(token);
+                    string sig = GenerateSig(token);
                     mPreparedParameters.Add(VKApiConst.SIG, sig);
                 }
                 //From that moment you cannot modify parameters.
@@ -201,10 +209,12 @@ namespace Vk.SDK
      *
      * @return Prepared HttpUriRequest for that VKRequest
      */
-        public WebRequest getPreparedRequest() {
-            var request = VKHttpClient.requestWithVkRequest(this);
+        public WebRequest GetPreparedRequest() {
+            var request = VKHttpClient.RequestWithVkRequest(this);
+          
             if (request != null) 
                 return request;
+            
             var error = new VKError(VKError.VK_API_REQUEST_NOT_PREPARED);
             Error(this,error);
             return null;
@@ -216,24 +226,24 @@ namespace Vk.SDK
             }
             VKHttpClient.enqueueOperation(mLoadingOperation);
         }
-          public void cancel() {
+          public void Cancel() {
             if (mLoadingOperation != null)
-                mLoadingOperation.cancel();
+                mLoadingOperation.Cancel();
             else
                Error(this,new VKError(VKError.VK_API_CANCELED));
         }
 
-          public void repeat() {
-            this.mAttemptsUsed = 0;
-            this.mPreparedParameters = null;
+          public void Repeat() {
+            mAttemptsUsed = 0;
+            mPreparedParameters = null;
             start();
         }
 
-        public void addExtraParameter(string key, object value) {
+        public void AddExtraParameter(string key, object value) {
             mMethodParameters.Add(key, value);
         }
 
-          private string getLang() {
+          private string GetLang() {
             string result = mPreferredLang;
             if (useSystemLanguage)
             {
@@ -250,7 +260,7 @@ namespace Vk.SDK
             return result;
         }
 
-           private string generateSig(VKAccessToken token) {
+           private string GenerateSig(VKAccessToken token) {
             //Read description here https://vk.com/dev/api_nohttps
             //At first, we need key-value pairs in order of request
             string querystring = VKstringJoiner.joinParams(mPreparedParameters);
@@ -260,53 +270,56 @@ namespace Vk.SDK
 
         }
 
-        public VKAbstractOperation<T> getOperation() {
-            if (parseModel) {
-                if (mModelClass != null) {
-                    mLoadingOperation = new VKModelOperation<T>(getPreparedRequest());
-                } else if (mModelParser != null){
-                    mLoadingOperation = new VKModelOperation<T>(getPreparedRequest(), this.mModelParser);
-                }
-            }
-            if (mLoadingOperation == null)
-                mLoadingOperation = new VKJsonOperation(getPreparedRequest());
+    //    public VKAbstractOperation<T> getOperation(){
+    //        if (parseModel) {
+    //            if (mModelClass != null) {
+    //                mLoadingOperation = new VKModelOperation<T>(GetPreparedRequest());
+    //            } else if (mModelParser != null){
+    //                mLoadingOperation = new VKModelOperation<T>(GetPreparedRequest(), this.mModelParser);
+    //            }
+    //        }
+    //        if (mLoadingOperation == null)
+    //            mLoadingOperation = new VKJsonOperation(GetPreparedRequest());
 
-            mLoadingOperation.
-            ((VKJsonOperation) mLoadingOperation).setJsonOperationListener( (operation,response)=> {
+    //        mLoadingOperation.Complete += (operation, response) =>
+    //        {
+    //        };
+    //    }
+    //        ((VKJsonOperation) mLoadingOperation).setJsonOperationListener( (operation,response)=> {
   
-                if (response.GetValue("error")!=null) {
-                         VKError error = JsonConvert.DeserializeObject<VKError>(response.GetValue("error").ToString());
-                return;
-        }
-            provideResponse(response,
-                mLoadingOperation instanceof VKModelOperation ?
-                    ((VKModelOperation) mLoadingOperation).parsedModel :null);
-        }
+    //            if (response.GetValue("error")!=null) {
+    //                     VKError error = JsonConvert.DeserializeObject<VKError>(response.GetValue("error").ToString());
+    //            return;
+    //    }
+    //        provideResponse(response,
+    //            mLoadingOperation instanceof VKModelOperation ?
+    //                ((VKModelOperation) mLoadingOperation).parsedModel :null);
+    //    }
 
                     
-        public void onError(VKJsonOperation operation, VKError error) {
-            if (error.errorCode != VKError.VK_API_ERROR &&
-                operation != null && operation.response != null &&
-                operation.response.getStatusLine().getStatusCode() == 200) {
-                    provideResponse(operation.getResponseJson(), null);
-                    return;
-                }
-            if (attempts == 0 || ++mAttemptsUsed < attempts) {
-                if (requestListener != null)
-                    requestListener.attemptFailed(VKRequest.this, mAttemptsUsed, attempts);
-                VKAbstractOperation.postInMainQueueDelayed(new Runnable() {
+    //    public void onError(VKJsonOperation operation, VKError error) {
+    //        if (error.errorCode != VKError.VK_API_ERROR &&
+    //            operation != null && operation.response != null &&
+    //            operation.response.getStatusLine().getStatusCode() == 200) {
+    //                provideResponse(operation.getResponseJson(), null);
+    //                return;
+    //            }
+    //        if (attempts == 0 || ++mAttemptsUsed < attempts) {
+    //            if (requestListener != null)
+    //                requestListener.attemptFailed(VKRequest.this, mAttemptsUsed, attempts);
+    //            VKAbstractOperation.postInMainQueueDelayed(new Runnable() {
                                 
-                public void run() {
-    start();
-                }
-            });
-                return;
-            }
-            provideError(error);
-        }
-        });
-            return mLoadingOperation;
-        }
+    //            public void run() {
+    //start();
+    //            }
+    //        });
+    //            return;
+    //        }
+    //        provideError(error);
+    //    }
+    //    });
+    //        return mLoadingOperation;
+    //    }
 
         /**
      * Starts loading of prepared request. You can use it instead of executeWithResultBlock
@@ -329,18 +342,7 @@ namespace Vk.SDK
      *
      * @param error error caused by this request
      */
-        private void provideError(VKError error) {
-            error.request = this;
-            if (requestListener != null) {
-                requestListener.onError(error);
-            }
-            if (mPostRequestsQueue != null && mPostRequestsQueue.size() > 0) {
-                foreach (VKRequest postRequest in mPostRequestsQueue)
-                if (postRequest.requestListener != null) 
-                postRequest.requestListener.onError(error);
-            }
-        }
-
+      
         /**
      * Method used for response processing
      *
@@ -353,8 +355,8 @@ namespace Vk.SDK
             response.json = jsonResponse;
             response.parsedModel = parsedModel;
 
-            if (mPostRequestsQueue != null && mPostRequestsQueue.size() > 0) {
-                for (VKRequest request : mPostRequestsQueue) {
+            if (_postRequestsQueue != null && _postRequestsQueue.size() > 0) {
+                for (VKRequest request : _postRequestsQueue) {
                     request.start();
                 }
             }
@@ -378,7 +380,11 @@ namespace Vk.SDK
      * @param extraParameters parameters supposed to be added
      */
         public void addExtraParameters(VKParameters extraParameters) {
-            mMethodParameters.putAll(extraParameters);
+            foreach (var extraParameter in extraParameters)
+            {
+                mMethodParameters.Add(extraParameter.Key,extraParameter.Value);
+            }
+            
         }
 
      
@@ -425,9 +431,7 @@ namespace Vk.SDK
 
         public abstract class VKRequestListener{
      
-            public abstract void onComplete(VKResponse response) {}
-
-        /**
+         /**
          * Called when request has failed attempt, and ready to do next attempt
          *
          * @param request       Failed request
@@ -442,9 +446,7 @@ namespace Vk.SDK
          *
          * @param error error for VKRequest
          */
-        public void onError(VKError error) {
-        }
-
+    
         /**
          * Specify progress for uploading or downloading. Useless for text requests (because gzip encoding bytesTotal will always return -1)
          *

@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Runtime.Remoting.Contexts;
 using System.Text;
+using Vk.SDK.Util;
 using Vk.SDK.Vk;
 
 namespace Vk.SDK.httpClient
@@ -68,14 +69,17 @@ namespace Vk.SDK.httpClient
      * @param vkRequest Request, created for some method
      * @return Prepared request for creating VKHttpOperation
      */
-        public static WebRequest requestWithVkRequest(VKRequest vkRequest) {
+        public static WebRequest RequestWithVkRequest(VKRequest vkRequest)
+        {
             WebRequest request = null;
             VKParameters preparedParameters = vkRequest.getPreparedParameters();
             var urlstringBuilder = new StringBuilder();
-            urlstringBuilder.AppendFormat("http{0}://api.vk.com/method/{1}",vkRequest.secure ? "s" : "", vkRequest.methodName);
-            switch (vkRequest.httpMethod) {
+            urlstringBuilder.AppendFormat("http{0}://api.vk.com/method/{1}", vkRequest.secure ? "s" : "", vkRequest.methodName);
+            switch (vkRequest.httpMethod)
+            {
                 case VKRequest.HttpMethod.GET:
-                    if (preparedParameters.Count > 0) {
+                    if (preparedParameters.Count > 0)
+                    {
                         urlstringBuilder.Append("?").Append(VKstringJoiner.joinUriParams(preparedParameters));
                     }
                     request = WebRequest.Create(urlstringBuilder.ToString());
@@ -84,32 +88,35 @@ namespace Vk.SDK.httpClient
                 case VKRequest.HttpMethod.POST:
                     WebRequest post = WebRequest.Create(urlstringBuilder.ToString());
                     request.Method = "POST";
-                    var pairs = new List<KeyValuePair<string,object>>(preparedParameters.Count);
-                    foreach (var entry  in preparedParameters)
+                    var pairs = new Dictionary<string, object>(preparedParameters.Count);
+                    foreach (var entry in preparedParameters)
                     {
                         object value = entry.Value;
-                        if (value is Collection<object>) {
-                            Collection<5> values = (Collection<?>) value;
-                            for (object v : values) {
+                        if (value is Collection<object>)
+                        {
+                            var values = (List<object>)value;
+                            foreach (object v in values)
+                            {
                                 // This will add a parameter for each value in the Collection/List
-                                pairs.add(new BasicNameValuePair(string.format("%s[]", entry.getKey()), v == null ? null : string.valueOf(v)));
+                                pairs.Add(string.Format("{0}[]", entry.Key), v == null ? null : Convert.ToString(v));
                             }
-                        } else {
-                            pairs.add(new BasicNameValuePair(entry.getKey(), value == null ? null : string.valueOf(value)));
+                        }
+                        else
+                        {
+                            pairs.Add(entry.Key, value == null ? null : Convert.ToString(value));
                         }
                     }
-                    try {
-                        UrlEncodedFormEntity entity = new UrlEncodedFormEntity(pairs, "UTF-8");
-                        post.setEntity(entity);
-                    } catch (UnsupportedEncodingException e) {
-                        return null;
-                    }
+                    UrlEncodedFormEntity entity = new UrlEncodedFormEntity(pairs, "UTF-8");
+                    post.setEntity(entity);
+
                     request = post;
+
                     break;
             }
             Dictionary<string, string> defaultHeaders = getDefaultHeaders();
-            for (string key : defaultHeaders.keySet()) {
-                request.addHeader(key, defaultHeaders.get(key));
+            foreach (var key in defaultHeaders)
+            {
+                request.Headers.Add(key.Key, key.Value);
             }
 
             return request;

@@ -4,7 +4,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Vk.SDK.httpClient
 {
-    public class VKJsonOperation : VKAbstractOperation<JObject>
+    public class VKJsonOperation : VKHttpOperation
     {
         private JObject mResponseJson;
 
@@ -12,7 +12,11 @@ namespace Vk.SDK.httpClient
      * Create new operation with request
      * @param uriRequest Request prepared manually or with VKHttpClient
      */
-        public VKJsonOperation(WebRequest uriRequest) : base(uriRequest) { }
+
+        public VKJsonOperation(WebRequest uriRequest) : base(uriRequest)
+        {
+            FinishRequest += postExecution;
+        }
 
 
         /**
@@ -23,9 +27,7 @@ namespace Vk.SDK.httpClient
         {
             if (mResponseJson == null)
             {
-                string response = getResponsestring();
-                if (response == null)
-                    return null;
+                string response = System.Text.Encoding.Default.GetString(ResponseBytes);
                 try
                 {
                     mResponseJson = new JObject(response);
@@ -39,39 +41,9 @@ namespace Vk.SDK.httpClient
         }
 
 
-        protected bool postExecution()
+        protected void postExecution(object sender)
         {
-            if (!base.postExecution())
-                return false;
             mResponseJson = getResponseJson();
-            return true;
-        }
-
-        /**
-     * Sets that json operation listener
-     * @param listener Listener object for that operation
-     */
-        //    public void setJsonOperationListener(Func<VKJsonOperation ,JObject, Void> expression) {
-        //        if (listener == null) {
-        //            super.setCompleteListener(null);
-        //            return;
-        //        }
-
-        //        this.setCompleteListener(new VKOperationCompleteListener() {
-
-        //        public void onComplete() {
-        //if (mLastException != null) {
-        //listener.onError(VKJsonOperation.this, generateError(mLastException));
-        //        } else {
-        //            listener.onComplete(VKJsonOperation, mResponseJson);
-        //        }
-        //    }
-        //    });
-        //    }
-
-        public override void start()
-        {
-            throw new NotImplementedException();
         }
     }
 }

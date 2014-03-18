@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Vk.SDK.Vk;
 
 namespace Vk.SDK.Util
 {
@@ -34,11 +35,11 @@ namespace Vk.SDK.Util
 
         // For every line in the file, append it to the string builder
         while ((line = reader.readLine()) != null) {
-            builder.append(line);
+            builder.Append(line);
         }
         reader.close();
 
-        return builder.toString();
+        return builder.ToString();
     }
 
     /**
@@ -84,9 +85,10 @@ namespace Vk.SDK.Util
      * @return Base64 packed SHA fingerprint of your packet certificate
      */
  
-     private static String toHex(byte[] bytes) {
-        BigInteger bi = new BigInteger(1, bytes);
-        return String.format("%0" + (bytes.length << 1) + "X", bi);
+     private static String toHex(byte[] bytes)
+     {
+        var bi = BitConverter.ToInt64(bytes, 1);
+        return String.Format("{0}" + (bytes.Count() << 1) + "X", bi);
     }
 
     /**
@@ -101,13 +103,13 @@ namespace Vk.SDK.Util
                 Log.w("VKUtil", "Params must be paired. Last one is ignored");
         }
         Dictionary<String, Object> result = new Dictionary<string, object>();
-        for (int i = 0; i + 1 < args.length; i += 2) {
-            if (args[i] == null || args[i + 1] == null || !(args[i] instanceof String)) {
+        for (int i = 0; i + 1 < args.Count(); i += 2) {
+            if (args[i] == null || args[i + 1] == null || !(args[i] is string)) {
                 if (VKSdk.DEBUG)
-                    Log.e("VK SDK", "Error while using mapFrom", new InvalidParameterSpecException("Key and value must be specified. Key must be string"));
+                    Log.e("VK SDK", "Error while using mapFrom", new Exception("Key and value must be specified. Key must be string"));
                 continue;
             }
-            result.put((String) args[i], args[i + 1]);
+            result.Add((String) args[i], args[i + 1]);
         }
         return result;
     }

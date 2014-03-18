@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Vk.SDK.Vk
 {
@@ -50,12 +51,8 @@ namespace Vk.SDK.Vk
      * @param listener responder for global SDK events
      * @param appId    your application id (if you haven't, you can create standalone application here https://vk.com/editapp?act=create )
      */
-    public void initialize(VKSdkListener listener, string appId) {
-        if (listener == null) {
-            throw new Exception("VK SDK listener cannot be null");
-        }
-
-        if (appId == null) {
+    public void initialize(string appId) {
+     if (appId == null) {
             throw new Exception("Application ID cannot be null");
         }
 
@@ -69,7 +66,6 @@ namespace Vk.SDK.Vk
             }
         }
 
-        sInstance.mListener = listener;
         sInstance.mCurrentAppId = appId;
     }
 
@@ -81,8 +77,7 @@ namespace Vk.SDK.Vk
      * @param appId    your application id (if you haven't, you can create standalone application here https://vk.com/editapp?act=create )
      * @param token    custom-created access token
      */
-    public static void initialize(VKSdkListener listener, string appId, VKAccessToken token) {
-        initialize(listener, appId);
+    public static void initialize(string appId, VKAccessToken token) {
         sInstance.mAccessToken = token;
         sInstance.performTokenCheck(token, true);
     }
@@ -112,46 +107,6 @@ namespace Vk.SDK.Vk
      * @param revoke      if true, user will allow logout (to change user)
      * @param forceOAuth  sdk will use only oauth authorization, through uiwebview
      */
-    public static void authorize(string[] scope, bool revoke, bool forceOAuth) {
-        try {
-            checkConditions();
-        } catch (Exception e) {
-            if (VKSdk.DEBUG)
-                e.printStackTrace();
-            return;
-        }
-
-        if (scope == null) {
-            scope = new string[]{};
-        }
-
-        string[] fingerprints = VKUtil.getCertificateFingerprint(sInstance.getContext(),
-                VK_APP_PACKAGE_ID);
-
-        Intent intent;
-
-        if (!forceOAuth
-                && VKUtil.isAppInstalled(sInstance.getContext(),VK_APP_PACKAGE_ID)
-                && VKUtil.isIntentAvailable(sInstance.getContext(), VK_APP_AUTH_ACTION)
-                && fingerprints[0].Equals(VK_APP_FINGERPRINT)) {
-            intent = new Intent(VK_APP_AUTH_ACTION, null);
-        } else {
-            intent = new Intent(sInstance.getContext(), VKOpenAuthActivity.class);
-        }
-
-        intent.putExtra(VKOpenAuthActivity.VK_EXTRA_API_VERSION, VKSdkVersion.API_VERSION);
-        intent.putExtra(VKOpenAuthActivity.VK_EXTRA_CLIENT_ID, Integer.parseInt(sInstance.mCurrentAppId));
-
-        if (revoke) {
-            intent.putExtra(VKOpenAuthActivity.VK_EXTRA_REVOKE, true);
-        }
-
-        intent.putExtra(VKOpenAuthActivity.VK_EXTRA_SCOPE, VKstringJoiner.join(scope, ","));
-
-        if (VKUIHelper.getTopActivity() != null) {
-            VKUIHelper.getTopActivity().startActivityForResult(intent, VK_SDK_REQUEST_CODE);
-        }
-    }
 
     /**
      * Returns current VK SDK listener
@@ -178,39 +133,6 @@ namespace Vk.SDK.Vk
      * @param result     intent passed by activity
      * @return If SDK parsed activity result properly, returns true. You can return from onActivityResult(). Otherwise, returns false.
      */
-    public static bool processActivityResult(int resultCode, Intent result) {
-        if (result != null && resultCode == Activity.RESULT_OK) {
-            if (VKOpenAuthActivity.VK_RESULT_INTENT_NAME.Equals(result.getAction())) {
-                if (result.hasExtra(VKOpenAuthActivity.VK_EXTRA_TOKEN_DATA)) {
-                    string tokenInfo = result.getstringExtra(VKOpenAuthActivity.VK_EXTRA_TOKEN_DATA);
-                    Dictionary<string, string> tokenParams = VKUtil.explodeQuerystring(tokenInfo);
-	                bool renew = result.getboolExtra(VKOpenAuthActivity.VK_EXTRA_VALIDATION_URL, false);
-                    checkAndSetToken(tokenParams, renew);
-                } else if (result.getExtras() != null) {
-                    setAccessTokenError(new VKError(VKError.VK_API_CANCELED));
-                }
-                return true;
-            }
-
-            if (result.getExtras() != null) {
-                Dictionary<string, string> tokenParams = new Dictionary<string, string>();
-
-                for (string key : result.getExtras().keySet()) {
-                    tokenParams.put(key, string.valueOf(result.getExtras().get(key)));
-                }
-
-                checkAndSetToken(tokenParams, false);
-            }
-        }
-
-        return false;
-    }
-
-	/**
-	 * Check new access token and sets it as working token
-	 * @param tokenParams params of token
-	 * @param renew flag indicates token renewal
-	 */
     private static void checkAndSetToken(Dictionary<string, string> tokenParams, bool renew) {
         VKAccessToken token = VKAccessToken.tokenFromParameters(tokenParams);
         if (token == null || token.accessToken == null) {

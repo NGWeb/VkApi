@@ -4,117 +4,109 @@ using System.Net;
 
 namespace Vk.SDK.httpClient
 {
-    public class VKHttpOperation<T> : VKAbstractOperation<T> where T:class {
+
+    public delegate void BeginRequestDelegate(object sender);
+
+    public delegate void FinishRequestDelegate(object sender);
+
+    public delegate void CompleteDelegate(object sender);
+
+
+    public class VKHttpOperation : VKAbstractOperation
+    {
+
+        #region events
+        public event BeginRequestDelegate BeginRequest;
+
+        protected virtual void OnBeginRequest()
+        {
+            BeginRequestDelegate handler = BeginRequest;
+            if (handler != null) handler(this);
+        }
+
+        public event FinishRequestDelegate FinishRequest;
+
+        protected virtual void OnFinishRequest()
+        {
+            FinishRequestDelegate handler = FinishRequest;
+            if (handler != null) handler(this);
+        }
+
+        public event CompleteDelegate Complete;
+
+        protected virtual void OnComplete()
+        {
+            CompleteDelegate handler = Complete;
+            if (handler != null) handler(this);
+        }
+        #endregion
+
         /**
      * Request initialized this object
      */
-        private readonly WebRequest request;
+        private readonly WebRequest _request;
         /**
      * Last exception throws while loading or parsing
      */
         protected Exception mLastException;
-        /**
-     * Bytes of HTTP response
-     */
-        private byte[] mResponseBytes;
-
-        /**
-     * Stream for output result of HTTP loading
-     */
-        public MemoryStream outputStream;
-        /**
-     * Standard HTTP response
-     */
-        public WebResponse response;
 
         /**
      * string representation of response
      */
-        private string mResponsestring;
+        public byte[] ResponseBytes { get; private set; }
 
         /**
      * Create new operation for loading prepared Http request. Requests may be prepared in VKHttpClient
      *
      * @param uriRequest Prepared request
      */
-        public VKHttpOperation(WebRequest uriRequest) {
-            request = uriRequest;
+        public VKHttpOperation(WebRequest uriRequest)
+        {
+            _request = uriRequest;
         }
-
-
+        
         /**
      * Start current prepared http-operation for result
      */
-    
-        public void start() {
-            setState(VKOperationState.Executing);
-            try
+        public override void Start()
+        {
+            OnBeginRequest();
+            SetState(VKOperationState.Executing);
+            using (var response = _request.GetResponse())
             {
-                response = request.GetResponse();
 
-                var stream = response.GetResponseStream();
-                
-                if (outputStream == null) {
-                    outputStream = new MemoryStream();
+                using (var stream = response.GetResponseStream())
+                {
+                    using (var outputStream = new MemoryStream())
+                    {
+                        if (stream != null)
+                            stream.CopyTo(outputStream);
+                        outputStream.Flush();
+                        ResponseBytes = outputStream.ToArray();
+                        outputStream.Close();
+                    }
                 }
-
-                stream.CopyTo(outputStream);
-         
-                outputStream.Flush();
-                mResponseBytes = outputStream.ToArray();
-                outputStream.Close();
-            } catch (Exception e) {
-                mLastException = e;
             }
-            finish();
+            OnFinishRequest();
+            OnComplete();
         }
-
-    
-        public void finish() {
-            postExecution();
-            super.finish();
-        }
-
+        
         /**
-     * Calls before providing result, but after response loads
-     * @return true is post execution succeed
-     */
-        protected bool postExecution() {
-            return true;
-        }
+        * Cancel current operation execution
+        */
 
-        /**
-     * Cancel current operation execution
-     */
-    
-        public void cancel() {
-            request.abort();
-            base.cancel();
+        public override void Cancel()
+        {
+            _request.Abort();
+            base.Cancel();
         }
 
         /**
      * Get operation response data
      * @return Bytes of response
      */
-        public byte[] getResponseData() {
-            return mResponseBytes;
-        }
-
-        /**
-     * Get operation response string, if possible
-     * @return Encoded string from response data bytes
-     */
-        public string getResponsestring() {
-     
-           throw new NotImplementedException();
-        }
-
-        /**
-     * Generates VKError about that request fails
-     * @param e Exception for error
-     * @return New generated error
-     */
-        protected VKError generateError(Exception e) {
+        protected VKError generateError(Exception e)
+        {
             VKError error = new VKError(VKError.VK_API_REQUEST_HTTP_FAILED);
             error.errorMessage = e.Message;
             if (error.errorMessage == null)
