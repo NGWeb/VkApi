@@ -10,7 +10,7 @@ namespace Vk.SDK.httpClient
 
         /**
      * Create new operation with request
-     * @param uriRequest Request prepared manually or with VKHttpClient
+     * @param uriRequest Request prepared manually or with RequestFactory
      */
 
         public VKJsonOperation(WebRequest uriRequest) : base(uriRequest)

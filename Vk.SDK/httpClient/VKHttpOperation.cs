@@ -44,7 +44,7 @@ namespace Vk.SDK.httpClient
         /**
      * Request initialized this object
      */
-        private readonly WebRequest _request;
+        public readonly WebRequest Request;
         /**
      * Last exception throws while loading or parsing
      */
@@ -56,13 +56,13 @@ namespace Vk.SDK.httpClient
         public byte[] ResponseBytes { get; private set; }
 
         /**
-     * Create new operation for loading prepared Http request. Requests may be prepared in VKHttpClient
+     * Create new operation for loading prepared Http request. Requests may be prepared in RequestFactory
      *
      * @param uriRequest Prepared request
      */
         public VKHttpOperation(WebRequest uriRequest)
         {
-            _request = uriRequest;
+            Request = uriRequest;
         }
         
         /**
@@ -72,7 +72,7 @@ namespace Vk.SDK.httpClient
         {
             OnBeginRequest();
             SetState(VKOperationState.Executing);
-            using (var response = _request.GetResponse())
+            using (var response = Request.GetResponse())
             {
 
                 using (var stream = response.GetResponseStream())
@@ -97,7 +97,7 @@ namespace Vk.SDK.httpClient
 
         public override void Cancel()
         {
-            _request.Abort();
+            Request.Abort();
             base.Cancel();
         }
 

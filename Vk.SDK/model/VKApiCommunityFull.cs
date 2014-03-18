@@ -142,7 +142,7 @@ namespace Vk.SDK.model
         public Counters counters;
 
         /**
-     * Returned only for meeting and contain start time of the meeting as unixtime.
+     * Returned only for meeting and contain GetResponse time of the meeting as unixtime.
      */
         public long start_date;
 

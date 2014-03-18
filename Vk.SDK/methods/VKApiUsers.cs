@@ -18,9 +18,9 @@ namespace Vk.SDK.methods
      * @param params use parameters from description with VKApiConst class
      * @return Request for load
      */
-        public VKRequest get(VKParameters parameters)
+        public VKRequest<VKApiUser> get(VKParameters parameters)
         {
-            return prepareRequest("get", parameters, VKRequest.HttpMethod.GET, typeof (VKApiUser));
+            return prepareRequest<VKApiUser>("get", parameters, VKRequest.HttpMethod.GET);
         }
 
         /**

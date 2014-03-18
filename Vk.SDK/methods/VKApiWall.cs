@@ -4,17 +4,17 @@ using Vk.SDK.model;
 
 public class VKApiWall : VKApiBase {
 
-    public VKRequest get(VKParameters parameters) {
+    public VKRequest<VKPostArray> get(VKParameters parameters) {
         if (((int) parameters["extended"]) == 1) {
-            return prepareRequest("get", parameters, VKRequest.HttpMethod.GET, typeof(VKPostArray));
+            return prepareRequest<VKPostArray>("get", parameters, VKRequest.HttpMethod.GET);
         } else {
-            return prepareRequest("get", parameters);
+            return prepareRequest<VKPostArray>("get", parameters);
         }
     }
 
-    public VKRequest getById(VKParameters parameters) {
+    public VKRequest<VKPostArray> getById(VKParameters parameters) {
         if (((int) parameters["extended"]) == 1) {
-            return prepareRequest("get", parameters, VKRequest.HttpMethod.GET, typeof(VKPostArray));
+            return prepareRequest<VKPostArray>("get", parameters, VKRequest.HttpMethod.GET);
         } else {
             return prepareRequest("get", parameters);
         }

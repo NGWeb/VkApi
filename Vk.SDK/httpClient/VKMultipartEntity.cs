@@ -1,7 +1,7 @@
 
 namespace Vk.SDK.httpClient
 {
-    public class VKMultipartEntity : AbstractHttpEntity {
+    public class VKMultipartEntity {
 
         private static readonly string VK_BOUNDARY = "Boundary(======VK_SDK_%d======)";
 

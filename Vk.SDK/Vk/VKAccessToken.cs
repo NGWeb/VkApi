@@ -4,6 +4,7 @@
 
 using System;
 using System.Collections.Generic;
+using Vk.SDK.Util;
 
 namespace Vk.SDK.Vk
 {
@@ -95,7 +96,7 @@ namespace Vk.SDK.Vk
         {
             if (urlstring == null)
                 return null;
-            Dictionary<string, string> parameters = VKUtil.explodeQuerystring(urlstring);
+            Dictionary<string, string> parameters = VKUtil.explodeQueryString(urlstring);
 
             return tokenFromParameters(parameters);
         }
@@ -139,33 +140,14 @@ namespace Vk.SDK.Vk
             }
         }
 
-        /**
-          * Retrieve token from file. Token must be saved into file with saveTokenToFile method
-          *
-          * @param filePath path to file with saved token
-          * @return Previously saved token or null
-          */
-        public static VKAccessToken tokenFromFile(string filePath)
-        {
-            try
-            {
-                string data = VKUtil.fileTostring(filePath);
-                return tokenFromUrlstring(data);
-            }
-            catch (Exception e)
-            {
-                return null;
-            }
-        }
-
-        /**
+                /**
      * Checks expiration time of token and returns result.
      *
      * @return true if token has expired, false otherwise.
      */
-        public bool isExpired()
+        public bool IsExpired()
         {
-            return expiresIn > 0 && expiresIn * 1000 + created < System.currentTimeMillis();
+            return expiresIn > 0 && expiresIn * 1000 + created < DateTime.Now.Millisecond;
         }
     }
 }

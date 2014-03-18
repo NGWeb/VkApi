@@ -10,9 +10,9 @@ namespace Vk.SDK.methods
             return prepareRequest("isMember", parameters);
         }
 
-        public VKRequest getById(VKParameters parameters)
+        public VKRequest<VKApiCommunityArray> getById(VKParameters parameters)
         {
-            return prepareRequest("getById", parameters, VKRequest.HttpMethod.GET, typeof(VKApiCommunityArray));
+            return prepareRequest<VKApiCommunityArray>("getById", parameters, VKRequest.HttpMethod.GET);
         }
 
         public VKRequest get(VKParameters parameters)

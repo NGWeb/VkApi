@@ -24,7 +24,7 @@ namespace Vk.SDK
         /**
      * Request which caused error
      */
-        public VKRequest request;
+        public AbstractRequest request;
         /**
      * May contains such errors:<br/>
      * <b>HTTP status code</b> if HTTP error occured;<br/>
@@ -73,22 +73,7 @@ namespace Vk.SDK
      *
      * @param json Json description of VK API error
      */
-        public VKError(JObject json)
-        {
-            VKError internalError = new VKError(json.getInt(VKApiConst.ERROR_CODE));
-            internalError.errorMessage = json.getstring(VKApiConst.ERROR_MSG);
-            internalError.requestParams = (List<Dictionary<string, string>>)VKJsonHelper.toList(
-            json.getJSONArray(VKApiConst.REQUEST_PARAMS));
-            if (internalError.errorCode == 14)
-            {
-                internalError.captchaImg = json.getstring(VKApiConst.CAPTCHA_IMG);
-                internalError.captchaSid = json.getstring(VKApiConst.CAPTCHA_SID);
-            }
 
-            this.
-        errorCode = VK_API_ERROR;
-            this.apiError = internalError;
-        }
 
         /**
          * Generate API error from HTTP-query
@@ -107,13 +92,14 @@ namespace Vk.SDK
          *
          * @param userEnteredCode answer for captcha
          */
-        public void answerCaptcha(string userEnteredCode) {
-        VKParameters parameters = new VKParameters();
-        parameters.Add(VKApiConst.CAPTCHA_SID, captchaSid);
-        parameters.Add(VKApiConst.CAPTCHA_KEY, userEnteredCode);
-        request.addExtraParameters(parameters);
-        request.repeat();
-    }
+        public void answerCaptcha(string userEnteredCode)
+        {
+            VKParameters parameters = new VKParameters();
+            parameters.Add(VKApiConst.CAPTCHA_SID, captchaSid);
+            parameters.Add(VKApiConst.CAPTCHA_KEY, userEnteredCode);
+            request.addExtraParameters(parameters);
+            request.repeat();
+        }
         public static VKError getRegisteredError(long requestId)
         {
             return (VKError)getRegisteredObject(requestId);

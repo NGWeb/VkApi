@@ -46,12 +46,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbstractRequest.cs" />
     <Compile Include="model\Answer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Util\VKStringJoiner.cs" />
     <Compile Include="Util\VkSdkUtil.cs" />
+    <Compile Include="VKProgressType.cs" />
     <Compile Include="Vk\VKAccessToken.cs" />
     <Compile Include="Vk\VKCaptchaDialog.cs" />
     <Compile Include="Vk\VKObject.cs" />
@@ -63,7 +65,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="httpClient\VKAbstractOperation.cs" />
-    <Compile Include="httpClient\VKHttpClient.cs" />
+    <Compile Include="httpClient\RequestFactory.cs" />
     <Compile Include="httpClient\VKHttpOperation.cs" />
     <Compile Include="httpClient\VKJsonOperation.cs" />
     <Compile Include="httpClient\VKModelOperation.cs" />

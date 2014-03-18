@@ -69,7 +69,7 @@ namespace Vk.SDK
                 //        }
                 //        )
                 //            ;
-                //            VKHttpClient.enqueueOperation(request.getOperation());
+                //            RequestFactory.enqueueOperation(request.getOperation());
             }
 
         }

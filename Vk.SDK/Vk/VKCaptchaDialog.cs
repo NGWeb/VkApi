@@ -76,6 +76,6 @@
 //                loadImage();
 //            }
 //        });
-//        VKHttpClient.enqueueOperation(imageOperation);
+//        RequestFactory.enqueueOperation(imageOperation);
 //    }
 //}

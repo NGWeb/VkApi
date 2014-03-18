@@ -4,76 +4,78 @@ namespace Vk.SDK.methods
 {
     public class VKApiFriends : VKApiBase {
 
-        public VKRequest get(VKParameters parameters) {
+        public VKRequest<VKUsersArray> get(VKParameters parameters) {
             if (parameters["fields"] != null) {
-                return prepareRequest("get", parameters, VKRequest.HttpMethod.GET, typeof(VKUsersArray));
+                return prepareRequest<VKUsersArray>("get", parameters, AbstractRequest.HttpMethod.GET);
             } else {
-                return prepareRequest("get", parameters);
+                return prepareRequest<VKUsersArray>("get", parameters);
             }
         }
 
-        public VKRequest getOnline(VKParameters parameters) {
-            return prepareRequest("getOnline", parameters);
+        public VKRequest<VKUsersArray>getOnline(VKParameters parameters) {
+            return prepareRequest<VKUsersArray>("getOnline", parameters);
         }
 
-        public VKRequest getMutual(VKParameters parameters) {
-            return prepareRequest("getMutual", parameters);
+        public VKRequest<VKUsersArray>getMutual(VKParameters parameters) {
+            return prepareRequest<VKUsersArray>("getMutual", parameters);
         }
 
-        public VKRequest getRecent(VKParameters parameters) {
-            return prepareRequest("getRecent", parameters);
+        public VKRequest<VKUsersArray>getRecent(VKParameters parameters) {
+            return prepareRequest<VKUsersArray>("getRecent", parameters);
         }
 
-        public VKRequest getRequests(VKParameters parameters) {
-            return prepareRequest("getRequests", parameters);
+        public VKRequest<VKUsersArray>getRequests(VKParameters parameters) {
+            return prepareRequest<VKUsersArray>("getRequests", parameters);
         }
 
-        public VKRequest add(VKParameters parameters) {
-            return prepareRequest("add", parameters);
+        public VKRequest<VKUsersArray>add(VKParameters parameters) {
+            return prepareRequest<VKUsersArray>("add", parameters);
         }
 
-        public VKRequest edit(VKParameters parameters) {
-            return prepareRequest("edit", parameters);
+        public VKRequest<VKUsersArray>edit(VKParameters parameters) {
+            return prepareRequest<VKUsersArray>("edit", parameters);
         }
 
-        public VKRequest delete(VKParameters parameters) {
-            return prepareRequest("delete", parameters);
+        public VKRequest<VKUsersArray>delete(VKParameters parameters) {
+            return prepareRequest<VKUsersArray>("delete", parameters);
         }
 
-        public VKRequest getLists(VKParameters parameters) {
-            return prepareRequest("getLists", parameters);
+        public VKRequest<VKUsersArray>getLists(VKParameters parameters) {
+            return prepareRequest<VKUsersArray>("getLists", parameters);
         }
 
-        public VKRequest addList(VKParameters parameters) {
-            return prepareRequest("addList", parameters);
+        public VKRequest<VKUsersArray>addList(VKParameters parameters) {
+            return prepareRequest<VKUsersArray>("addList", parameters);
         }
 
-        public VKRequest editList(VKParameters parameters) {
-            return prepareRequest("editList", parameters);
+        public VKRequest<VKUsersArray>editList(VKParameters parameters) {
+            return prepareRequest<VKUsersArray>("editList", parameters);
         }
 
-        public VKRequest deleteList(VKParameters parameters) {
-            return prepareRequest("deleteList", parameters);
+        public VKRequest<VKUsersArray>deleteList(VKParameters parameters) {
+            return prepareRequest<VKUsersArray>("deleteList", parameters);
         }
 
-        public VKRequest getAppUsers(VKParameters parameters) {
-            return prepareRequest("getAppUsers", parameters);
+        public VKRequest<VKUsersArray> getAppUsers(VKParameters parameters)
+        {
+            return prepareRequest<VKUsersArray>("getAppUsers", parameters);
         }
 
-        public VKRequest getByPhones(VKParameters parameters) {
-            return prepareRequest("getByPhones", parameters, VKRequest.HttpMethod.GET, typeof(VKUsersArray));
+        public VKRequest<VKUsersArray> getByPhones(VKParameters parameters)
+        {
+            return prepareRequest<VKUsersArray>("getByPhones", parameters, AbstractRequest.HttpMethod.GET);
         }
 
-        public VKRequest deleteAllRequests(VKParameters parameters) {
-            return prepareRequest("deleteAllRequests", parameters);
+        public VKRequest<VKUsersArray>deleteAllRequests(VKParameters parameters) {
+            return prepareRequest<VKUsersArray>("deleteAllRequests", parameters);
         }
 
-        public VKRequest getSuggestions(VKParameters parameters) {
-            return prepareRequest("getSuggestions", parameters);
+        public VKRequest<VKUsersArray>getSuggestions(VKParameters parameters) {
+            return prepareRequest<VKUsersArray>("getSuggestions", parameters);
         }
 
-        public VKRequest areFriends(VKParameters parameters) {
-            return prepareRequest("areFriends", parameters);
+        public VKRequest<VKUsersArray>areFriends(VKParameters parameters) {
+            return prepareRequest<VKUsersArray>("areFriends", parameters);
         }
 
     }

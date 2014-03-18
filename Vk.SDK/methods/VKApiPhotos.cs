@@ -1,6 +1,7 @@
 using Vk.SDK;
 using Vk.SDK.methods;
 using Vk.SDK.model;
+using Vk.SDK.Util;
 
 public class VKApiPhotos : VKApiBase
 {

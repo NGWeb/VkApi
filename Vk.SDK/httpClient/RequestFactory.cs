@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Runtime.Remoting.Contexts;
@@ -10,17 +11,17 @@ using Vk.SDK.Vk;
 
 namespace Vk.SDK.httpClient
 {
-    public class VKHttpClient : HttpClient
+    public class RequestFactory /*: HttpClient*/
     {
 
-        private static Lazy<VKHttpClient> sInstance = new Lazy<VKHttpClient>(() => new VKHttpClient());
+        private static Lazy<RequestFactory> sInstance = new Lazy<RequestFactory>(() => new RequestFactory());
         /**
      * Default constructor from basic class
      *
      * @param conman The connection manager
      * @param params The parameters
      */
-        private VKHttpClient(/*ClientConnectionManager conman, HttpParams param*/)
+        private RequestFactory(/*ClientConnectionManager conman, HttpParams param*/)
         {
             // super(conman, param);
         }
@@ -30,37 +31,10 @@ namespace Vk.SDK.httpClient
      *
      * @return Prepared client used for API requests loading
      */
-        public static VKHttpClient getClient() {
-            if (sInstance == null) {
-                SchemeRegistry schemeRegistry = new SchemeRegistry();
-                schemeRegistry.register(new Scheme("http",
-                    PlainSocketFactory.getSocketFactory(), 80));
-                schemeRegistry.register(new Scheme("https",
-                    SSLSocketFactory.getSocketFactory(), 443));
-                HttpParams parameters = new BasicHttpParams();
-                Context ctx = VKUIHelper.getTopActivity();
 
-                try {
-                    if (ctx != null)
-                    {
-                        PackageManager packageManager = ctx.getPackageManager();
-                        if (packageManager != null) {
-                            PackageInfo info = packageManager.getPackageInfo(ctx.getPackageName(), 0);
-                            parameters.setParameter(CoreProtocolPNames.USER_AGENT,
-                                string.format(Locale.US,
-                                    "%s/%s (%s; Android %d; Scale/%.2f; VK SDK %s; %s)",
-                                    VKUtil.getApplicationName(ctx), info.versionName,
-                                    Build.MODEL, Build.VERSION.SDK_INT,
-                                    ctx.getResources().getDisplayMetrics().density,
-                                    VKSdkVersion.SDK_VERSION,
-                                    info.packageName));
-                        }
-                    }
-                } catch (Exception ignored) {
-                }
-                sInstance = new VKHttpClient(new ThreadSafeClientConnManager(params, schemeRegistry),params);
-            }
-            return sInstance;
+        public static RequestFactory Client
+        {
+            get { return sInstance.Value; }
         }
 
         /**
@@ -69,15 +43,15 @@ namespace Vk.SDK.httpClient
      * @param vkRequest Request, created for some method
      * @return Prepared request for creating VKHttpOperation
      */
-        public static WebRequest RequestWithVkRequest(VKRequest vkRequest)
+        public static WebRequest RequestWithVkRequest(AbstractRequest vkRequest)
         {
             WebRequest request = null;
-            VKParameters preparedParameters = vkRequest.getPreparedParameters();
+            VKParameters preparedParameters = vkRequest.GetPreparedParameters();
             var urlstringBuilder = new StringBuilder();
             urlstringBuilder.AppendFormat("http{0}://api.vk.com/method/{1}", vkRequest.secure ? "s" : "", vkRequest.methodName);
             switch (vkRequest.httpMethod)
             {
-                case VKRequest.HttpMethod.GET:
+                case AbstractRequest.HttpMethod.GET:
                     if (preparedParameters.Count > 0)
                     {
                         urlstringBuilder.Append("?").Append(VKstringJoiner.joinUriParams(preparedParameters));
@@ -85,8 +59,8 @@ namespace Vk.SDK.httpClient
                     request = WebRequest.Create(urlstringBuilder.ToString());
                     break;
 
-                case VKRequest.HttpMethod.POST:
-                    WebRequest post = WebRequest.Create(urlstringBuilder.ToString());
+                case AbstractRequest.HttpMethod.POST:
+                    var post = WebRequest.Create(urlstringBuilder.ToString());
                     request.Method = "POST";
                     var pairs = new Dictionary<string, object>(preparedParameters.Count);
                     foreach (var entry in preparedParameters)
@@ -106,9 +80,26 @@ namespace Vk.SDK.httpClient
                             pairs.Add(entry.Key, value == null ? null : Convert.ToString(value));
                         }
                     }
-                    UrlEncodedFormEntity entity = new UrlEncodedFormEntity(pairs, "UTF-8");
-                    post.setEntity(entity);
+                    var boundary = "-----------------------------28520690214962";
+                    var newLine = Environment.NewLine;
+                    var propFormat = boundary + newLine +
+                                        "Content-Disposition: form-data; name=\"{0}\"" + newLine + newLine +
+                                        "{1}" + newLine + newLine;
 
+                    using (var reqStream = post.GetRequestStream())
+                    {
+                        var reqWriter = new StreamWriter(reqStream);
+                        StringBuilder bilBuilder = new StringBuilder();
+
+                        foreach (var pair in pairs)
+                        {
+                            bilBuilder.AppendFormat(propFormat, pair.Key, pair.Value);
+                        }
+                        reqWriter.Write(bilBuilder.ToString());
+                        reqWriter.Write(boundary + "--");
+                        reqWriter.Flush();
+                    }
+                    
                     request = post;
 
                     break;
