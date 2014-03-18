@@ -1,6 +1,7 @@
 using Vk.SDK.model;
 
-public class VKApiCommunity : VKApiOwner ,IIdentifiable {
+public class VKApiCommunity : VKApiOwner, IIdentifiable
+{
 
     private readonly static string TYPE_GROUP = "group";
     private readonly static string TYPE_PAGE = "page";
@@ -42,7 +43,7 @@ public class VKApiCommunity : VKApiOwner ,IIdentifiable {
 
     /**
      * Community type
-     * @see {@link com.vk.sdk.api.model.VKCommunity.Type}
+     * @see {@link com.vk.sdk.api.model.VKCommunity.PublicType}
      */
     public int type;
 
@@ -67,44 +68,41 @@ public class VKApiCommunity : VKApiOwner ,IIdentifiable {
     public VKPhotoSizes photo = new VKPhotoSizes();
 
 
-    public string ToString() {
+    public string ToString()
+    {
         return name;
     }
 
-    
-    public int describeContents() {
+
+    public int describeContents()
+    {
         return 0;
     }
 
-    
+
 
     /**
      * Access level to manage community.
      */
-    public class AdminLevel {
-        private AdminLevel() {}
-        public readonly static int MODERATOR = 1;
-        public readonly static int EDITOR = 2;
-        public readonly static int ADMIN = 3;
+    public enum AdminLevel
+    {
+       
+        MODERATOR = 1,EDITOR = 2,ADMIN = 3
     }
 
     /**
      * Privacy status of the group.
      */
-    public class Status {
-        private Status() {}
-        public readonly static int OPEN = 0;
-        public readonly static int CLOSED = 1;
-        public readonly static int PRIVATE = 2;
+    public enum Status
+    {
+        OPEN = 0, CLOSED = 1, PRIVATE = 2
     }
 
     /**
      * Types of communities.
      */
-    public class Type {
-        private Type() {}
-        public readonly static int GROUP = 0;
-        public readonly static int PAGE = 1;
-        public readonly static int EVENT = 2;
+    public enum PublicType
+    {
+        GROUP = 0, PAGE = 1, EVENT = 2
     }
 }

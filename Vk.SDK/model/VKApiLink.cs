@@ -1,7 +1,7 @@
 using System;
 using Vk.SDK.model;
 
-public class VKApiLink : VKAttachments.VKApiAttachment
+public class VKApiLink : VKApiAttachment,IIdentifiable
 {
 
     /**
@@ -42,15 +42,15 @@ public class VKApiLink : VKAttachments.VKApiAttachment
     /**
      * Fills a Link instance from JObject.
      */
-    public VKApiLink parse(JObject source)
-    {
-        url = source.optstring("url");
-        title = source.optstring("title");
-        description = source.optstring("description");
-        image_src = source.optstring("image_src");
-        preview_page = source.optstring("preview_page");
-        return this;
-    }
+    //public VKApiLink parse(JObject source)
+    //{
+    //    url = source.optstring("url");
+    //    title = source.optstring("title");
+    //    description = source.optstring("description");
+    //    image_src = source.optstring("image_src");
+    //    preview_page = source.optstring("preview_page");
+    //    return this;
+    //}
 
     /**
      * Creates a Link instance from Parcel.

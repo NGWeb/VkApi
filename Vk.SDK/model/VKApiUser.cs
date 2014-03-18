@@ -80,28 +80,28 @@ namespace Vk.SDK.model
      */
         public VKApiUser parse(JObject from)
         {
-            base.parse(from);
-            first_name = from.optstring("first_name", first_name);
-            last_name = from.optstring("last_name", last_name);
-            online = ParseUtils.parsebool(from, FIELD_ONLINE);
-            online_mobile = ParseUtils.parsebool(from, FIELD_ONLINE_MOBILE);
+            //super.parse(from);
+            //first_name = from.optstring("first_name", first_name);
+            //last_name = from.optstring("last_name", last_name);
+            //online = ParseUtils.parsebool(from, FIELD_ONLINE);
+            //online_mobile = ParseUtils.parsebool(from, FIELD_ONLINE_MOBILE);
 
-            photo_50 = from.optstring(FIELD_PHOTO_50, photo_50);
-            if (!TextUtils.isEmpty(photo_50))
-            {
-                photo.add(VKApiPhotoSize.create(photo_50, 50));
-            }
-            photo_100 = from.optstring(FIELD_PHOTO_100, photo_100);
-            if (!TextUtils.isEmpty(photo_100))
-            {
-                photo.add(VKApiPhotoSize.create(photo_100, 100));
-            }
-            photo_200 = from.optstring(FIELD_PHOTO_200, null);
-            if (!TextUtils.isEmpty(photo_200))
-            {
-                photo.add(VKApiPhotoSize.create(photo_200, 200));
-            }
-            photo.sort();
+            //photo_50 = from.optstring(FIELD_PHOTO_50, photo_50);
+            //if (!TextUtils.isEmpty(photo_50))
+            //{
+            //    photo.add(VKApiPhotoSize.create(photo_50, 50));
+            //}
+            //photo_100 = from.optstring(FIELD_PHOTO_100, photo_100);
+            //if (!TextUtils.isEmpty(photo_100))
+            //{
+            //    photo.add(VKApiPhotoSize.create(photo_100, 100));
+            //}
+            //photo_200 = from.optstring(FIELD_PHOTO_200, null);
+            //if (!TextUtils.isEmpty(photo_200))
+            //{
+            //    photo.add(VKApiPhotoSize.create(photo_200, 200));
+            //}
+            //photo.sort();
             return this;
         }
 

@@ -69,7 +69,7 @@ namespace Vk.SDK.model
         }
 
 
-        public string toAttachmentstring()
+        public string ToAttachmentstring()
         {
             StringBuilder result = new StringBuilder(TYPE_AUDIO).Append(owner_id).Append('_').Append(id);
             if (!TextUtils.isEmpty(access_key))
@@ -81,7 +81,7 @@ namespace Vk.SDK.model
         }
 
 
-        public string getType()
+        public string GetType()
         {
             return TYPE_AUDIO;
         }

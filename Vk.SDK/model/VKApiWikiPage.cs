@@ -1,4 +1,4 @@
-using System.IO;
+﻿using System.IO;
 using System.Text;
 using Newtonsoft.Json.Linq;
 using Vk.SDK.model;
@@ -79,20 +79,20 @@ public class VKApiWikiPage : VKApiAttachment{
      * Fills a WikiPage instance from JObject.
      */
     public VKApiWikiPage parse(JObject source) {
-        id = source.optInt("id");
-        group_id = source.optInt("group_id");
-        creator_id = source.optInt("creator_id");
-        title = source.optstring("title");
-        this.source = source.optstring("source");
-        current_user_can_edit = ParseUtils.parsebool(source, "current_user_can_edit");
-        current_user_can_edit_access = ParseUtils.parsebool(source, "current_user_can_edit_access");
-        who_can_view = source.optInt("who_can_view");
-        who_can_edit = source.optInt("who_can_edit");
-        editor_id = source.optInt("editor_id");
-        edited = source.optLong("edited");
-        created = source.optLong("created");
-        parent = source.optstring("parent");
-        parent2 = source.optstring("parent2");
+        //id = source.optInt("id");
+        //group_id = source.optInt("group_id");
+        //creator_id = source.optInt("creator_id");
+        //title = source.optstring("title");
+        //this.source = source.optstring("source");
+        //current_user_can_edit = ParseUtils.parsebool(source, "current_user_can_edit");
+        //current_user_can_edit_access = ParseUtils.parsebool(source, "current_user_can_edit_access");
+        //who_can_view = source.optInt("who_can_view");
+        //who_can_edit = source.optInt("who_can_edit");
+        //editor_id = source.optInt("editor_id");
+        //edited = source.optLong("edited");
+        //created = source.optLong("created");
+        //parent = source.optstring("parent");
+        //parent2 = source.optstring("parent2");
         return this;
     }
 
@@ -108,18 +108,18 @@ public class VKApiWikiPage : VKApiAttachment{
     }
 
     
-    public string toAttachmentstring() {
+    public string ToAttachmentString() {
         return new StringBuilder(TYPE_WIKI_PAGE).Append(group_id).Append('_').Append(id);
     }
 
     
-    public override string getType() {
+    public override string GetType() {
         return TYPE_WIKI_PAGE;
     }
 
     public override int Id
     {
-        get { throw new System.NotImplementedException(); }
+        get; set;
     }
 
 

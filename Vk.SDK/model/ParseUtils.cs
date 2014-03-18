@@ -1,4 +1,4 @@
-using System.Reflection;
+﻿using System.Reflection;
 using Newtonsoft.Json.Linq;
 
 namespace Vk.SDK.model
@@ -113,84 +113,84 @@ namespace Vk.SDK.model
      * @throws JSONException if source object structure is invalid
      */
   
-        public T parseViaReflection(T tobject, JObject source){
-            if (source.TryGetValue("response")) {
-                source = source.optJObject("response");
-            }
-            if (source == null) {
-                return tobject;
-            }
-            foreach (FieldInfo field in tobject.GetType().getFields()) {
-                field.setAccessible(true);
-                string fieldName = field.getName();
-                Class<?> fieldType = field.getType();
+        //public T parseViaReflection(T tobject, JObject source){
+        //    if (source.TryGetValue("response")) {
+        //        source = source.optJObject("response");
+        //    }
+        //    if (source == null) {
+        //        return tobject;
+        //    }
+        //    foreach (FieldInfo field in tobject.GetType().getFields()) {
+        //        field.setAccessible(true);
+        //        string fieldName = field.getName();
+        //        Class<?> fieldType = field.GetType();
 
-                object value = source.opt(fieldName);
-                if (value == null) {
-                    continue;
-                }
-                try {
-                    if (fieldType.isPrimitive() && value instanceof Number) {
-                        Number number = (Number) value;
-                        if (fieldType.Equals(int.class)) {
-                            field.setInt(object, number.intValue());
-                        } else if (fieldType.Equals(long.class)) {
-                            field.setLong(object, number.longValue());
-                        } else if (fieldType.Equals(float.class)) {
-                            field.setFloat(object, number.floatValue());
-                        } else if (fieldType.Equals(double.class)) {
-                            field.setDouble(object, number.doubleValue());
-                        } else if (fieldType.Equals(bool.class)) {
-                            field.setbool(object, number.intValue() == 1);
-                        } else if (fieldType.Equals(short.class)) {
-                            field.setShort(object, number.shortValue());
-                        } else if (fieldType.Equals(byte.class)) {
-                            field.setByte(object, number.byteValue());
-                        }
-                    } else {
-                        object result = field.get(object);
-                        if (value.getClass().Equals(fieldType)) {
-                            result = value;
-                        } else if (fieldType.isArray() && value instanceof JSONArray) {
-                            result = parseArrayViaReflection((JSONArray) value, fieldType);
-                        }  else if(VKPhotoSizes.class.isAssignableFrom(fieldType) && value instanceof JSONArray) {
-                            Constructor<?> constructor = fieldType.getConstructor(JSONArray.class);
-                            result = constructor.newInstance((JSONArray) value);
-                        } else if(VKAttachments.class.isAssignableFrom(fieldType) && value instanceof JSONArray) {
-                            Constructor<?> constructor = fieldType.getConstructor(JSONArray.class);
-                            result = constructor.newInstance((JSONArray) value);
-                        } else if(VKList.class.Equals(fieldType)) {
-                            ParameterizedType genericTypes = (ParameterizedType) field.getGenericType();
-                            Class<?> genericType = (Class<?>) genericTypes.getActualTypeArguments()[0];
-                            if(VKApiModel.class.isAssignableFrom(genericType) && Parcelable.class.isAssignableFrom(genericType) && Identifiable.class.isAssignableFrom(genericType)) {
-                                if(value instanceof JSONArray) {
-                                    result = new VKList((JSONArray) value, genericType);
-                                } else if(value instanceof JObject) {
-                                    result = new VKList((JObject) value, genericType);
-                                }
-                            }
-                        } else if (VKApiModel.class.isAssignableFrom(fieldType) && value instanceof JObject) {
-                            result = ((VKApiModel) fieldType.newInstance()).parse((JObject) value);
-                        }
-                        field.set(object, result);
-                    }
-                } catch (InstantiationException e) {
-                    throw new JSONException(e.getMessage());
-                } catch (IllegalAccessException e) {
-                    throw new JSONException(e.getMessage());
-                } catch (NoSuchMethodException e) {
-                    throw new JSONException(e.getMessage());
-                } catch (InvocationTargetException e) {
-                    throw new JSONException(e.getMessage());
-                } catch (NoSuchMethodError e) {
-                    // Примечание Виталия:
-                    // Вы не поверите, но у некоторых вендоров getFields() вызывает ВОТ ЭТО.
-                    // Иногда я всерьез задумываюсь, правильно ли я поступил, выбрав Android в качестве платформы разработки.
-                    throw new JSONException(e.getMessage());
-                }
-            }
-            return object;
-        }
+        //        object value = source.opt(fieldName);
+        //        if (value == null) {
+        //            continue;
+        //        }
+        //        try {
+        //            if (fieldType.isPrimitive() && value instanceof Number) {
+        //                Number number = (Number) value;
+        //                if (fieldType.Equals(int.class)) {
+        //                    field.setInt(object, number.intValue());
+        //                } else if (fieldType.Equals(long.class)) {
+        //                    field.setLong(object, number.longValue());
+        //                } else if (fieldType.Equals(float.class)) {
+        //                    field.setFloat(object, number.floatValue());
+        //                } else if (fieldType.Equals(double.class)) {
+        //                    field.setDouble(object, number.doubleValue());
+        //                } else if (fieldType.Equals(bool.class)) {
+        //                    field.setbool(object, number.intValue() == 1);
+        //                } else if (fieldType.Equals(short.class)) {
+        //                    field.setShort(object, number.shortValue());
+        //                } else if (fieldType.Equals(byte.class)) {
+        //                    field.setByte(object, number.byteValue());
+        //                }
+        //            } else {
+        //                object result = field.get(object);
+        //                if (value.getClass().Equals(fieldType)) {
+        //                    result = value;
+        //                } else if (fieldType.isArray() && value instanceof JSONArray) {
+        //                    result = parseArrayViaReflection((JSONArray) value, fieldType);
+        //                }  else if(VKPhotoSizes.class.isAssignableFrom(fieldType) && value instanceof JSONArray) {
+        //                    Constructor<?> constructor = fieldType.getConstructor(JSONArray.class);
+        //                    result = constructor.newInstance((JSONArray) value);
+        //                } else if(VKAttachments.class.isAssignableFrom(fieldType) && value instanceof JSONArray) {
+        //                    Constructor<?> constructor = fieldType.getConstructor(JSONArray.class);
+        //                    result = constructor.newInstance((JSONArray) value);
+        //                } else if(VKList.class.Equals(fieldType)) {
+        //                    ParameterizedType genericTypes = (ParameterizedType) field.getGenericType();
+        //                    Class<?> genericType = (Class<?>) genericTypes.getActualTypeArguments()[0];
+        //                    if(VKApiModel.class.isAssignableFrom(genericType) && Parcelable.class.isAssignableFrom(genericType) && Identifiable.class.isAssignableFrom(genericType)) {
+        //                        if(value instanceof JSONArray) {
+        //                            result = new VKList((JSONArray) value, genericType);
+        //                        } else if(value instanceof JObject) {
+        //                            result = new VKList((JObject) value, genericType);
+        //                        }
+        //                    }
+        //                } else if (VKApiModel.class.isAssignableFrom(fieldType) && value instanceof JObject) {
+        //                    result = ((VKApiModel) fieldType.newInstance()).parse((JObject) value);
+        //                }
+        //                field.set(object, result);
+        //            }
+        //        } catch (InstantiationException e) {
+        //            throw new JSONException(e.getMessage());
+        //        } catch (IllegalAccessException e) {
+        //            throw new JSONException(e.getMessage());
+        //        } catch (NoSuchMethodException e) {
+        //            throw new JSONException(e.getMessage());
+        //        } catch (InvocationTargetException e) {
+        //            throw new JSONException(e.getMessage());
+        //        } catch (NoSuchMethodError e) {
+        //            // Примечание Виталия:
+        //            // Вы не поверите, но у некоторых вендоров getFields() вызывает ВОТ ЭТО.
+        //            // Иногда я всерьез задумываюсь, правильно ли я поступил, выбрав Android в качестве платформы разработки.
+        //            throw new JSONException(e.getMessage());
+        //        }
+        //    }
+        //    return object;
+        //}
 
         /**
      * Parses array from given JSONArray.

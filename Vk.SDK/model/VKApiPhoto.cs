@@ -179,7 +179,7 @@ public class VKApiPhoto : VKApiAttachment , IIdentifiable {
     }
 
 
-    public override string toAttachmentstring() {
+    public override string ToAttachmentString() {
         StringBuilder result = new StringBuilder(TYPE_PHOTO).Append(owner_id).Append('_').Append(id);
         if(!TextUtils.isEmpty(access_key)) {
             result.Append('_');
@@ -189,7 +189,7 @@ public class VKApiPhoto : VKApiAttachment , IIdentifiable {
     }
 
     
-    public override string getType() {
+    public override string GetType() {
         return TYPE_PHOTO;
     }
 

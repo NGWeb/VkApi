@@ -3,12 +3,17 @@ using System.Net;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Vk.SDK.httpClient;
+using Vk.SDK.model;
 using Vk.SDK.Vk;
 
 namespace Vk.SDK
 {
-    public class VKRequest : VKObject {
+    public class VKRequest<T> : VKObject where T:VKApiModel
+    {
 
+
+
+        public event OnError Error;
         public enum VKProgressType {
             Download,
             Upload
@@ -152,20 +157,7 @@ namespace Vk.SDK
              setModelClass(modelClass);
             }
 
-        /**
-     * Executes that request, and returns result to blocks
-     *
-     * @param listener listener for request events
-     */
-        public void executeWithListener(VKRequestListener listener) {
-            this.requestListener = listener;
-            start();
-        }
-
-        public void setRequestListener(VKRequestListener listener) {
-            this.requestListener = listener;
-        }
-
+      
         /**
      * Register current request for execute after passed request, if passed request is successful. If it's not, errorBlock will be called.
      *
@@ -225,18 +217,18 @@ namespace Vk.SDK
             WebRequest request = VKHttpClient.requestWithVkRequest(this);
             if (request == null) {
                 VKError error = new VKError(VKError.VK_API_REQUEST_NOT_PREPARED);
-                provideError(error);
+                Error(this,error);
                 return null;
             }
             return request;
         }
 
-        public VKAbstractOperation getOperation() {
+        public VKAbstractOperation<T> getOperation() {
             if (this.parseModel) {
                 if (this.mModelClass != null) {
-                    mLoadingOperation = new VKModelOperation(getPreparedRequest(), this.mModelClass);
+                    mLoadingOperation = new VKModelOperation<T>(getPreparedRequest());
                 } else if (this.mModelParser != null){
-                    mLoadingOperation = new VKModelOperation(getPreparedRequest(), this.mModelParser);
+                    mLoadingOperation = new VKModelOperation<T>(getPreparedRequest(), this.mModelParser);
                 }
             }
             if (mLoadingOperation == null)

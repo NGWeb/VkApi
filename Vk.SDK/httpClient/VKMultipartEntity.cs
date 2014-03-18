@@ -33,7 +33,7 @@ namespace Vk.SDK.httpClient
 
     
         public Header getContentType() {
-            return new BasicHeader("Content-Type", string.format("multipart/form-data; boundary=%s", mBoundary));
+            return new BasicHeader("Content-PublicType", string.format("multipart/form-data; boundary=%s", mBoundary));
         }
 
     
@@ -46,7 +46,7 @@ namespace Vk.SDK.httpClient
             string extension = MimeTypeMap.getFileExtensionFromUrl(uploadFile.getAbsolutePath());
             return string.format("\r\n--%s\r\n", mBoundary) +
                    string.format("Content-Disposition: form-data; name=\"%s\"; filename=\"%s.%s\"\r\n", fileName, fileName, extension) +
-                   string.format("Content-Type: %s\r\n\r\n", getMimeType(uploadFile.getAbsolutePath()));
+                   string.format("Content-PublicType: %s\r\n\r\n", getMimeType(uploadFile.getAbsolutePath()));
         }
 
         private string getBoundaryEnd() {

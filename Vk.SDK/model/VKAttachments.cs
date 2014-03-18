@@ -91,31 +91,9 @@ namespace Vk.SDK.model
 
         }
 
-        public VKAttachments(JObject from)
-        {
-            super();
-            fill(from);
-        }
-
-        public VKAttachments(JSONArray from)
-        {
-            super();
-            fill(from);
-        }
-
-        public void fill(JObject from)
-        {
-            super.fill(from, parser);
-        }
-
-        public void fill(JSONArray from)
-        {
-            super.fill(from, parser);
-        }
-
         /**
-     * Parser that's used for parsing photo sizes.
-     */
+          * Parser that's used for parsing photo sizes.
+          */
         //        private readonly Parser<VKApiAttachment> parser = new Parser<VKApiAttachment>() {
 
         //        public VKApiAttachment parseObject(JObject attachment) {
@@ -156,17 +134,17 @@ namespace Vk.SDK.model
         /**
              * Convert attachment to special string to attach it to the post, message or comment.
              */
-        public abstract string toAttachmentstring();
+        public abstract string ToAttachmentString();
 
         /**
          * @return type of this attachment
          */
-        public abstract string getType();
+        public abstract string GetType();
 
         public abstract int Id
         {
             get;
-            protected set;
+            set;
         }
     };
 

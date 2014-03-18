@@ -6,7 +6,5 @@ namespace Vk.SDK.model
     {
         private List<T> items;
         private int count;
-
-
     }
 }

@@ -43,17 +43,17 @@ namespace Vk.SDK.model
         /**
      * Fills a Note instance from JObject.
      */
-        public VKApiNote parse(JObject source)
-        {
-            id = source.optInt("id");
-            user_id = source.optInt("user_id");
-            title = source.optstring("title");
-            text = source.optstring("text");
-            date = source.optLong("date");
-            comments = source.optInt("comments");
-            read_comments = source.optInt("read_comments");
-            return this;
-        }
+        //public VKApiNote parse(JObject source)
+        //{
+        //    id = source.optInt("id");
+        //    user_id = source.optInt("user_id");
+        //    title = source.optstring("title");
+        //    text = source.optstring("text");
+        //    date = source.optLong("date");
+        //    comments = source.optInt("comments");
+        //    read_comments = source.optInt("read_comments");
+        //    return this;
+        //}
 
 
         /**
@@ -71,13 +71,13 @@ namespace Vk.SDK.model
         }
 
 
-        public override string toAttachmentstring()
+        public override string ToAttachmentString()
         {
             return new StringBuilder(TYPE_NOTE).Append(user_id).Append('_').Append(id);
         }
 
 
-        public override string getType()
+        public override string GetType()
         {
             return TYPE_NOTE;
         }

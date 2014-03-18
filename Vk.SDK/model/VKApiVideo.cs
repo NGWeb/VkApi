@@ -150,91 +150,61 @@ public class VKApiVideo : VKApiAttachment, IIdentifiable {
      * Fills a Video instance from JObject.
      */
     public VKApiVideo parse(JObject from) {
-        id = from.optInt("id");
-        owner_id = from.optInt("owner_id");
-        title = from.optstring("title");
-        description = from.optstring("description");
-        duration = from.optInt("duration");
-        link = from.optstring("link");
-        date = from.optLong("date");
-        views = from.optInt("views");
-        comments = from.optInt("comments");
-        player = from.optstring("player");
-        access_key = from.optstring("access_key");
-        album_id = from.optInt("album_id");
+        //id = from.optInt("id");
+        //owner_id = from.optInt("owner_id");
+        //title = from.optstring("title");
+        //description = from.optstring("description");
+        //duration = from.optInt("duration");
+        //link = from.optstring("link");
+        //date = from.optLong("date");
+        //views = from.optInt("views");
+        //comments = from.optInt("comments");
+        //player = from.optstring("player");
+        //access_key = from.optstring("access_key");
+        //album_id = from.optInt("album_id");
 
-        JObject likes = from.optJObject("likes");
-        if(likes != null) {
-            this.likes = likes.optInt("count");
-            user_likes = parsebool(likes, "user_likes");
-        }
-        can_comment = parsebool(from, "can_comment");
-        can_repost = parsebool(from, "can_repost");
-        repeat = parsebool(from, "repeat");
+        //JObject likes = from.optJObject("likes");
+        //if(likes != null) {
+        //    this.likes = likes.optInt("count");
+        //    user_likes = parsebool(likes, "user_likes");
+        //}
+        //can_comment = parsebool(from, "can_comment");
+        //can_repost = parsebool(from, "can_repost");
+        //repeat = parsebool(from, "repeat");
 
-        privacy_view = VKPrivacy.parsePrivacy(from.optJObject("privacy_view"));
-        privacy_comment = VKPrivacy.parsePrivacy(from.optJObject("privacy_comment"));
+        //privacy_view = VKPrivacy.parsePrivacy(from.optJObject("privacy_view"));
+        //privacy_comment = VKPrivacy.parsePrivacy(from.optJObject("privacy_comment"));
 
-        JObject files = from.optJObject("files");
-        if(files != null) {
-            mp4_240 = files.optstring("mp4_240");
-            mp4_360 = files.optstring("mp4_360");
-            mp4_480 = files.optstring("mp4_480");
-            mp4_720 = files.optstring("mp4_720");
-            external = files.optstring("external");
-        }
+        //JObject files = from.optJObject("files");
+        //if(files != null) {
+        //    mp4_240 = files.optstring("mp4_240");
+        //    mp4_360 = files.optstring("mp4_360");
+        //    mp4_480 = files.optstring("mp4_480");
+        //    mp4_720 = files.optstring("mp4_720");
+        //    external = files.optstring("external");
+        //}
 
-        photo_130 = from.optstring("photo_130");
-        if(!TextUtils.isEmpty(photo_130)) {
-            photo.add(VKApiPhotoSize.create(photo_130, 130));
-        }
+        //photo_130 = from.optstring("photo_130");
+        //if(!TextUtils.isEmpty(photo_130)) {
+        //    photo.add(VKApiPhotoSize.create(photo_130, 130));
+        //}
 
-        photo_320 = from.optstring("photo_320");
-        if(!TextUtils.isEmpty(photo_320)) {
-            photo.add(VKApiPhotoSize.create(photo_320, 320));
-        }
+        //photo_320 = from.optstring("photo_320");
+        //if(!TextUtils.isEmpty(photo_320)) {
+        //    photo.add(VKApiPhotoSize.create(photo_320, 320));
+        //}
 
-        photo_640 = from.optstring("photo_640");
-        if(!TextUtils.isEmpty(photo_640)) {
-            photo.add(VKApiPhotoSize.create(photo_640, 640));
-        }
+        //photo_640 = from.optstring("photo_640");
+        //if(!TextUtils.isEmpty(photo_640)) {
+        //    photo.add(VKApiPhotoSize.create(photo_640, 640));
+        //}
         return this;
     }
 
     /**
      * Creates a Video instance from Parcel.
      */
-    public VKApiVideo(Parcel in) {
-        this.id = in.readInt();
-        this.owner_id = in.readInt();
-        this.album_id = in.readInt();
-        this.title = in.readstring();
-        this.description = in.readstring();
-        this.duration = in.readInt();
-        this.link = in.readstring();
-        this.date = in.readLong();
-        this.views = in.readInt();
-        this.player = in.readstring();
-        this.photo_130 = in.readstring();
-        this.photo_320 = in.readstring();
-        this.photo_640 = in.readstring();
-        this.photo = in.readParcelable(VKPhotoSizes.class.getClassLoader());
-        this.access_key = in.readstring();
-        this.comments = in.readInt();
-        this.can_comment = in.readByte() != 0;
-        this.can_repost = in.readByte() != 0;
-        this.user_likes = in.readByte() != 0;
-        this.repeat = in.readByte() != 0;
-        this.likes = in.readInt();
-        this.privacy_view = in.readInt();
-        this.privacy_comment = in.readInt();
-        this.mp4_240 = in.readstring();
-        this.mp4_360 = in.readstring();
-        this.mp4_480 = in.readstring();
-        this.mp4_720 = in.readstring();
-        this.external = in.readstring();
-    }
-
+ 
     /**
      * Creates empty Video instance.
      */
@@ -249,9 +219,9 @@ public class VKApiVideo : VKApiAttachment, IIdentifiable {
     }
 
 
-    public String toAttachmentstring() {
+    public String ToAttachmentString() {
         StringBuilder result = new StringBuilder(TYPE_VIDEO).Append(owner_id).Append('_').Append(id);
-        if(!TextUtils.isEmpty(access_key)) {
+        if(string.IsNullOrEmpty(access_key)) {
             result.Append('_');
             result.Append(access_key);
         }

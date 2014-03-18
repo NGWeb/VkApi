@@ -17,7 +17,7 @@ namespace Vk.SDK.photo
         }
 
         /**
-     * Type of image compression. Can be <b>VKImageType.Jpg</b> or <b>VKImageType.Png</b>.
+     * PublicType of image compression. Can be <b>VKImageType.Jpg</b> or <b>VKImageType.Png</b>.
      */
         public VKImageType mImageType = VKImageType.Png;
         /**

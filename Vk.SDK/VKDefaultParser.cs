@@ -11,7 +11,6 @@ namespace Vk.SDK
         public VKApiModel CreateModel(JObject jsobject)
         {
             VKApiModel model = JsonConvert.DeserializeObject<T>(jsobject.ToString());
-            model.parse(jsobject);
             return model;
         }
     }

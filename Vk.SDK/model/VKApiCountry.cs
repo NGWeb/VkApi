@@ -16,12 +16,12 @@ namespace Vk.SDK.model
         /**
      * Fills a Country instance from JObject.
      */
-        public VKApiCountry parse(JObject from)
-        {
-            id = from.optInt("id");
-            title = from.optstring("title");
-            return this;
-        }
+        //public VKApiCountry parse(JObject from)
+        //{
+        //    id = from.optInt("id");
+        //    title = from.optstring("title");
+        //    return this;
+        //}
 
         /**
      * Creates a Country instance from Parcel.

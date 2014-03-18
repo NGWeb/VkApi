@@ -48,13 +48,13 @@ namespace Vk.SDK.model
         }
 
 
-        public override string toAttachmentstring()
+        public override string ToAttachmentString()
         {
             return null;
         }
 
 
-        public override string getType()
+        public override string GetType()
         {
             return TYPE_POLL;
         }
@@ -62,7 +62,7 @@ namespace Vk.SDK.model
         public override int Id
         {
             get;
-            protected set;
+            set;
         }
     }
 }

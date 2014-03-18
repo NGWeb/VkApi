@@ -167,21 +167,21 @@ public class VKApiPhotoSize : VKApiModel,IIdentifiable {
      * @param originalWidth original image width in pixels
      * @param originalHeight original image height in pixels
      */
-    public static VKApiPhotoSize parse(JObject source, int originalWidth, int originalHeight) {
+    public VKApiPhotoSize parse(JObject source, int originalWidth, int originalHeight) {
         VKApiPhotoSize result = new VKApiPhotoSize();
-        result.src = source.optstring("src");
-        result.width = source.optInt("width");
-        result.height = source.optInt("height");
-        string type = source.optstring("type");
-        if(!TextUtils.isEmpty(type)) {
-            result.type = type.charAt(0);
-        }
-        // Казалось бы, теперь можно с чистой советью закончить метод.
-        // Но нет, оказывается, width и height не просчитывается на некоторых серверах ВК.
-        // Приходится гадать на кофейной гуще.
-        if(result.width == 0 || result.height == 0) {
-            fillDimensions(result, originalWidth, originalHeight);
-        }
+        //result.src = source.optstring("src");
+        //result.width = source.optInt("width");
+        //result.height = source.optInt("height");
+        //string type = source.optstring("type");
+        //if(!TextUtils.isEmpty(type)) {
+        //    result.type = type.charAt(0);
+        //}
+        //// Казалось бы, теперь можно с чистой советью закончить метод.
+        //// Но нет, оказывается, width и height не просчитывается на некоторых серверах ВК.
+        //// Приходится гадать на кофейной гуще.
+        //if(result.width == 0 || result.height == 0) {
+        //    fillDimensions(result, originalWidth, originalHeight);
+        //}
         return result;
     }
 

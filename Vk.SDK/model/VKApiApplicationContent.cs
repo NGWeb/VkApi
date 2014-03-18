@@ -33,19 +33,19 @@ namespace Vk.SDK.model
             return 0;
         }
 
-        public override string toAttachmentstring()
+        public override string ToAttachmentString()
         {
             throw new System.NotImplementedException();
         }
 
-        public override string getType()
+        public override string GetType()
         {
             throw new System.NotImplementedException();
         }
 
         public override int Id
         {
-            get { throw new System.NotImplementedException(); }
+            get; protected set;
         }
     }
 }

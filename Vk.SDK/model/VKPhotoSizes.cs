@@ -97,8 +97,7 @@ namespace Vk.SDK.model
 
         public string getByType(char type)
         {
-            for (VKApiPhotoSize size in
-            this)
+            foreach (VKApiPhotoSize size in this)
             {
                 if (size.type == type)
                 {
@@ -130,11 +129,7 @@ namespace Vk.SDK.model
      * Sorts thumbs according to their width.
      */
 
-        public void sort()
-        {
-            Collections.sort(this);
-        }
-
+   
         /**
      * Finds an image that fits perfectly into the specified dimensions.
      * Method is uses a cache of last thumbs for better performance.

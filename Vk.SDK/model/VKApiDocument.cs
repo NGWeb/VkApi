@@ -60,26 +60,26 @@ namespace Vk.SDK.model
         /**
      * Fills a Doc instance from JObject.
      */
-        public VKApiDocument parse(JObject jo) {
-            id = jo.optInt("id");
-            owner_id = jo.optInt("owner_id");
-            title = jo.optstring("title");
-            size = jo.optLong("size");
-            ext = jo.optstring("ext");
-            url = jo.optstring("url");
-            access_key = jo.optstring("access_key");
+        //public VKApiDocument parse(JObject jo) {
+        //    id = jo.optInt("id");
+        //    owner_id = jo.optInt("owner_id");
+        //    title = jo.optstring("title");
+        //    size = jo.optLong("size");
+        //    ext = jo.optstring("ext");
+        //    url = jo.optstring("url");
+        //    access_key = jo.optstring("access_key");
 
-            photo_100 = jo.optstring("photo_100");
-            if(!TextUtils.isEmpty(photo_100)) {
-                photo.add(VKApiPhotoSize.create(photo_100, 100, 75));
-            }
-            photo_130 = jo.optstring("photo_130");
-            if(!TextUtils.isEmpty(photo_130)) {
-                photo.add(VKApiPhotoSize.create(photo_130, 130, 100));
-            }
-            photo.sort();
-            return this;
-        }
+        //    photo_100 = jo.optstring("photo_100");
+        //    if(!TextUtils.isEmpty(photo_100)) {
+        //        photo.add(VKApiPhotoSize.create(photo_100, 100, 75));
+        //    }
+        //    photo_130 = jo.optstring("photo_130");
+        //    if(!TextUtils.isEmpty(photo_130)) {
+        //        photo.add(VKApiPhotoSize.create(photo_130, 130, 100));
+        //    }
+        //    photo.sort();
+        //    return this;
+        //}
 
         /**
      * Creates a Doc instance from Parcel.

@@ -3,7 +3,8 @@ using Newtonsoft.Json.Linq;
 
 namespace Vk.SDK.model
 {
-    public abstract class VKApiModel {
+    public abstract class VKApiModel
+    {
 
         public JObject fields;
         /**
@@ -14,7 +15,7 @@ namespace Vk.SDK.model
         /**
      * Map used to store model's tags.
      */
-        private List<object> mKeyedTags;
+        private Dictionary<int, object> mKeyedTags;
 
         /**
      * Returns this model's tag.
@@ -24,7 +25,8 @@ namespace Vk.SDK.model
      * @see #setTag(object)
      * @see #getTag(int)
      */
-        public object getTag() {
+        public object getTag()
+        {
             return mTag;
         }
 
@@ -37,7 +39,8 @@ namespace Vk.SDK.model
      * @see #getTag()
      * @see #setTag(int, object)
      */
-        public void setTag(object tag) {
+        public void setTag(object tag)
+        {
             mTag = tag;
         }
 
@@ -51,8 +54,9 @@ namespace Vk.SDK.model
      * @see #setTag(int, object)
      * @see #getTag()
      */
-        public object getTag(int key) {
-            if (mKeyedTags != null) return mKeyedTags.get(key);
+        public object getTag(int key)
+        {
+            if (mKeyedTags != null) return mKeyedTags[key];
             return null;
         }
 
@@ -64,21 +68,13 @@ namespace Vk.SDK.model
      * @see #setTag(object)
      * @see #getTag(int)
      */
-        public void setTag(int key, readonly object tag) {
-            if (mKeyedTags == null) {
-                mKeyedTags = new SparseArray<object>(2);
+        public void setTag(int key, object tag)
+        {
+            if (mKeyedTags == null)
+            {
+                mKeyedTags = new Dictionary<int, object>();
             }
-            mKeyedTags.put(key, tag);
-        }
-
-        /**
-     * Parses object from source.
-     * @param response server API object.
-     * @return this object.
-     * @throws JSONException if any critical error occurred while parsing.
-     */
-        public VKApiModel parse(JObject response) {
-            return ParseUtils.parseViaReflection(this, response);
+            mKeyedTags.Add(key, tag);
         }
     }
 }

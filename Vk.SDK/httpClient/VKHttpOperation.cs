@@ -4,7 +4,7 @@ using System.Net;
 
 namespace Vk.SDK.httpClient
 {
-    public class VKHttpOperation : VKAbstractOperation<> {
+    public class VKHttpOperation<T> : VKAbstractOperation<T> where T:class {
         /**
      * Request initialized this object
      */
