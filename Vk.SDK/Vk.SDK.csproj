@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="AbstractRequest.cs" />
     <Compile Include="model\Answer.cs" />
+    <Compile Include="photo\VKUploadImageOperation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

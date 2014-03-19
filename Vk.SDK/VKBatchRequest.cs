@@ -8,7 +8,7 @@ namespace Vk.SDK
     public delegate void ProgressDelegate(object sender, EventArgs e);
     public class VKBatchRequest : VKObject
     {
-        private readonly VKRequest[] mRequests;
+        private readonly AbstractRequest[] mRequests;
         private readonly VKResponse[] mResponses;
         private bool mCanceled = false;
 
@@ -21,7 +21,7 @@ namespace Vk.SDK
      * Specify listener for current request
      */
 
-        public VKBatchRequest(params VKRequest[] requests)
+        public VKBatchRequest(params AbstractRequest[] requests)
         {
             mRequests = requests;
             mResponses = new VKResponse[mRequests.Length];
@@ -35,7 +35,7 @@ namespace Vk.SDK
                 return;
             }
 
-            foreach (VKRequest request in mRequests)
+            foreach (AbstractRequest request in mRequests)
             {
                 //         VKRequest.VKRequestListener originalListener = request.requestListener;
                 //            request.setRequestListener(new VKRequest.VKRequestListener()
@@ -82,7 +82,7 @@ namespace Vk.SDK
         {
             if (mCanceled) return;
             mCanceled = true;
-            foreach (VKRequest request in mRequests)
+            foreach (AbstractRequest request in mRequests)
                 request.Cancel();
 
         }

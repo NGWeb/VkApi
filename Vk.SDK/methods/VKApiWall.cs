@@ -14,66 +14,66 @@ public class VKApiWall : VKApiBase {
 
     public VKRequest<VKPostArray> getById(VKParameters parameters) {
         if (((int) parameters["extended"]) == 1) {
-            return prepareRequest<VKPostArray>("get", parameters, VKRequest.HttpMethod.GET);
+            return prepareRequest<VKPostArray>("get", parameters, AbstractRequest.HttpMethod.GET);
         } else {
-            return prepareRequest("get", parameters);
+            return prepareRequest<VKPostArray>("get", parameters);
         }
     }
 
-    public VKRequest savePost(VKParameters parameters) {
-        return prepareRequest("savePost", parameters);
+    public VkJsonRequest savePost(VKParameters parameters) {
+        return PrepareJsonRequest("savePost", parameters);
     }
 
 
-    public VKRequest post(VKParameters parameters) {
-        return prepareRequest("post", parameters, VKRequest.HttpMethod.POST);
+    public VkJsonRequest post(VKParameters parameters) {
+        return PrepareJsonRequest("post", parameters, AbstractRequest.HttpMethod.POST);
     }
 
-    public VKRequest repost(VKParameters parameters) {
-        return prepareRequest("repost", parameters);
+    public VkJsonRequest repost(VKParameters parameters) {
+        return PrepareJsonRequest("repost", parameters);
     }
 
-    public VKRequest getReposts(VKParameters parameters) {
-        return prepareRequest("getReposts", parameters);
+    public VkJsonRequest getReposts(VKParameters parameters) {
+        return PrepareJsonRequest("getReposts", parameters);
     }
 
-    public VKRequest edit(VKParameters parameters) {
-        return prepareRequest("edit", parameters);
+    public VkJsonRequest edit(VKParameters parameters) {
+        return PrepareJsonRequest("edit", parameters);
     }
 
-    public VKRequest delete(VKParameters parameters) {
-        return prepareRequest("delete", parameters);
+    public VkJsonRequest delete(VKParameters parameters) {
+        return PrepareJsonRequest("delete", parameters);
     }
 
-    public VKRequest restore(VKParameters parameters) {
-        return prepareRequest("restore", parameters);
+    public VkJsonRequest restore(VKParameters parameters) {
+        return PrepareJsonRequest("restore", parameters);
     }
 
-    public VKRequest getComments(VKParameters parameters) {
-        return prepareRequest("getComments", parameters, VKRequest.HttpMethod.GET, typeof(VKCommentArray));
+    public VKRequest<VKCommentArray> getComments(VKParameters parameters) {
+        return prepareRequest<VKCommentArray>("getComments", parameters, AbstractRequest.HttpMethod.GET );
     }
 
-    public VKRequest addComment(VKParameters parameters) {
-        return prepareRequest("addComment", parameters);
+    public VkJsonRequest addComment(VKParameters parameters) {
+        return PrepareJsonRequest("addComment", parameters);
     }
 
-    public VKRequest editComment(VKParameters parameters) {
-        return prepareRequest("editComment", parameters);
+    public VkJsonRequest editComment(VKParameters parameters) {
+        return PrepareJsonRequest("editComment", parameters);
     }
 
-    public VKRequest deleteComment(VKParameters parameters) {
-        return prepareRequest("deleteComment", parameters);
+    public VkJsonRequest deleteComment(VKParameters parameters) {
+        return PrepareJsonRequest("deleteComment", parameters);
     }
 
-    public VKRequest restoreComment(VKParameters parameters) {
-        return prepareRequest("restoreComment", parameters);
+    public VkJsonRequest restoreComment(VKParameters parameters) {
+        return PrepareJsonRequest("restoreComment", parameters);
     }
 
-    public VKRequest reportPost(VKParameters parameters) {
-        return prepareRequest("reportPost", parameters);
+    public VkJsonRequest reportPost(VKParameters parameters) {
+        return PrepareJsonRequest("reportPost", parameters);
     }
 
-    public VKRequest reportComment(VKParameters parameters) {
-        return prepareRequest("reportComment", parameters);
+    public VkJsonRequest reportComment(VKParameters parameters) {
+        return PrepareJsonRequest("reportComment", parameters);
     }
 }

@@ -1,11 +1,10 @@
+using Newtonsoft.Json.Linq;
+using Vk.SDK.Util;
+
 namespace Vk.SDK.photo
 {
     public class VKUploadAlbumPhotoRequest : VKUploadPhotoBase {
-        /**
-	 * 
-	 */
-        private static readonly long serialVersionUID = 5439648671595840976L;
-
+     
         public VKUploadAlbumPhotoRequest(byte[] image, long albumId, long groupId) {
             mAlbumId = albumId;
             mGroupId = groupId;

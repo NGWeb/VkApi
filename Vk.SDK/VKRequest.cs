@@ -83,10 +83,39 @@ namespace Vk.SDK
             if (mLoadingOperation != null)
                 mLoadingOperation.Cancel();
             else
-                OnError( new VKError(VKError.VK_API_CANCELED));
+                OnError(new VKError(VKError.VK_API_CANCELED));
         }
     }
 
+    public class VkJsonRequest : AbstractRequest
+    {
+        public VkJsonRequest(string method)
+            : base(method)
+        {
+        }
+
+        public VkJsonRequest(string method, VKParameters parameters)
+            : base(method, parameters)
+        {
+        }
+
+        public VkJsonRequest(string method, VKParameters parameters, HttpMethod httpMethod)
+            : base(method, parameters, httpMethod)
+        {
+        }
+
+        public override void Cancel()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public override object GetResponse()
+        {
+            var operation = new VKJsonOperation(GetPreparedRequest());
+            operation.Start();
+            return operation.getResponseJson();
+        }
+    }
 }
 
 

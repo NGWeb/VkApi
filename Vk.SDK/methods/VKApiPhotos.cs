@@ -5,34 +5,34 @@ using Vk.SDK.Util;
 
 public class VKApiPhotos : VKApiBase
 {
-    public VKRequest getUploadServer(long albumId)
+    public VkJsonRequest getUploadServer(long albumId)
     {
-        return prepareRequest("getUploadServer", VKUtil.paramsFrom(VKApiConst.ALBUM_ID, albumId));
+        return PrepareJsonRequest("getUploadServer", VKUtil.paramsFrom(VKApiConst.ALBUM_ID, albumId));
     }
 
-    public VKRequest getUploadServer(long albumId, long groupId)
+    public VkJsonRequest getUploadServer(long albumId, long groupId)
     {
-        return prepareRequest("getUploadServer", VKUtil.paramsFrom(VKApiConst.ALBUM_ID, albumId, VKApiConst.GROUP_ID, groupId));
+        return PrepareJsonRequest("getUploadServer", VKUtil.paramsFrom(VKApiConst.ALBUM_ID, albumId, VKApiConst.GROUP_ID, groupId));
     }
 
-    public VKRequest getWallUploadServer()
+    public VkJsonRequest getWallUploadServer()
     {
-        return prepareRequest("getWallUploadServer", null);
+        return PrepareJsonRequest("getWallUploadServer", null);
     }
 
-    public VKRequest getWallUploadServer(long groupId)
+    public VkJsonRequest getWallUploadServer(long groupId)
     {
-        return prepareRequest("getWallUploadServer", VKUtil.paramsFrom(VKApiConst.GROUP_ID, groupId));
+        return PrepareJsonRequest("getWallUploadServer", VKUtil.paramsFrom(VKApiConst.GROUP_ID, groupId));
     }
 
-    public VKRequest saveWallPhoto(VKParameters parameters)
+    public VKRequest<VKPhotoArray> saveWallPhoto(VKParameters parameters)
     {
-        return prepareRequest("saveWallPhoto", parameters, VKRequest.HttpMethod.POST, typeof(VKPhotoArray));
+        return prepareRequest<VKPhotoArray>("saveWallPhoto", parameters, AbstractRequest.HttpMethod.POST);
 
     }
 
-    public VKRequest save(VKParameters parameters)
+    public VKRequest<VKPhotoArray> save(VKParameters parameters)
     {
-        return prepareRequest("save", parameters, VKRequest.HttpMethod.POST, typeof(VKPhotoArray));
+        return prepareRequest<VKPhotoArray>("save", parameters, AbstractRequest.HttpMethod.POST);
     }
 }

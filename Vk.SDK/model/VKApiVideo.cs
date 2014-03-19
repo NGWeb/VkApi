@@ -1,5 +1,6 @@
 using System;
 using System.Text;
+using Newtonsoft.Json.Linq;
 using Vk.SDK.model;
 
 public class VKApiVideo : VKApiAttachment, IIdentifiable {

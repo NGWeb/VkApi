@@ -1,10 +1,12 @@
+using Newtonsoft.Json.Linq;
+
 namespace Vk.SDK
 {
     public class VKResponse {
         /**
      * Request which caused response
      */
-        public VKRequest request;
+        public AbstractRequest request;
         /**
      * Json content of response. Can be array or object.
      */

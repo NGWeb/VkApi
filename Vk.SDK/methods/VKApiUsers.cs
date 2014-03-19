@@ -8,10 +8,7 @@ namespace Vk.SDK.methods
      *
      * @return Request for load
      */
-        public VKRequest get() {
-            return get(null);
-        }
-
+    
         /**
      * https://vk.com/dev/users.get
      *
@@ -20,7 +17,7 @@ namespace Vk.SDK.methods
      */
         public VKRequest<VKApiUser> get(VKParameters parameters)
         {
-            return prepareRequest<VKApiUser>("get", parameters, VKRequest.HttpMethod.GET);
+            return prepareRequest<VKApiUser>("get", parameters, AbstractRequest.HttpMethod.GET);
         }
 
         /**
@@ -29,8 +26,8 @@ namespace Vk.SDK.methods
      * @param params use parameters from description with VKApiConst class
      * @return Request for load
      */
-        public VKRequest search(VKParameters parameters) {
-            return prepareRequest("search", parameters, VKRequest.HttpMethod.GET, typeof(VKUsersArray));
+        public VKRequest<VKUsersArray> search(VKParameters parameters) {
+            return prepareRequest<VKUsersArray>("search", parameters, AbstractRequest.HttpMethod.GET);
         }
 
         /**
@@ -38,8 +35,8 @@ namespace Vk.SDK.methods
      *
      * @return Request for load
      */
-        public VKRequest isAppUser() {
-            return prepareRequest("isAppUser", null);
+        public VkJsonRequest isAppUser() {
+            return PrepareJsonRequest("isAppUser", null);
         }
 
         /**
@@ -48,9 +45,8 @@ namespace Vk.SDK.methods
      * @param userID ID of user to check
      * @return Request for load
      */
-        public VKRequest isAppUser(int userID) {
-            return prepareRequest("isAppUser",
-                new VKParameters() {{VKApiConst.USER_ID, userID}});
+        public VkJsonRequest isAppUser(int userID) {
+            return PrepareJsonRequest("isAppUser",new VKParameters{{VKApiConst.USER_ID, userID}});
         }
 
         /**
@@ -58,7 +54,7 @@ namespace Vk.SDK.methods
      *
      * @return Request for load
      */
-        public VKRequest getSubscriptions() {
+        public VkJsonRequest getSubscriptions() {
             return getSubscriptions(null);
         }
 
@@ -68,8 +64,8 @@ namespace Vk.SDK.methods
      * @param params use parameters from description with VKApiConst class
      * @return Request for load
      */
-        public VKRequest getSubscriptions(VKParameters parameters) {
-            return prepareRequest("getSubscriptions", parameters);
+        public VkJsonRequest getSubscriptions(VKParameters parameters) {
+            return PrepareJsonRequest("getSubscriptions", parameters);
         }
 
         /**
@@ -77,7 +73,7 @@ namespace Vk.SDK.methods
      *
      * @return Request for load
      */
-        public VKRequest getFollowers() {
+        public VKRequest<VKUsersArray> getFollowers() {
             return getFollowers(null);
         }
 
@@ -87,8 +83,8 @@ namespace Vk.SDK.methods
      * @param params use parameters from description with VKApiConst class
      * @return Request for load
      */
-        public VKRequest getFollowers(VKParameters parameters) {
-            return prepareRequest("getFollowers", parameters);
+        public VKRequest<VKUsersArray> getFollowers(VKParameters parameters) {
+            return prepareRequest<VKUsersArray>("getFollowers", parameters);
         }
 
         /**
@@ -98,8 +94,8 @@ namespace Vk.SDK.methods
      * @param params use parameters from description with VKApiConst class
      * @return Request for load
      */
-        public VKRequest report(VKParameters parameters) {
-            return prepareRequest("report", parameters);
+        public VkJsonRequest report(VKParameters parameters) {
+            return PrepareJsonRequest("report", parameters);
         }
     }
 }

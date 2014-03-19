@@ -29,5 +29,15 @@ namespace Vk.SDK.methods
         {
             return new VKRequest<T>(string.Format("{0}.{1}", mMethodGroup, methodName), methodParameters, httpMethod);
         }
+
+        protected VkJsonRequest PrepareJsonRequest(string methodName, VKParameters methodParameters)
+        {
+            return PrepareJsonRequest(methodName, methodParameters, AbstractRequest.HttpMethod.GET);
+        }
+
+        private VkJsonRequest PrepareJsonRequest(string methodName, VKParameters methodParameters, AbstractRequest.HttpMethod httpMethod)
+        {
+            return new VkJsonRequest(string.Format("{0}.{1}", mMethodGroup, methodName), methodParameters, httpMethod);
+        }
     }
 }

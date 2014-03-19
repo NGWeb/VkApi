@@ -47,132 +47,132 @@ namespace Vk.SDK.model
      * @param clazz class represents a model that has a public constructor with {@link org.json.JObject} argument.
      */
 
-        public VKList(JObject from, System.Type clazz)
-        {
-            fill(from, clazz);
-        }
+     //   public VKList(JObject from)
+     //   {
+     //       fill(from);
+     //   }
 
-        /**
-     * Creates list and fills it according with data in {@code from}.
-     * @param from an array of items in the list. You can use null.
-     * @param clazz class represents a model that has a public constructor with {@link org.json.JObject} argument.
-     */
+     //   /**
+     //* Creates list and fills it according with data in {@code from}.
+     //* @param from an array of items in the list. You can use null.
+     //* @param clazz class represents a model that has a public constructor with {@link org.json.JObject} argument.
+     //*/
 
-        public VKList(JSONArray from, System.Type clazz)
-        {
-            fill(from, clazz);
-        }
+     //   public VKList(JSONArray from, System.Type clazz)
+     //   {
+     //       fill(from, clazz);
+     //   }
 
-        /**
-     * Creates list and fills it according with data in {@code from}.
-     * @param from an object that represents a list adopted in accordance with VK API format. You can use null.
-     * @param creator interface implementation to parse objects.
-     */
+     //   /**
+     //* Creates list and fills it according with data in {@code from}.
+     //* @param from an object that represents a list adopted in accordance with VK API format. You can use null.
+     //* @param creator interface implementation to parse objects.
+     //*/
 
-        public VKList(JObject from, Parser<T> creator)
-        {
+     //   public VKList(JObject from, Parser<T> creator)
+     //   {
 
-            fill(from, creator);
-        }
+     //       fill(from, creator);
+     //   }
 
-        /**
-     * Creates list and fills it according with data in {@code from}.
-     * @param from an array of items in the list. You can use null.
-     * @param creator interface implementation to parse objects.
-     */
+     //   /**
+     //* Creates list and fills it according with data in {@code from}.
+     //* @param from an array of items in the list. You can use null.
+     //* @param creator interface implementation to parse objects.
+     //*/
 
-        public VKList(JSONArray from, Parser<T> creator)
-        {
+     //   public VKList(JSONArray from, Parser<T> creator)
+     //   {
 
-            fill(from, creator);
-        }
+     //       fill(from, creator);
+     //   }
 
-        /**
-     * Fills list according with data in {@code from}.
-     * @param from an object that represents a list adopted in accordance with VK API format. You can use null.
-     * @param clazz class represents a model that has a public constructor with {@link org.json.JObject} argument.
-     */
+     //   /**
+     //* Fills list according with data in {@code from}.
+     //* @param from an object that represents a list adopted in accordance with VK API format. You can use null.
+     //* @param clazz class represents a model that has a public constructor with {@link org.json.JObject} argument.
+     //*/
 
-        public void fill(JObject from, Type clazz)
-        {
-            if (from.has("response"))
-            {
-                JSONArray array = from.optJSONArray("response");
-                if (array != null)
-                {
-                    fill(array, clazz);
-                }
-                else
-                {
-                    fill(from.optJObject("response"), clazz);
-                }
-            }
-            else
-            {
-                fill(from, new ReflectParser<T>(clazz));
-            }
-        }
+     //   public void fill(JObject from, Type clazz)
+     //   {
+     //       if (from.has("response"))
+     //       {
+     //           JSONArray array = from.optJSONArray("response");
+     //           if (array != null)
+     //           {
+     //               fill(array, clazz);
+     //           }
+     //           else
+     //           {
+     //               fill(from.optJObject("response"), clazz);
+     //           }
+     //       }
+     //       else
+     //       {
+     //           fill(from, new ReflectParser<T>(clazz));
+     //       }
+     //   }
 
-        /**
-     * Creates list and fills it according with data in {@code from}.
-     * @param from an array of items in the list. You can use null.
-     * @param clazz class represents a model that has a public constructor with {@link org.json.JObject} argument.
-     */
+     //   /**
+     //* Creates list and fills it according with data in {@code from}.
+     //* @param from an array of items in the list. You can use null.
+     //* @param clazz class represents a model that has a public constructor with {@link org.json.JObject} argument.
+     //*/
 
-        public void fill(JArray from, System.Type clazz)
-        {
-            fill(from, new ReflectParser<T>(clazz));
-        }
+     //   public void fill(JArray from, System.Type clazz)
+     //   {
+     //       fill(from, new ReflectParser<T>(clazz));
+     //   }
 
-        /**
-     * Fills list according with data in {@code from}.
-     * @param from an object that represents a list adopted in accordance with VK API format. You can use null.
-     * @param creator interface implementation to parse objects.
-     */
+     //   /**
+     //* Fills list according with data in {@code from}.
+     //* @param from an object that represents a list adopted in accordance with VK API format. You can use null.
+     //* @param creator interface implementation to parse objects.
+     //*/
 
-        public void fill(JObject from, Func<JObject> creator)
-        {
-            if (from != null)
-            {
-                fill(from.GetValue("items"), creator);
-                count = from.optInt("count", count);
-            }
-        }
+     //   public void fill(JObject from, Func<JObject> creator)
+     //   {
+     //       if (from != null)
+     //       {
+     //           fill(from.GetValue("items"), creator);
+     //           count = from.optInt("count", count);
+     //       }
+     //   }
 
-        /**
-     * Fills list according with data in {@code from}.
-     * @param from an array of items in the list. You can use null.
-     * @param creator interface implementation to parse objects.
-     */
+     //   /**
+     //* Fills list according with data in {@code from}.
+     //* @param from an array of items in the list. You can use null.
+     //* @param creator interface implementation to parse objects.
+     //*/
 
-        public void fill(JArray from, Func<JObject, VKList<T>> creator)
-        {
-            if (from != null)
-            {
-                foreach (var jo in from)
-                {
+     //   public void fill(JArray from, Func<JObject, VKList<T>> creator)
+     //   {
+     //       if (from != null)
+     //       {
+     //           foreach (var jo in from)
+     //           {
 
-                    for (int i = 0; i < from.length(); i++)
-                    {
-                        try
-                        {
-                            T tobject =
-                            creator.parseObject(from.getJObject(i));
-                            if (tobject !=
-                            null)
-                            {
-                                items.Add(tobject);
-                            }
-                        }
-                        catch (Exception e)
-                        {
-                            if (VKSdk.DEBUG)
-                                e.printStackTrace();
-                        }
-                    }
-                }
-            }
+     //               for (int i = 0; i < from.length(); i++)
+     //               {
+     //                   try
+     //                   {
+     //                       T tobject =
+     //                       creator.parseObject(from.getJObject(i));
+     //                       if (tobject !=
+     //                       null)
+     //                       {
+     //                           items.Add(tobject);
+     //                       }
+     //                   }
+     //                   catch (Exception e)
+     //                   {
+     //                       if (VKSdk.DEBUG)
+     //                           e.printStackTrace();
+     //                   }
+     //               }
+     //           }
+     //       }
 
-        }
+     //   }
     }
 }

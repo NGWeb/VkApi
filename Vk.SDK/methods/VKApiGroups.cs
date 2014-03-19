@@ -5,71 +5,71 @@ namespace Vk.SDK.methods
     public class VKApiGroups : VKApiBase
     {
 
-        public VKRequest isMember(VKParameters parameters)
+        public VkJsonRequest isMember(VKParameters parameters)
         {
-            return prepareRequest("isMember", parameters);
+            return PrepareJsonRequest("isMember", parameters);
         }
 
         public VKRequest<VKApiCommunityArray> getById(VKParameters parameters)
         {
-            return prepareRequest<VKApiCommunityArray>("getById", parameters, VKRequest.HttpMethod.GET);
+            return prepareRequest<VKApiCommunityArray>("getById", parameters, AbstractRequest.HttpMethod.GET);
         }
 
-        public VKRequest get(VKParameters parameters)
+        public VKRequest<VKApiCommunityArray> get(VKParameters parameters)
         {
             if (((int)parameters["extended"]) == 1)
             {
-                return prepareRequest("get", parameters, VKRequest.HttpMethod.GET, typeof(VKApiCommunityArray));
+                return prepareRequest<VKApiCommunityArray>("get", parameters, AbstractRequest.HttpMethod.GET);
             }
             else
             {
-                return prepareRequest("get", parameters);
+                return prepareRequest<VKApiCommunityArray>("get", parameters);
             }
         }
 
-        public VKRequest getMembers(VKParameters parameters)
+        public VKRequest<VKUsersArray> getMembers(VKParameters parameters)
         {
-            return prepareRequest("getMembers", parameters);
+            return prepareRequest<VKUsersArray>("getMembers", parameters);
         }
 
-        public VKRequest join(VKParameters parameters)
+        public VkJsonRequest join(VKParameters parameters)
         {
-            return prepareRequest("join", parameters);
+            return PrepareJsonRequest("join", parameters);
         }
 
-        public VKRequest leave(VKParameters parameters)
+        public VkJsonRequest leave(VKParameters parameters)
         {
-            return prepareRequest("leave", parameters);
+            return PrepareJsonRequest("leave", parameters);
         }
 
-        public VKRequest leave(int group_id)
+        public VkJsonRequest leave(int group_id)
         {
-            return prepareRequest("leave", new VKParameters() { { VKApiConst.GROUP_ID, group_id } });
+            return PrepareJsonRequest("leave", new VKParameters() { { VKApiConst.GROUP_ID, group_id } });
         }
 
-        public VKRequest search(VKParameters parameters)
+        public VKRequest<VKApiCommunityArray> search(VKParameters parameters)
         {
-            return prepareRequest("search", parameters, VKRequest.HttpMethod.GET, typeof(VKApiCommunityArray));
+            return prepareRequest<VKApiCommunityArray>("search", parameters, AbstractRequest.HttpMethod.GET);
         }
 
-        public VKRequest getInvites(VKParameters parameters)
+        public VKRequest<VKApiCommunityArray> getInvites(VKParameters parameters)
         {
-            return prepareRequest("getInvites", parameters, VKRequest.HttpMethod.GET, typeof(VKApiCommunityArray));
+            return prepareRequest<VKApiCommunityArray>("getInvites", parameters, AbstractRequest.HttpMethod.GET);
         }
 
-        public VKRequest banUser(VKParameters parameters)
+        public VkJsonRequest banUser(VKParameters parameters)
         {
-            return prepareRequest("banUser", parameters);
+            return PrepareJsonRequest("banUser", parameters);
         }
 
-        public VKRequest unbanUser(VKParameters parameters)
+        public VkJsonRequest unbanUser(VKParameters parameters)
         {
-            return prepareRequest("unbanUser", parameters);
+            return PrepareJsonRequest("unbanUser", parameters);
         }
 
-        public VKRequest getBanned(VKParameters parameters)
+        public VKRequest<VKUsersArray> getBanned(VKParameters parameters)
         {
-            return prepareRequest("getBanned", parameters, VKRequest.HttpMethod.GET, typeof(VKUsersArray));
+            return prepareRequest<VKUsersArray>("getBanned", parameters, AbstractRequest.HttpMethod.GET);
         }
     }
 }
