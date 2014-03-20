@@ -52,6 +52,13 @@
   <ItemGroup>
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UsersTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Vk.SDK\Vk.SDK.csproj">
+      <Project>{65F3757C-10DB-49A1-889A-C34AB7B76B29}</Project>
+      <Name>Vk.SDK</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

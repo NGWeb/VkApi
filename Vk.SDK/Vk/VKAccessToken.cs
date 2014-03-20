@@ -87,13 +87,13 @@ namespace Vk.SDK.Vk
      * @return parsed token
      */
 
-        public static VKAccessToken tokenFromUrlstring(string urlstring)
+        public static VKAccessToken TokenFromUrlstring(string urlstring)
         {
             if (urlstring == null)
                 return null;
             Dictionary<string, string> parameters = VKUtil.explodeQueryString(urlstring);
 
-            return tokenFromParameters(parameters);
+            return TokenFromParameters(parameters);
         }
 
         /**
@@ -103,7 +103,7 @@ namespace Vk.SDK.Vk
      * @return Parsed token
      */
 
-        public static VKAccessToken tokenFromParameters(Dictionary<string, string> parameters)
+        public static VKAccessToken TokenFromParameters(Dictionary<string, string> parameters)
         {
             if (parameters == null || parameters.Count == 0)
                 return null;

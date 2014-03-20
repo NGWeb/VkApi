@@ -142,7 +142,7 @@ namespace Vk.SDK.Vk
 
         private static void checkAndSetToken(Dictionary<string, string> tokenParams, bool renew)
         {
-            VKAccessToken token = VKAccessToken.tokenFromParameters(tokenParams);
+            VKAccessToken token = VKAccessToken.TokenFromParameters(tokenParams);
             if (token == null || token.accessToken == null)
             {
                 VKError error = new VKError(tokenParams);
