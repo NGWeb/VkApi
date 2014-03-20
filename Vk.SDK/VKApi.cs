@@ -1,24 +1,30 @@
-using Vk.SDK.httpClient;
-using Vk.SDK.methods;
-using Vk.SDK.photo;
+#region usings
+
+using System.IO;
+using Vk.SDK.Context;
+using Vk.SDK.Photo;
+
+#endregion
 
 namespace Vk.SDK
 {
-
     public class VKApi
     {
         /**
          * https://vk.com/dev/users
          * Returns object for preparing requests to users part of API
          */
+
         public static VKApiUsers users()
         {
             return new VKApiUsers();
         }
+
         /**
          * https://vk.com/dev/users
          * Returns object for preparing requests to users part of API
          */
+
         public static VKApiFriends friends()
         {
             return new VKApiFriends();
@@ -28,6 +34,7 @@ namespace Vk.SDK
          * https://vk.com/dev/wall
          * Returns object for preparing requests to wall part of API
          */
+
         public static VKApiWall wall()
         {
             return new VKApiWall();
@@ -37,6 +44,7 @@ namespace Vk.SDK
          * https://vk.com/dev/photos
          * Returns object for preparing requests to photos part of API
          */
+
         public static VKApiPhotos photos()
         {
             return new VKApiPhotos();
@@ -49,10 +57,12 @@ namespace Vk.SDK
          * @param groupId Group id or 0
          * @return Prepared vk request for photo upload
          */
-        public static AbstractRequest uploadWallPhotoRequest(byte[] image, long userId, int groupId)
+
+        public static AbstractRequest UploadWallPhotoRequest(FileInfo[] image, long userId, int groupId)
         {
             return new VKUploadWallPhotoRequest(image, userId, groupId);
         }
+
         /**
          * Upload a specified file to VK servers for posting on user or group wall
          * @param image Special image object to upload
@@ -60,7 +70,8 @@ namespace Vk.SDK
          * @param groupId Group id or 0
          * @return Prepared vk request for photo upload
          */
-        public static VKRequest uploadWallPhotoRequest(VKUploadImage image, long userId, int groupId)
+
+        public static VKUploadWallPhotoRequest UploadWallPhotoRequest(VKUploadImage image, long userId, int groupId)
         {
             return new VKUploadWallPhotoRequest(image, userId, groupId);
         }
@@ -72,10 +83,12 @@ namespace Vk.SDK
          * @param groupId Group id or 0
          * @return Prepared vk request for photo upload
          */
-        public static VKRequest uploadAlbumPhotoRequest(byte[] image, long albumId, int groupId)
+
+        public static VKUploadAlbumPhotoRequest UploadAlbumPhotoRequest(FileInfo[] image, long albumId, int groupId)
         {
             return new VKUploadAlbumPhotoRequest(image, albumId, groupId);
         }
+
         /**
          * Upload a specified file to VK servers and saves it into the album
          * @param image Special image object to upload
@@ -83,10 +96,10 @@ namespace Vk.SDK
          * @param groupId Group id or 0
          * @return Prepared vk request for photo upload
          */
-        public static AbstractRequest uploadAlbumPhotoRequest(VKUploadImage image, long albumId, int groupId)
+
+        public static AbstractRequest UploadAlbumPhotoRequest(VKUploadImage image, long albumId, int groupId)
         {
             return new VKUploadAlbumPhotoRequest(image, albumId, groupId);
         }
     }
-
 }

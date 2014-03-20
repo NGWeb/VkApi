@@ -1,44 +1,31 @@
+#region usings
+
 using System.Text;
 
-namespace Vk.SDK.model
+#endregion
+
+namespace Vk.SDK.Model
 {
     public class VKApiNote : VKApiAttachment, IIdentifiable
     {
-
         /**
      * Note ID, positive number
      */
-        public int id;
-
-        /**
-     * Note owner ID.
-     */
-        public int user_id;
-
-        /**
-     * Note title.
-     */
-        public string title;
-
-        /**
-     * Note text.
-     */
-        public string text;
-
-        /**
-     * Date (in Unix time) when the note was created.
-     */
-        public long date;
 
         /**
      * Number of comments.
      */
         public int comments;
+        public long date;
+        public int id;
 
         /**
      * Number of read comments (only if owner_id is the current user).
      */
         public int read_comments;
+        public string text;
+        public string title;
+        public int user_id;
 
         /**
      * Fills a Note instance from JObject.
@@ -59,27 +46,20 @@ namespace Vk.SDK.model
         /**
      * Creates empty Note instance.
      */
-        public VKApiNote()
-        {
-
-        }
 
 
-        public override int Id
-        {
-            get { return id; }
-        }
+        public override int Id { get; set; }
 
 
         public override string ToAttachmentString()
         {
-            return new StringBuilder(TYPE_NOTE).Append(user_id).Append('_').Append(id);
+            return new StringBuilder(AttachmentType.TYPE_NOTE).Append(user_id).Append('_').Append(id).ToString();
         }
 
 
         public override string GetType()
         {
-            return TYPE_NOTE;
+            return AttachmentType.TYPE_NOTE;
         }
 
 
@@ -87,6 +67,5 @@ namespace Vk.SDK.model
         {
             return 0;
         }
-
     };
 }

@@ -1,29 +1,31 @@
+#region usings
+
 using System.Text;
 
-namespace Vk.SDK.model
+#endregion
+
+namespace Vk.SDK.Model
 {
     public class VKApiSchool : VKApiModel, IIdentifiable
     {
-
         /**
      * School ID, positive number
      */
-        public int id;
-
-        /**
-     * ID of the country the school is located in, positive number
-     */
-        public int country_id;
 
         /**
      * ID of the city the school is located in, positive number
      */
         public int city_id;
+        public string clazz;
+        public int country_id;
+        private string fullName;
+        public int id;
 
         /**
      * School name
      */
         public string name;
+        public string speciality;
 
         /**
      * Year the user started to study
@@ -33,22 +35,16 @@ namespace Vk.SDK.model
         /**
      * Year the user finished to study
      */
-        public int year_to;
 
         /**
      * Graduation year
      */
         public int year_graduated;
+        public int year_to;
 
         /**
      * School class letter
      */
-        public string clazz;
-
-        /**
-     * Speciality
-     */
-        public string speciality;
 
         /**
      * Fills a School instance from JObject.
@@ -70,22 +66,10 @@ namespace Vk.SDK.model
      * Creates a School instance from Parcel.
      */
 
-
-        /**
-     * Creates empty School instance.
-     */
-        public VKApiSchool()
-        {
-
-        }
-
-
         public int Id
         {
             get { return id; }
         }
-
-        private string fullName;
 
 
         public string ToString()
@@ -96,7 +80,7 @@ namespace Vk.SDK.model
                 if (year_graduated != 0)
                 {
                     builder.Append(" \'");
-                    builder.AppendFormat("{0}", year_graduated % 100);
+                    builder.AppendFormat("{0}", year_graduated%100);
                 }
                 if (year_from != 0 && year_to != 0)
                 {
@@ -105,13 +89,13 @@ namespace Vk.SDK.model
                     builder.Append('-');
                     builder.Append(year_to);
                 }
-                if (!isEmpty(clazz))
+                if (!string.IsNullOrEmpty(clazz))
                 {
                     builder.Append('(');
                     builder.Append(clazz);
                     builder.Append(')');
                 }
-                if (!isEmpty(speciality))
+                if (!string.IsNullOrEmpty(speciality))
                 {
                     builder.Append(", ");
                     builder.Append(speciality);
@@ -120,7 +104,6 @@ namespace Vk.SDK.model
             }
             return fullName;
         }
-
 
         public int describeContents()
         {

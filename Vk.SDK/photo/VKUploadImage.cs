@@ -1,44 +1,27 @@
+#region usings
+
+using System.IO;
 using Vk.SDK.Vk;
 
-namespace Vk.SDK.photo
+#endregion
+
+namespace Vk.SDK.Photo
 {
-    public class VKUploadImage : VKObject {
+    public class VKUploadImage : VKObject
+    {
         /**
      * Bitmap representation of image
      */
-        public readonly byte[] mImageData;
+        public readonly FileInfo mImageData;
         /**
      * Image basic info
      */
         public readonly VKImageParameters mParameters;
 
-        public VKUploadImage(byte[] data, VKImageParameters parameters) {
+        public VKUploadImage(FileInfo data, VKImageParameters parameters)
+        {
             mImageData = data;
             mParameters = parameters;
-        }
-
-        public byte[] getTmpFile() {
-            Context ctx = VKUIHelper.getTopActivity();
-            File outputDir = null;
-            if (ctx != null) {
-                outputDir = ctx.getExternalCacheDir();
-                if (outputDir == null)
-                    outputDir = ctx.getCacheDir();
-            }
-            File tmpFile = null;
-            try {
-                tmpFile = File.createTempFile("tmpImg", string.format(".%s", mParameters.fileExtension()), outputDir);
-                FileOutputStream fos = new FileOutputStream(tmpFile);
-                if (mParameters.mImageType == VKImageParameters.VKImageType.Png)
-                    mImageData.compress(Bitmap.CompressFormat.PNG, 100, fos);
-                else
-                    mImageData.compress(Bitmap.CompressFormat.JPEG, (int) (mParameters.mJpegQuality * 100), fos);
-                fos.close();
-            } catch (IOException ignored) {
-                if (VKSdk.DEBUG)
-                    ignored.printStackTrace();
-            }
-            return tmpFile;
         }
     }
 }

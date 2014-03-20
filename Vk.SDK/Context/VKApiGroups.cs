@@ -1,10 +1,13 @@
-using Vk.SDK.model;
+#region usings
 
-namespace Vk.SDK.methods
+using Vk.SDK.Model;
+
+#endregion
+
+namespace Vk.SDK.Context
 {
     public class VKApiGroups : VKApiBase
     {
-
         public VkJsonRequest isMember(VKParameters parameters)
         {
             return PrepareJsonRequest("isMember", parameters);
@@ -17,14 +20,11 @@ namespace Vk.SDK.methods
 
         public VKRequest<VKApiCommunityArray> get(VKParameters parameters)
         {
-            if (((int)parameters["extended"]) == 1)
+            if (((int) parameters["extended"]) == 1)
             {
                 return prepareRequest<VKApiCommunityArray>("get", parameters, AbstractRequest.HttpMethod.GET);
             }
-            else
-            {
-                return prepareRequest<VKApiCommunityArray>("get", parameters);
-            }
+            return prepareRequest<VKApiCommunityArray>("get", parameters);
         }
 
         public VKRequest<VKUsersArray> getMembers(VKParameters parameters)
@@ -44,7 +44,7 @@ namespace Vk.SDK.methods
 
         public VkJsonRequest leave(int group_id)
         {
-            return PrepareJsonRequest("leave", new VKParameters() { { VKApiConst.GROUP_ID, group_id } });
+            return PrepareJsonRequest("leave", new VKParameters {{VKApiConst.GROUP_ID, group_id}});
         }
 
         public VKRequest<VKApiCommunityArray> search(VKParameters parameters)

@@ -1,44 +1,50 @@
+#region usings
+
 using Newtonsoft.Json.Linq;
 
-namespace Vk.SDK.model
+#endregion
+
+namespace Vk.SDK.Model
 {
     public class VKApiUser : VKApiOwner
     {
-
         /**
      * Field name for {@link #online} param.
      */
-        public readonly static string FIELD_ONLINE = "online";
+        public static readonly string FIELD_ONLINE = "online";
 
         /**
      * Field name for {@link #online_mobile} param.
      */
-        public readonly static string FIELD_ONLINE_MOBILE = "online_mobile";
+        public static readonly string FIELD_ONLINE_MOBILE = "online_mobile";
 
         /**
      * Field name for {@link #photo_50} param.
      */
-        public readonly static string FIELD_PHOTO_50 = "photo_50";
+        public static readonly string FIELD_PHOTO_50 = "photo_50";
 
         /**
      * Field name for {@link #photo_100} param.
      */
-        public readonly static string FIELD_PHOTO_100 = "photo_100";
+        public static readonly string FIELD_PHOTO_100 = "photo_100";
 
         /**
      * Field name for {@link #photo_200} param.
      */
-        public readonly static string FIELD_PHOTO_200 = "photo_200";
+        public static readonly string FIELD_PHOTO_200 = "photo_200";
 
         /**
      * All required for fill all fields.
      */
-        public readonly static string FIELDS_DEFAULT = TextUtils.join(",", new string[] { FIELD_ONLINE, FIELD_ONLINE_MOBILE, FIELD_PHOTO_50, FIELD_PHOTO_100, FIELD_PHOTO_200 });
+
+        public static readonly string FIELDS_DEFAULT = string.Join(",",
+            new[] {FIELD_ONLINE, FIELD_ONLINE_MOBILE, FIELD_PHOTO_50, FIELD_PHOTO_100, FIELD_PHOTO_200});
 
         /**
      * First name of user.
      */
         public string first_name = "DELETED";
+        private string full_name;
 
         /**
      * Last name of user.
@@ -54,11 +60,11 @@ namespace Vk.SDK.model
      * If user utilizes a mobile application or site mobile version, it returns online_mobile as additional.
      */
         public bool online_mobile;
+        public VKPhotoSizes photo = new VKPhotoSizes();
 
         /**
      * URL of default square photo of the user with 50 pixels in width.
      */
-        public string photo_50 = "http://vk.com/images/camera_c.gif";
 
         /**
      * URL of default square photo of the user with 100 pixels in width.
@@ -69,15 +75,16 @@ namespace Vk.SDK.model
      * URL of default square photo of the user with 200 pixels in width.
      */
         public string photo_200 = "http://vk.com/images/camera_a.gif";
+        public string photo_50 = "http://vk.com/images/camera_c.gif";
 
         /**
      * {@link #photo_50}, {@link #photo_100}, {@link #photo_200} included here in Photo Sizes format.
      */
-        public VKPhotoSizes photo = new VKPhotoSizes();
 
         /**
      * Fills an user object from server response.
      */
+
         public VKApiUser parse(JObject from)
         {
             //super.parse(from);
@@ -109,12 +116,6 @@ namespace Vk.SDK.model
             /**
      * Creates empty User instance.
      */
-        public VKApiUser()
-        {
-
-        }
-
-        private string full_name;
 
         /**
      * @return full user name
@@ -134,7 +135,5 @@ namespace Vk.SDK.model
         {
             return 0;
         }
-
-
     }
 }

@@ -1,27 +1,28 @@
+#region usings
+
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Net;
-using System.Net.Http;
-using System.Runtime.Remoting.Contexts;
 using System.Text;
 using Vk.SDK.Util;
-using Vk.SDK.Vk;
 
-namespace Vk.SDK.httpClient
+#endregion
+
+namespace Vk.SDK.Http
 {
     public class RequestFactory /*: HttpClient*/
     {
-
-        private static Lazy<RequestFactory> sInstance = new Lazy<RequestFactory>(() => new RequestFactory());
+        private static readonly Lazy<RequestFactory> SInstance = new Lazy<RequestFactory>(() => new RequestFactory());
         /**
      * Default constructor from basic class
      *
      * @param conman The connection manager
      * @param params The parameters
      */
-        private RequestFactory(/*ClientConnectionManager conman, HttpParams param*/)
+
+        private RequestFactory( /*ClientConnectionManager conman, HttpParams param*/)
         {
             // super(conman, param);
         }
@@ -34,7 +35,7 @@ namespace Vk.SDK.httpClient
 
         public static RequestFactory Client
         {
-            get { return sInstance.Value; }
+            get { return SInstance.Value; }
         }
 
         /**
@@ -43,12 +44,14 @@ namespace Vk.SDK.httpClient
      * @param vkRequest Request, created for some method
      * @return Prepared request for creating VKHttpOperation
      */
+
         public static WebRequest RequestWithVkRequest(AbstractRequest vkRequest)
         {
             WebRequest request = null;
             VKParameters preparedParameters = vkRequest.GetPreparedParameters();
             var urlstringBuilder = new StringBuilder();
-            urlstringBuilder.AppendFormat("http{0}://api.vk.com/method/{1}", vkRequest.secure ? "s" : "", vkRequest.methodName);
+            urlstringBuilder.AppendFormat("http{0}://api.vk.com/method/{1}", vkRequest.secure ? "s" : "",
+                vkRequest.methodName);
             switch (vkRequest.httpMethod)
             {
                 case AbstractRequest.HttpMethod.GET:
@@ -68,7 +71,7 @@ namespace Vk.SDK.httpClient
                         object value = entry.Value;
                         if (value is Collection<object>)
                         {
-                            var values = (List<object>)value;
+                            var values = (List<object>) value;
                             foreach (object v in values)
                             {
                                 // This will add a parameter for each value in the Collection/List
@@ -83,8 +86,8 @@ namespace Vk.SDK.httpClient
                     var boundary = "-----------------------------28520690214962";
                     var newLine = Environment.NewLine;
                     var propFormat = boundary + newLine +
-                                        "Content-Disposition: form-data; name=\"{0}\"" + newLine + newLine +
-                                        "{1}" + newLine + newLine;
+                                     "Content-Disposition: form-data; name=\"{0}\"" + newLine + newLine +
+                                     "{1}" + newLine + newLine;
 
                     using (var reqStream = post.GetRequestStream())
                     {
@@ -99,7 +102,7 @@ namespace Vk.SDK.httpClient
                         reqWriter.Write(boundary + "--");
                         reqWriter.Flush();
                     }
-                    
+
                     request = post;
 
                     break;
@@ -113,12 +116,12 @@ namespace Vk.SDK.httpClient
             return request;
         }
 
-        public static WebRequest fileUploadRequest(string uploadUrl, params byte[] files)
+        public static WebRequest FileUploadRequest(string uploadUrl, params FileInfo[] files)
         {
-
             WebRequest post = WebRequest.Create(uploadUrl);
             post.Method = "POST";
-            post.setEntity(new VKMultipartEntity(files));
+            var e = new VKMultipartEntity(files);
+            e.writeTo(post.GetRequestStream());
             return post;
         }
 
@@ -127,9 +130,10 @@ namespace Vk.SDK.httpClient
      *
      * @return Dictionary of default headers
      */
+
         private static Dictionary<string, string> getDefaultHeaders()
         {
-            return new Dictionary<string, string> { { "Accept-Encoding", "gzip" } };
+            return new Dictionary<string, string> {{"Accept-Encoding", "gzip"}};
         }
     }
 }

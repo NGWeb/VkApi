@@ -1,4 +1,4 @@
-namespace Vk.SDK.model
+namespace Vk.SDK.Model
 {
     public class VKWallPostResult : VKApiModel
     {
@@ -8,6 +8,5 @@ namespace Vk.SDK.model
         {
             return 0;
         }
-
     }
 }

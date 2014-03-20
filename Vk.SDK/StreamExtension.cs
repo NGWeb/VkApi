@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿#region usings
+
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+#endregion
 
 namespace Vk.SDK
 {
@@ -11,8 +10,7 @@ namespace Vk.SDK
     {
         public static void CopyToStream(this Stream input, Stream output)
         {
-
-            var buffer = new byte[16 * 1024];
+            var buffer = new byte[16*1024];
 
             int read;
 

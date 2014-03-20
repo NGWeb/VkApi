@@ -1,25 +1,11 @@
-
-using System.Threading;
-
-namespace Vk.SDK.httpClient
+namespace Vk.SDK.Http
 {
-
-    public delegate void ErrorDelegate(object sender, VKError error);
-
     /**
      * Class for executing any kind of asynchronous operation
      */
+
     public abstract class VKAbstractOperation
     {
-
-        public event ErrorDelegate Error;
-
-        protected virtual void OnError(VKError error)
-        {
-            ErrorDelegate handler = Error;
-            if (handler != null) handler(this, error);
-        }
-
         public enum VKOperationState
         {
             Created,
@@ -39,6 +25,14 @@ namespace Vk.SDK.httpClient
             SetState(VKOperationState.Ready);
         }
 
+        public event ErrorDelegate Error;
+
+        protected virtual void OnError(VKError error)
+        {
+            ErrorDelegate handler = Error;
+            if (handler != null) handler(this, error);
+        }
+
         /**
          * Entry point for operation
          */
@@ -47,6 +41,7 @@ namespace Vk.SDK.httpClient
         /**
          * Cancels current operation and finishes it
          */
+
         public virtual void Cancel()
         {
             SetState(VKOperationState.Finished);

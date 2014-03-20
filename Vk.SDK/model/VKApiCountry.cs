@@ -1,8 +1,7 @@
-namespace Vk.SDK.model
+namespace Vk.SDK.Model
 {
     public class VKApiCountry : VKApiModel, IIdentifiable
     {
-
         /**
      * Country ID.
      */
@@ -29,10 +28,6 @@ namespace Vk.SDK.model
         /**
          * Creates empty Country instance.
          */
-        public VKApiCountry()
-        {
-
-        }
 
 
         public int Id

@@ -83,13 +83,14 @@ namespace Vk.SDK
         public static readonly string FEED = "feed";
 
         //Enums
-        enum VKProgressType
+
+        //Events
+        public static readonly string VKCaptchaAnsweredEvent = "VKCaptchaAnsweredEvent";
+
+        private enum VKProgressType
         {
             VKProgressTypeUpload,
             VKProgressTypeDownload
         }
-
-        //Events
-        public static readonly string VKCaptchaAnsweredEvent = "VKCaptchaAnsweredEvent";
     }
 }

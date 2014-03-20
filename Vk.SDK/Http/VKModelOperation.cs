@@ -1,11 +1,13 @@
-using System.ComponentModel;
-using System.Net;
-using System.Net.Http;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Vk.SDK.model;
+#region usings
 
-namespace Vk.SDK.httpClient
+using System.Net;
+using System.Text;
+using Newtonsoft.Json;
+using Vk.SDK.Model;
+
+#endregion
+
+namespace Vk.SDK.Http
 {
     public class VKModelOperation<T> : VKHttpOperation where T : VKApiModel
     {
@@ -16,6 +18,7 @@ namespace Vk.SDK.httpClient
      * @param uriRequest Prepared request
      * @param modelClass Model for parsing response
      */
+
         public VKModelOperation(WebRequest uriRequest)
             : base(uriRequest)
         {
@@ -24,7 +27,7 @@ namespace Vk.SDK.httpClient
 
         protected void PostExecution(object sender)
         {
-            var str = System.Text.Encoding.Default.GetString(ResponseBytes);
+            var str = Encoding.Default.GetString(ResponseBytes);
             parsedModel = JsonConvert.DeserializeObject<T>(str);
         }
     }

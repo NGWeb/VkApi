@@ -1,60 +1,44 @@
-﻿using System;
+﻿#region usings
+
 using System.Text;
 using Newtonsoft.Json.Linq;
 
-namespace Vk.SDK.model
-{
-    public class VKApiPost : VKApiAttachment, IIdentifiable {
+#endregion
 
+namespace Vk.SDK.Model
+{
+    public class VKApiPost : VKApiAttachment
+    {
         /**
      * Post ID on the wall, positive number
      */
-        public int id;
-
-        /**
-     * Wall owner ID.
-     */
-        public int to_id;
-
-        /**
-     * ID of the user who posted.
-     */
-        public int from_id;
 
         /**
      * Date (in Unix time) the post was added.
      */
+        public VKAttachments attachments = new VKAttachments();
+        public bool can_like;
+        public bool can_post_comment;
+        public bool can_publish;
+        public int comments_count;
+        public VKList<VKApiPost> copy_history;
         public long date;
 
         /**
      * Text of the post.
      */
-        public string text;
-
-        /**
-     * ID of the wall owner the post to which the reply is addressed (if the post is a reply to another wall post).
-     */
-        public int reply_owner_id;
-
-        /**
-     * ID of the wall post to which the reply is addressed (if the post is a reply to another wall post).
-     */
-        public int reply_post_id;
 
         /**
      * True, if the post was created with "Friends only" option.
      */
         public bool friends_only;
+        public int from_id;
+        public VKApiPlace geo;
+        public int id;
 
         /**
      * Number of comments.
      */
-        public int comments_count;
-
-        /**
-     * Whether the current user can leave comments to the post (false — cannot, true — can)
-     */
-        public bool can_post_comment;
 
         /**
      * Number of users who liked the post.
@@ -64,57 +48,43 @@ namespace Vk.SDK.model
         /**
      * Whether the user liked the post (false — not liked, true — liked)
      */
-        public bool user_likes;
-
-        /**
-     * Whether the user can like the post (false — cannot, true — can).
-     */
-        public bool can_like;
-
-        /**
-     * Whether the user can repost (false — cannot, true — can).
-     */
-        public bool can_publish;
-
-        /**
-     * Number of users who copied the post.
-     */
-        public int reposts_count;
-
-        /**
-     * Whether the user reposted the post (false — not reposted, true — reposted).
-     */
-        public bool user_reposted;
 
         /**
      * PublicType of the post, can be: post, copy, reply, postpone, suggest.
      */
         public string post_type;
+        public int reply_owner_id;
+
+        /**
+     * ID of the wall post to which the reply is addressed (if the post is a reply to another wall post).
+     */
+        public int reply_post_id;
+        public int reposts_count;
 
         /**
      * Information about attachments to the post (photos, links, etc.), if any;
      */
-        public VKAttachments attachments = new VKAttachments();
-
-        /**
-     * Information about location.
-     */
-        public VKApiPlace geo;
 
         /**
      * ID of the author (if the post was published by a community and signed by a user).
      */
         public int signer_id;
+        public string text;
+        public int to_id;
+        public bool user_likes;
+        public bool user_reposted;
+        public override int Id { get; set; }
 
         /**
      * List of history of the reposts.
      */
-        public VKList<VKApiPost> copy_history;
 
         /**
      * Fills a Post instance from JObject.
      */
-        public VKApiPost parse(JObject source) {
+
+        public VKApiPost parse(JObject source)
+        {
             //id = source.optInt("id");
             //to_id = source.optInt("to_id");
             //from_id = source.optInt("from_id");
@@ -154,36 +124,35 @@ namespace Vk.SDK.model
         /**
      * Creates a Post instance from Parcel.
      */
-   
-        public VKApiPost() {
-
-        }
 
 
-        public override int Id
+        public override string GetType()
         {
-            get; set;
+            return AttachmentType.TYPE_POST;
         }
 
 
-        public string ToAttachmentString() {
-            return new StringBuilder(VKAttachments.TYPE_POST).Append(to_id).Append('_').Append(id);
+        public override string ToAttachmentString()
+        {
+            return new StringBuilder(AttachmentType.TYPE_POST).Append(to_id).Append('_').Append(id).ToString();
         }
 
-    
-        public string getType() {
-            return VKAttachments.TYPE_POST;
+
+        public string getType()
+        {
+            return AttachmentType.TYPE_POST;
         }
 
-    
-        public int describeContents() {
+
+        public int describeContents()
+        {
             return 0;
         }
 
-  
-        public VKApiPost[] newArray(int size) {
+
+        public VKApiPost[] newArray(int size)
+        {
             return new VKApiPost[size];
         }
     };
 }
-

@@ -1,8 +1,7 @@
-using Vk.SDK.model;
-
-namespace Vk.SDK.methods
+namespace Vk.SDK.Context
 {
-    public class VKApiCaptcha : VKApiBase {
+    public class VKApiCaptcha : VKApiBase
+    {
         //public VKRequest<VKApiModel> Force() {
         //    return Pre("force", null);
         //}

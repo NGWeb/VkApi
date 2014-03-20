@@ -1,21 +1,17 @@
+#region usings
+
 using System;
 using System.IO;
 using System.Net;
 
-namespace Vk.SDK.httpClient
+#endregion
+
+namespace Vk.SDK.Http
 {
-
-    public delegate void BeginRequestDelegate(object sender);
-
-    public delegate void FinishRequestDelegate(object sender);
-
-    public delegate void CompleteDelegate(object sender);
-
-
     public class VKHttpOperation : VKAbstractOperation
     {
-
         #region events
+
         public event BeginRequestDelegate BeginRequest;
 
         protected virtual void OnBeginRequest()
@@ -39,6 +35,7 @@ namespace Vk.SDK.httpClient
             CompleteDelegate handler = Complete;
             if (handler != null) handler(this);
         }
+
         #endregion
 
         /**
@@ -53,28 +50,30 @@ namespace Vk.SDK.httpClient
         /**
      * string representation of response
      */
-        public byte[] ResponseBytes { get; private set; }
 
         /**
      * Create new operation for loading prepared Http request. Requests may be prepared in RequestFactory
      *
      * @param uriRequest Prepared request
      */
+
         public VKHttpOperation(WebRequest uriRequest)
         {
             Request = uriRequest;
         }
-        
+
+        public byte[] ResponseBytes { get; private set; }
+
         /**
      * Start current prepared http-operation for result
      */
+
         public override void Start()
         {
             OnBeginRequest();
             SetState(VKOperationState.Executing);
             using (var response = Request.GetResponse())
             {
-
                 using (var stream = response.GetResponseStream())
                 {
                     using (var outputStream = new MemoryStream())
@@ -90,7 +89,7 @@ namespace Vk.SDK.httpClient
             OnFinishRequest();
             OnComplete();
         }
-        
+
         /**
         * Cancel current operation execution
         */
@@ -105,6 +104,7 @@ namespace Vk.SDK.httpClient
      * Get operation response data
      * @return Bytes of response
      */
+
         protected VKError generateError(Exception e)
         {
             VKError error = new VKError(VKError.VK_API_REQUEST_HTTP_FAILED);

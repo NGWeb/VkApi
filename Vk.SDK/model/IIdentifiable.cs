@@ -1,4 +1,4 @@
-namespace Vk.SDK.model
+namespace Vk.SDK.Model
 {
     public interface IIdentifiable
     {

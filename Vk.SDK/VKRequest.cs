@@ -1,6 +1,9 @@
-using Vk.SDK;
-using Vk.SDK.httpClient;
-using Vk.SDK.model;
+#region usings
+
+using Vk.SDK.Http;
+using Vk.SDK.Model;
+
+#endregion
 
 namespace Vk.SDK
 {
@@ -21,7 +24,6 @@ namespace Vk.SDK
         public VKRequest(string method, VKParameters parameters, HttpMethod httpMethod)
             : base(method, parameters, httpMethod)
         {
-
         }
 
         public override object GetResponse()
@@ -32,7 +34,6 @@ namespace Vk.SDK
             foreach (var request in PostRequestsQueue)
             {
                 request.GetResponse();
-
             }
             return operation.parsedModel;
         }
@@ -85,68 +86,5 @@ namespace Vk.SDK
             else
                 OnError(new VKError(VKError.VK_API_CANCELED));
         }
-    }
-
-    public class VkJsonRequest : AbstractRequest
-    {
-        public VkJsonRequest(string method)
-            : base(method)
-        {
-        }
-
-        public VkJsonRequest(string method, VKParameters parameters)
-            : base(method, parameters)
-        {
-        }
-
-        public VkJsonRequest(string method, VKParameters parameters, HttpMethod httpMethod)
-            : base(method, parameters, httpMethod)
-        {
-        }
-
-        public override void Cancel()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public override object GetResponse()
-        {
-            var operation = new VKJsonOperation(GetPreparedRequest());
-            operation.Start();
-            return operation.getResponseJson();
-        }
-    }
-}
-
-
-public abstract class VKRequestListener
-{
-
-    /**
-    * Called when request has failed attempt, and ready to do next attempt
-    *
-    * @param request       Failed request
-    * @param attemptNumber Number of failed attempt, started from 1
-    * @param totalAttempts Total request attempts defined for request
-    */
-    public void attemptFailed(AbstractRequest request, int attemptNumber, int totalAttempts)
-    {
-    }
-
-    /**
-     * Called immediately if there was API error, or after <b>attempts</b> tries if there was an HTTP error
-     *
-     * @param error error for VKRequest
-     */
-
-    /**
-     * Specify progress for uploading or downloading. Useless for text requests (because gzip encoding bytesTotal will always return -1)
-     *
-     * @param progressType type of progress (upload or download)
-     * @param bytesLoaded  total bytes loaded
-     * @param bytesTotal   total bytes suppose to be loaded
-     */
-    public void onProgress(VKProgressType progressType, long bytesLoaded, long bytesTotal)
-    {
     }
 }

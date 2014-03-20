@@ -1,113 +1,119 @@
+#region usings
+
 using System.Collections.Generic;
 
-namespace Vk.SDK.model
+#endregion
+
+namespace Vk.SDK.Model
 {
     public class VKScopes
     {
-
-        private VKScopes() { }
-
         /**
      * User allowed to send notifications to him/her.
      */
-        public readonly static string NOTIFY = "notify";
+        public static readonly string NOTIFY = "notify";
 
         /**
      * Access to friends.
      */
-        public readonly static string FRIENDS = "friends";
+        public static readonly string FRIENDS = "friends";
 
         /**
      * Access to photos.
      */
-        public readonly static string PHOTOS = "photos";
+        public static readonly string PHOTOS = "photos";
 
         /**
      * Access to audios.
      */
-        public readonly static string AUDIO = "audio";
+        public static readonly string AUDIO = "audio";
 
         /**
      * Access to videos.
      */
-        public readonly static string VIDEO = "video";
+        public static readonly string VIDEO = "video";
 
         /**
      * Access to documents.
      */
-        public readonly static string DOCS = "docs";
+        public static readonly string DOCS = "docs";
 
         /**
      * Access to user notes.
      */
-        public readonly static string NOTES = "notes";
+        public static readonly string NOTES = "notes";
 
         /**
      * Access to wiki pages.
      */
-        public readonly static string PAGES = "pages";
+        public static readonly string PAGES = "pages";
 
         /**
      * Access to user status.
      */
-        public readonly static string STATUS = "status";
+        public static readonly string STATUS = "status";
 
         /**
      * Access to offers (obsolete methods).
      */
-        public readonly static string OFFERS = "offers";
+        public static readonly string OFFERS = "offers";
 
         /**
      * Access to questions (obsolete methods).
      */
-        public readonly static string QUESTIONS = "questions";
+        public static readonly string QUESTIONS = "questions";
 
         /**
      * Access to standard and advanced methods for the wall.
      */
-        public readonly static string WALL = "wall";
+        public static readonly string WALL = "wall";
 
         /**
      * Access to user groups.
      */
-        public readonly static string GROUPS = "groups";
+        public static readonly string GROUPS = "groups";
 
         /**
      * Access to advanced methods for messaging.
      */
-        public readonly static string MESSAGES = "messages";
+        public static readonly string MESSAGES = "messages";
 
         /**
      * Access to notifications about answers to the user.
      */
-        public readonly static string NOTIFICATIONS = "notifications";
+        public static readonly string NOTIFICATIONS = "notifications";
 
         /**
      * Access to statistics of user groups and applications where he/she is an administrator.
      */
-        public readonly static string STATS = "stats";
+        public static readonly string STATS = "stats";
 
         /**
      * Access to advanced methods for <a href="http://vk.com/dev/ads">Ads API</a>.
      */
-        public readonly static string ADS = "ads";
+        public static readonly string ADS = "ads";
 
         /**
      * Access to API at any time from a third party server.
      */
-        public readonly static string OFFLINE = "offline";
+        public static readonly string OFFLINE = "offline";
 
         /**
      * Possibility to make API requests without HTTPS. <br />
      * <b>Note that this functionality is under testing and can be changed.</b>
      */
-        public readonly static string NOHTTPS = "nohttps";
+        public static readonly string NOHTTPS = "nohttps";
+
+        private VKScopes()
+        {
+        }
 
         /**
      * Converts integer value of permissions into List of constants
      * @param permissions integer permissions value
      * @return List contains string constants of permissions (scope)
      */
+
         public static List<string> parse(int permissions)
         {
             List<string> result = new List<string>();
@@ -129,6 +135,5 @@ namespace Vk.SDK.model
             if ((permissions & 1048576) > 0) result.Add(STATS);
             return result;
         }
-
     }
 }

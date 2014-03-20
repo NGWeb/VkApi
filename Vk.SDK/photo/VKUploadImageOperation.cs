@@ -1,9 +1,11 @@
-using System.Net;
-using Newtonsoft.Json.Linq;
-using Vk.SDK.httpClient;
-using Vk.SDK.Vk;
+#region usings
 
-namespace Vk.SDK.photo
+using System.Net;
+using Vk.SDK.Http;
+
+#endregion
+
+namespace Vk.SDK.Photo
 {
     public class VKUploadImageOperation : VKHttpOperation
     {
@@ -13,8 +15,6 @@ namespace Vk.SDK.photo
 
         public void start()
         {
-           
-
 //            VKUploadPhotoBase.this.requestListener = new VKRequestListener() {
 
 //            public void onComplete(VKResponse response) {
@@ -99,9 +99,6 @@ namespace Vk.SDK.photo
 //            lastOperation = serverRequest.getOperation();
 //            RequestFactory.enqueueOperation(lastOperation);
 //        }
-
-
-
         }
     }
 }

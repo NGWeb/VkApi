@@ -1,6 +1,7 @@
 namespace Vk.SDK.Vk
 {
-    public abstract class VKSdkListener {
+    public abstract class VKSdkListener
+    {
         /**
 	 * Calls when user must perform captcha-check
 	 * 
@@ -29,7 +30,9 @@ namespace Vk.SDK.Vk
 	 * 
 	 * @param newToken new token for API requests
 	 */
-        public void onReceiveNewToken(VKAccessToken newToken) {
+
+        public void onReceiveNewToken(VKAccessToken newToken)
+        {
         }
 
         /**
@@ -37,7 +40,9 @@ namespace Vk.SDK.Vk
 	 * 
 	 * @param token used token for API requests
 	 */
-        public void onAcceptUserToken(VKAccessToken token) {
+
+        public void onAcceptUserToken(VKAccessToken token)
+        {
         }
 
         /**
@@ -45,8 +50,9 @@ namespace Vk.SDK.Vk
 	 *
 	 * @param token used token for API requests
 	 */
-        public void onRenewAccessToken(VKAccessToken token) {
-        }
 
+        public void onRenewAccessToken(VKAccessToken token)
+        {
+        }
     }
 }

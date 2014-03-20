@@ -1,4 +1,4 @@
-namespace Vk.SDK.model
+namespace Vk.SDK.Model
 {
     public class VKApiUserFull : VKApiUser
     {
@@ -335,105 +335,6 @@ namespace Vk.SDK.model
                     return new Counters[size];
                 }
             };
-        }
-    }
-
-    public class Sex
-    {
-        public static readonly int FEMALE = 1;
-        public static readonly int MALE = 2;
-
-        private Sex()
-        {
-        }
-    }
-
-    public class Relation
-    {
-        public static readonly int SINGLE = 1;
-        public static readonly int RELATIONSHIP = 2;
-        public static readonly int ENGAGED = 3;
-        public static readonly int MARRIED = 4;
-        public static readonly int COMPLICATED = 5;
-        public static readonly int SEARCHING = 6;
-        public static readonly int IN_LOVE = 7;
-
-        private Relation()
-        {
-        }
-    }
-
-    public class Attitude
-    {
-        public static readonly int VERY_NEGATIVE = 1;
-        public static readonly int NEGATIVE = 2;
-        public static readonly int COMPROMISABLE = 3;
-        public static readonly int NEUTRAL = 4;
-        public static readonly int POSITIVE = 5;
-
-        private Attitude()
-        {
-        }
-    }
-
-    public class Political
-    {
-        public static readonly int COMMUNNIST = 1;
-        public static readonly int SOCIALIST = 2;
-        public static readonly int CENTRIST = 3;
-        public static readonly int LIBERAL = 4;
-        public static readonly int CONSERVATIVE = 5;
-        public static readonly int MONARCHIST = 6;
-        public static readonly int ULTRACONSERVATIVE = 7;
-        public static readonly int LIBERTARIAN = 8;
-        public static readonly int APATHETIC = 9;
-
-        private Political()
-        {
-        }
-    }
-
-    public class LifeMain
-    {
-        public static readonly int FAMILY_AND_CHILDREN = 1;
-        public static readonly int CAREER_AND_MONEY = 2;
-        public static readonly int ENTERTAINMENT_AND_LEISURE = 3;
-        public static readonly int SCIENCE_AND_RESEARCH = 4;
-        public static readonly int IMPROOVING_THE_WORLD = 5;
-        public static readonly int PERSONAL_DEVELOPMENT = 6;
-        public static readonly int BEAUTY_AND_ART = 7;
-        public static readonly int FAME_AND_INFLUENCE = 8;
-
-        private LifeMain()
-        {
-        }
-    }
-
-    public class PeopleMain
-    {
-        public static readonly int INTELLECT_AND_CREATIVITY = 1;
-        public static readonly int KINDNESS_AND_HONESTLY = 2;
-        public static readonly int HEALTH_AND_BEAUTY = 3;
-        public static readonly int WEALTH_AND_POWER = 4;
-        public static readonly int COURAGE_AND_PERSISTENCE = 5;
-        public static readonly int HUMOR_AND_LOVE_FOR_LIFE = 6;
-
-        private PeopleMain()
-        {
-        }
-    }
-
-    public class RelativeType
-    {
-        public static readonly string PARTNER = "partner";
-        public static readonly string GRANDCHILD = "grandchild";
-        public static readonly string GRANDPARENT = "grandparent";
-        public static readonly string CHILD = "child";
-        public static readonly string SUBLING = "sibling";
-        public static readonly string PARENT = "parent";
-
-        private RelativeType()
-        {
         }
     }
 }

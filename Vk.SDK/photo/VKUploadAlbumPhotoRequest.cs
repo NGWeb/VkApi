@@ -1,44 +1,66 @@
+#region usings
+
+using System;
+using System.IO;
 using Newtonsoft.Json.Linq;
+using Vk.SDK.Model;
 using Vk.SDK.Util;
 
-namespace Vk.SDK.photo
+#endregion
+
+namespace Vk.SDK.Photo
 {
-    public class VKUploadAlbumPhotoRequest : VKUploadPhotoBase {
-     
-        public VKUploadAlbumPhotoRequest(byte[] image, long albumId, long groupId) {
+    public class VKUploadAlbumPhotoRequest : VKUploadPhotoBase<VKPhotoArray>
+    {
+        public VKUploadAlbumPhotoRequest(FileInfo[] image, long albumId, long groupId)
+            : base("")
+        {
             mAlbumId = albumId;
             mGroupId = groupId;
             mImage = image;
         }
 
-        public VKUploadAlbumPhotoRequest(VKUploadImage image, long albumId, long groupId) {
-            super();
+        public VKUploadAlbumPhotoRequest(VKUploadImage image, long albumId, long groupId)
+            : base("")
+        {
             mAlbumId = albumId;
             mGroupId = groupId;
-            mImage = image.getTmpFile();
+            mImage = new[] {image.mImageData};
         }
 
-        protected VKRequest getServerRequest() {
+        protected override AbstractRequest getServerRequest()
+        {
             if (mAlbumId != 0 && mGroupId != 0)
                 return VKApi.photos().getUploadServer(mAlbumId, mGroupId);
             return VKApi.photos().getUploadServer(mAlbumId);
         }
 
-    
-        protected VKRequest getSaveRequest(JObject response) {
-            VKRequest saveRequest;
-            try {
-                saveRequest = VKApi.photos().save(new VKParameters(VKJsonHelper.toMap(response)));
-            } catch (JSONException e) {
-                return null;
-            }
+
+        protected override VKRequest<VKPhotoArray> getSaveRequest(JObject response)
+        {
+            var saveRequest = VKApi.photos().save(new VKParameters(VKJsonHelper.toMap(response)));
             if (mAlbumId != 0)
                 saveRequest.addExtraParameters(VKUtil.paramsFrom(VKApiConst.ALBUM_ID, mAlbumId));
             if (mGroupId != 0)
                 saveRequest.addExtraParameters(VKUtil.paramsFrom(VKApiConst.GROUP_ID, mGroupId));
             return saveRequest;
-
         }
 
+        public override void Cancel()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override object GetResponse()
+        {
+            var serverRequest = getServerRequest() as VkJsonRequest;
+            if (serverRequest == null)
+                return null;
+
+            var jobject = serverRequest.GetResponse() as JObject;
+
+            getSaveRequest(jobject);
+            return jobject;
+        }
     }
 }

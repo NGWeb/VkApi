@@ -1,48 +1,57 @@
+#region usings
+
+using System;
+using System.IO;
 using Newtonsoft.Json.Linq;
+using Vk.SDK.Model;
+using Vk.SDK.Util;
 
-namespace Vk.SDK.photo
+#endregion
+
+namespace Vk.SDK.Photo
 {
-    public class VKUploadWallPhotoRequest : VKUploadPhotoBase
+    public class VKUploadWallPhotoRequest : VKUploadPhotoBase<VKPhotoArray>
     {
-        private static readonly long serialVersionUID = 4732771149932923938L;
-
-        public VKUploadWallPhotoRequest(byte[] image, long userId, int groupId)
+        public VKUploadWallPhotoRequest(FileInfo[] image, long userId, int groupId) : base("")
         {
             mUserId = userId;
             mGroupId = groupId;
             mImage = image;
         }
 
-        public VKUploadWallPhotoRequest(VKUploadImage image, long userId, int groupId)
+        public VKUploadWallPhotoRequest(VKUploadImage image, long userId, int groupId) : base("")
         {
             mUserId = userId;
             mGroupId = groupId;
-            mImage = image.getTmpFile();
+            mImage = new[] {image.mImageData};
         }
 
 
-        protected VKRequest getServerRequest()
+        protected override AbstractRequest getServerRequest()
         {
             return mGroupId != 0 ? VKApi.photos().getWallUploadServer(mGroupId) : VKApi.photos().getWallUploadServer();
         }
 
 
-        protected VKRequest getSaveRequest(JObject response)
+        protected override VKRequest<VKPhotoArray> getSaveRequest(JObject response)
         {
-            VKRequest saveRequest;
-            try
-            {
-                saveRequest = VKApi.photos().saveWallPhoto(new VKParameters(VKJsonHelper.toMap(response)));
-            }
-            catch (JSONException e)
-            {
-                return null;
-            }
+            VKRequest<VKPhotoArray> saveRequest =
+                VKApi.photos().saveWallPhoto(new VKParameters(VKJsonHelper.toMap(response)));
             if (mUserId != 0)
                 saveRequest.addExtraParameters(VKUtil.paramsFrom(VKApiConst.USER_ID, mUserId));
             if (mGroupId != 0)
                 saveRequest.addExtraParameters(VKUtil.paramsFrom(VKApiConst.GROUP_ID, mGroupId));
             return saveRequest;
+        }
+
+        public override void Cancel()
+        {
+            throw new NotImplementedException();
+        }
+
+        public override object GetResponse()
+        {
+            throw new NotImplementedException();
         }
     }
 }

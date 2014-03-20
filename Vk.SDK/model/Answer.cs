@@ -1,11 +1,11 @@
-namespace Vk.SDK.model
+namespace Vk.SDK.Model
 {
     public class Answer : VKApiModel, IIdentifiable
     {
-
         /**
        * Text of the answer
        */
+        public double rate;
         public string text;
 
         /**
@@ -16,15 +16,13 @@ namespace Vk.SDK.model
         /**
      * Rate of this answer in percent
      */
-        public double rate;
 
+
+        public int Id { get; protected set; }
 
         public int describeContents()
         {
             return 0;
         }
-
-
-        public int Id { get; protected set; }
     };
 }

@@ -1,7 +1,10 @@
+#region usings
+
 using System;
 using System.Collections.Generic;
-using Vk.SDK;
 using Vk.SDK.Vk;
+
+#endregion
 
 namespace Vk.SDK
 {
@@ -16,15 +19,15 @@ namespace Vk.SDK
         /**
      * Contains system HTTP error
      */
-        public Exception httpError;
         /**
      * Describes API error
      */
         public VKError apiError;
+        public string captchaImg;
+        public string captchaSid;
         /**
      * Request which caused error
      */
-        public AbstractRequest request;
         /**
      * May contains such errors:<br/>
      * <b>HTTP status code</b> if HTTP error occured;<br/>
@@ -41,28 +44,23 @@ namespace Vk.SDK
      * Reason for authorization fail
      */
         public string errorReason;
+        public Exception httpError;
         /**
      * API parameters passed to request
      */
-        public List<Dictionary<string, string>> requestParams;
-        /**
-     * Captcha identifier for captcha-check
-     */
-        public string captchaSid;
-        /**
-     * Image for captcha-check
-     */
-        public string captchaImg;
         /**
      * Redirection address if validation check required
      */
         public string redirectUri;
+        public AbstractRequest request;
+        public List<Dictionary<string, string>> requestParams;
 
         /**
      * Generate new error with code
      *
      * @param errorCode positive if it's an HTTP error. Negative if it's API or SDK error
      */
+
         public VKError(int errorCode)
         {
             this.errorCode = errorCode;
@@ -80,11 +78,12 @@ namespace Vk.SDK
          *
          * @param queryParams key-value parameters
          */
+
         public VKError(Dictionary<string, string> queryParams)
         {
-            this.errorCode = VK_API_ERROR;
-            this.errorReason = queryParams.get("error_reason");
-            this.errorMessage = Uri.decode(queryParams.get("error_description"));
+            errorCode = VK_API_ERROR;
+            errorReason = queryParams["error_reason"];
+            errorMessage = queryParams["error_description"];
         }
 
         /**
@@ -92,17 +91,19 @@ namespace Vk.SDK
          *
          * @param userEnteredCode answer for captcha
          */
+
         public void answerCaptcha(string userEnteredCode)
         {
             VKParameters parameters = new VKParameters();
             parameters.Add(VKApiConst.CAPTCHA_SID, captchaSid);
             parameters.Add(VKApiConst.CAPTCHA_KEY, userEnteredCode);
             request.addExtraParameters(parameters);
-            request.repeat();
+            request.Repeat();
         }
+
         public static VKError getRegisteredError(long requestId)
         {
-            return (VKError)getRegisteredObject(requestId);
+            return (VKError) getRegisteredObject(requestId);
         }
     }
 }

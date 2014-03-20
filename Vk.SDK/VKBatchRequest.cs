@@ -1,16 +1,23 @@
-using System;
+#region usings
+
+using System.Linq;
 using Vk.SDK.Vk;
+
+#endregion
 
 namespace Vk.SDK
 {
-    public delegate void CompleteDelegate(object sender, VKResponse e);
-    public delegate void ErrorDelegate(object sender, VKError e);
-    public delegate void ProgressDelegate(object sender, EventArgs e);
     public class VKBatchRequest : VKObject
     {
         private readonly AbstractRequest[] mRequests;
         private readonly VKResponse[] mResponses;
-        private bool mCanceled = false;
+        private bool mCanceled;
+
+        public VKBatchRequest(params AbstractRequest[] requests)
+        {
+            mRequests = requests;
+            mResponses = new VKResponse[mRequests.Length];
+        }
 
 
         public event CompleteDelegate Complete;
@@ -20,12 +27,6 @@ namespace Vk.SDK
         /**
      * Specify listener for current request
      */
-
-        public VKBatchRequest(params AbstractRequest[] requests)
-        {
-            mRequests = requests;
-            mResponses = new VKResponse[mRequests.Length];
-        }
 
         public void executeWithListener()
         {
@@ -71,7 +72,6 @@ namespace Vk.SDK
                 //            ;
                 //            RequestFactory.enqueueOperation(request.getOperation());
             }
-
         }
 
         /**
@@ -84,7 +84,6 @@ namespace Vk.SDK
             mCanceled = true;
             foreach (AbstractRequest request in mRequests)
                 request.Cancel();
-
         }
 
         protected void provideResponse(VKResponse response)
@@ -97,9 +96,9 @@ namespace Vk.SDK
                 Complete(this, response);
         }
 
-        private int indexOfRequest(VKRequest request)
+        private int indexOfRequest(AbstractRequest request)
         {
-            for (int i = 0; i < mRequests.length; i++)
+            for (int i = 0; i < mRequests.Count(); i++)
                 if (mRequests[i].Equals(request)) return i;
             return -1;
         }

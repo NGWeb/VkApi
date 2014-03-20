@@ -1,10 +1,7 @@
-using Newtonsoft.Json.Linq;
-
-namespace Vk.SDK.model
+namespace Vk.SDK.Model
 {
     public class VKApiOwner : VKApiModel, IIdentifiable
     {
-
         /**
      * User or group ID.
      * If ID is positive, owner is user.
@@ -15,9 +12,9 @@ namespace Vk.SDK.model
         /**
      * Creates an owner with empty ID.
      */
+
         public VKApiOwner()
         {
-
         }
 
         /**
@@ -32,6 +29,7 @@ namespace Vk.SDK.model
         /**
      * Creates according with given ID.
      */
+
         public VKApiOwner(int id)
         {
             this.id = id;
@@ -51,6 +49,5 @@ namespace Vk.SDK.model
         {
             return 0;
         }
-
     }
 }

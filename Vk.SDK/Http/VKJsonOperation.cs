@@ -1,8 +1,13 @@
+#region usings
+
 using System;
 using System.Net;
+using System.Text;
 using Newtonsoft.Json.Linq;
 
-namespace Vk.SDK.httpClient
+#endregion
+
+namespace Vk.SDK.Http
 {
     public class VKJsonOperation : VKHttpOperation
     {
@@ -23,11 +28,12 @@ namespace Vk.SDK.httpClient
      * Generate JSON-response for current operation
      * @return Parsed JSON object from response string
      */
+
         public JObject getResponseJson()
         {
             if (mResponseJson == null)
             {
-                string response = System.Text.Encoding.Default.GetString(ResponseBytes);
+                string response = Encoding.Default.GetString(ResponseBytes);
                 try
                 {
                     mResponseJson = new JObject(response);

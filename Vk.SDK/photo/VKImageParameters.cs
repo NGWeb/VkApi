@@ -1,6 +1,10 @@
+#region usings
+
 using Vk.SDK.Vk;
 
-namespace Vk.SDK.photo
+#endregion
+
+namespace Vk.SDK.Photo
 {
     public class VKImageParameters : VKObject
     {
@@ -12,6 +16,7 @@ namespace Vk.SDK.photo
         {
             /// Sets jpeg representation of image
             Jpg,
+
             /// Sets png representation of image
             Png
         }
@@ -44,6 +49,7 @@ namespace Vk.SDK.photo
      * Returns the file extension for specified parameters
      * @return "jpg", "png" or "file" if unknown
      */
+
         public string fileExtension()
         {
             switch (mImageType)
@@ -61,6 +67,7 @@ namespace Vk.SDK.photo
      * Returns the mime type for specified parameters
      * @return "mage/jpeg", "mage/png" or "application/octet-stream"
      */
+
         public string MimeType()
         {
             switch (mImageType)

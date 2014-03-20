@@ -1,12 +1,10 @@
-using Newtonsoft.Json.Linq;
-
-namespace Vk.SDK.model
+namespace Vk.SDK.Model
 {
-    public class VKApiCommunityArray : VKList<VKApiCommunityFull> {
-    
-        public VKApiModel parse(JObject response) {
-            fill(response, typeof(VKApiCommunityFull));
-            return this;
-        }
+    public class VKApiCommunityArray : VKList<VKApiCommunityFull>
+    {
+        //public VKApiModel parse(JObject response) {
+        //    fill(response, typeof(VKApiCommunityFull));
+        //    return this;
+        //}
     }
 }

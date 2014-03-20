@@ -1,10 +1,10 @@
-/**
- * Presents VK API access token that used for loading API methods and other stuff.
- */
+#region usings
 
 using System;
 using System.Collections.Generic;
 using Vk.SDK.Util;
+
+#endregion
 
 namespace Vk.SDK.Vk
 {
@@ -20,6 +20,7 @@ namespace Vk.SDK.Vk
      * string token for use in request parameters
      */
         public string accessToken = null;
+        public long created = 0;
         /**
      * Time when token expires
      */
@@ -27,38 +28,30 @@ namespace Vk.SDK.Vk
         /**
      * Current user id for this token
      */
-        public string userId = null;
-        /**
-     * User secret to sign requests (if nohttps used)
-     */
-        public string secret = null;
         /**
      * If user sets "Always use HTTPS" setting in his profile, it will be true
      */
         public bool httpsRequired = false;
+        public string secret = null;
+        public string userId = null;
 
         /**
      * Indicates time of token creation
      */
-        public long created = 0;
-
-        /**
-     * Save token into specified file
-     *
-     * @param filePath path to file with saved token
-     */
-        public void saveTokenToFile(string filePath)
-        {
-            VKUtil.stringToFile(filePath, serialize());
-        }
 
         /**
           * Removes token from preferences with specified key
           * @param ctx      Context for preferences
           * @param tokenKey Key for saving settings
           */
+
         private VKAccessToken()
         {
+        }
+
+        public void saveTokenToFile(string filePath)
+        {
+            VKUtil.stringToFile(filePath, serialize());
         }
 
         /**
@@ -66,6 +59,7 @@ namespace Vk.SDK.Vk
      *
      * @return Serialized token string as query-string
      */
+
         protected string serialize()
         {
             VKParameters parameters = new VKParameters();
@@ -92,6 +86,7 @@ namespace Vk.SDK.Vk
      * @param urlstring string that contains URL-query part with token. E.g. access_token=eee&expires_in=0...
      * @return parsed token
      */
+
         public static VKAccessToken tokenFromUrlstring(string urlstring)
         {
             if (urlstring == null)
@@ -107,6 +102,7 @@ namespace Vk.SDK.Vk
      * @param parameters map that contains token info
      * @return Parsed token
      */
+
         public static VKAccessToken tokenFromParameters(Dictionary<string, string> parameters)
         {
             if (parameters == null || parameters.Count == 0)
@@ -140,14 +136,15 @@ namespace Vk.SDK.Vk
             }
         }
 
-                /**
+        /**
      * Checks expiration time of token and returns result.
      *
      * @return true if token has expired, false otherwise.
      */
+
         public bool IsExpired()
         {
-            return expiresIn > 0 && expiresIn * 1000 + created < DateTime.Now.Millisecond;
+            return expiresIn > 0 && expiresIn*1000 + created < DateTime.Now.Millisecond;
         }
     }
 }

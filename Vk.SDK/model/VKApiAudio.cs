@@ -1,14 +1,23 @@
+#region usings
+
 using System.Text;
 
-namespace Vk.SDK.model
+#endregion
+
+namespace Vk.SDK.Model
 {
     public class VKApiAudio : VKApiAttachment, IIdentifiable
     {
-
         /**
      * Audio ID.
      */
+        public string access_key;
+        public int album_id;
+        public string artist;
+        public int duration;
+        public int genre;
         public int id;
+        public int lyrics_id;
 
         /**
      * Audio owner ID.
@@ -18,7 +27,6 @@ namespace Vk.SDK.model
         /**
      * Artist name.
      */
-        public string artist;
 
         /**
      * Audio file title.
@@ -28,32 +36,16 @@ namespace Vk.SDK.model
         /**
      * Duration (in seconds).
      */
-        public int duration;
 
         /**
      * Link to mp3.
      */
         public string url;
+        public override int Id { get; set; }
 
         /**
      * ID of the lyrics (if available) of the audio file.
      */
-        public int lyrics_id;
-
-        /**
-     * ID of the album containing the audio file (if assigned).
-     */
-        public int album_id;
-
-        /**
-     * Genre ID. See the list of audio genres.
-     */
-        public int genre;
-
-        /**
-     * An access key using for get information about hidden objects.
-     */
-        public string access_key;
 
         /**
      * Fills an Audio instance from JObject.
@@ -63,16 +55,12 @@ namespace Vk.SDK.model
         /**
      * Creates empty Audio instance.
      */
-        public VKApiAudio()
+
+
+        public override string ToAttachmentString()
         {
-
-        }
-
-
-        public string ToAttachmentstring()
-        {
-            StringBuilder result = new StringBuilder(TYPE_AUDIO).Append(owner_id).Append('_').Append(id);
-            if (!TextUtils.isEmpty(access_key))
+            StringBuilder result = new StringBuilder(AttachmentType.TYPE_AUDIO).Append(owner_id).Append('_').Append(id);
+            if (!string.IsNullOrEmpty(access_key))
             {
                 result.Append('_');
                 result.Append(access_key);
@@ -81,9 +69,9 @@ namespace Vk.SDK.model
         }
 
 
-        public string GetType()
+        public override string GetType()
         {
-            return TYPE_AUDIO;
+            return AttachmentType.TYPE_AUDIO;
         }
 
 
@@ -91,40 +79,9 @@ namespace Vk.SDK.model
         {
             return 0;
         }
-
-
-
     };
 
     /**
      * Audio object genres.
      */
-    public class Genre
-    {
-
-        private Genre() { }
-
-        public readonly static int ROCK = 1;
-        public readonly static int POP = 2;
-        public readonly static int RAP_AND_HIPHOP = 3;
-        public readonly static int EASY_LISTENING = 4;
-        public readonly static int DANCE_AND_HOUSE = 5;
-        public readonly static int INSTRUMENTAL = 6;
-        public readonly static int METAL = 7;
-        public readonly static int DUBSTEP = 8;
-        public readonly static int JAZZ_AND_BLUES = 9;
-        public readonly static int DRUM_AND_BASS = 10;
-        public readonly static int TRANCE = 11;
-        public readonly static int CHANSON = 12;
-        public readonly static int ETHNIC = 13;
-        public readonly static int ACOUSTIC_AND_VOCAL = 14;
-        public readonly static int REGGAE = 15;
-        public readonly static int CLASSICAL = 16;
-        public readonly static int INDIE_POP = 17;
-        public readonly static int OTHER = 18;
-        public readonly static int SPEECH = 19;
-        public readonly static int ALTERNATIVE = 21;
-        public readonly static int ELECTROPOP_AND_DISCO = 22;
-    }
-
 }

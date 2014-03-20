@@ -1,38 +1,31 @@
+#region usings
+
 using System.Text;
 
-namespace Vk.SDK.model
-{
-    public class VKApiDocument : VKApiAttachment ,IIdentifiable {
+#endregion
 
+namespace Vk.SDK.Model
+{
+    public class VKApiDocument : VKApiAttachment, IIdentifiable
+    {
         /**
      * Document ID.
      */
+        public string access_key;
+        public string ext;
         public int id;
+        private bool mIsGif;
+        private bool mIsImage;
 
         /**
      * ID of the user or group who uploaded the document.
      */
         public int owner_id;
+        public VKPhotoSizes photo = new VKPhotoSizes();
 
         /**
      * Document title.
      */
-        public string title;
-
-        /**
-     * Document size (in bytes).
-     */
-        public long size;
-
-        /**
-     * Document extension.
-     */
-        public string ext;
-
-        /**
-     * Document URL for downloading.
-     */
-        public string url;
 
         /**
      * URL of the 100x75px image (if the file is graphical).
@@ -43,19 +36,14 @@ namespace Vk.SDK.model
      * URL of the 130x100px image (if the file is graphical).
      */
         public string photo_130;
+        public long size;
+        public string title;
+        public string url;
+        public override int Id { get; set; }
 
         /**
      * Array of all photos.
      */
-        public VKPhotoSizes photo = new VKPhotoSizes();
-
-        /**
-     * An access key using for get information about hidden objects.
-     */
-        public string access_key;
-
-        private bool mIsGif;
-        private bool mIsImage;
 
         /**
      * Fills a Doc instance from JObject.
@@ -84,15 +72,13 @@ namespace Vk.SDK.model
         /**
      * Creates a Doc instance from Parcel.
      */
-      
+
         /**
      * Creates empty Doc instance.
      */
-        public VKApiDocument() {
 
-        }
-
-        public bool isImage() {
+        public bool isImage()
+        {
             mIsImage = mIsImage ||
                        "jpg".Equals(ext) ||
                        "jpeg".Equals(ext) ||
@@ -101,43 +87,44 @@ namespace Vk.SDK.model
             return mIsImage;
         }
 
-        public bool isGif() {
+        public bool isGif()
+        {
             mIsGif = mIsGif || "gif".Equals(ext);
             return mIsGif;
         }
 
 
-        public override int Id
+        public string tostring()
         {
-            get { return id; }
-        }
-
-
-        public string tostring() {
             return title;
         }
 
-    
-        public string toAttachmentstring() {
-            StringBuilder result = new StringBuilder(TYPE_DOC).Append(owner_id).Append('_').Append(id);
-            if(!TextUtils.isEmpty(access_key)) {
+
+        public override string ToAttachmentString()
+        {
+            StringBuilder result = new StringBuilder(AttachmentType.TYPE_DOC).Append(owner_id).Append('_').Append(id);
+            if (!string.IsNullOrEmpty(access_key))
+            {
                 result.Append('_');
                 result.Append(access_key);
             }
             return result.ToString();
         }
 
-    
-        public string getType() {
-            return TYPE_DOC;
+
+        public override string GetType()
+        {
+            return AttachmentType.TYPE_DOC;
         }
 
-    
-        public int describeContents() {
+
+        public int describeContents()
+        {
             return 0;
         }
 
-    public VKApiDocument[] newArray(int size) {
+        public VKApiDocument[] newArray(int size)
+        {
             return new VKApiDocument[size];
         }
     };

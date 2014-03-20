@@ -1,8 +1,13 @@
-namespace Vk.SDK.model
+#region usings
+
+using System;
+
+#endregion
+
+namespace Vk.SDK.Model
 {
     public class VKApiApplicationContent : VKApiAttachment
     {
-
         /**
      * ID of the application that posted on the wall;
      */
@@ -12,6 +17,7 @@ namespace Vk.SDK.model
      * Application name
      */
         public string name;
+        public VKPhotoSizes photo = new VKPhotoSizes();
 
         /**
      * Image URL for preview with maximum width in 130px
@@ -22,11 +28,11 @@ namespace Vk.SDK.model
      * Image URL for preview with maximum width in 130px
      */
         public string photo_604;
+        public override int Id { get; set; }
 
         /**
      * Image URL for preview;
      */
-        public VKPhotoSizes photo = new VKPhotoSizes();
 
         public int describeContents()
         {
@@ -35,19 +41,12 @@ namespace Vk.SDK.model
 
         public override string ToAttachmentString()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public override string GetType()
         {
-            throw new System.NotImplementedException();
-        }
-
-        public override int Id
-        {
-            get; protected set;
+            throw new NotImplementedException();
         }
     }
 }
-
-    

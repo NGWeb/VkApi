@@ -1,5 +1,9 @@
+#region usings
+
 using Newtonsoft.Json.Linq;
-using Vk.SDK.model;
+using Vk.SDK.Model;
+
+#endregion
 
 namespace Vk.SDK
 {

@@ -1,10 +1,14 @@
+#region usings
+
 using System.Collections.Generic;
 
-namespace Vk.SDK.model
+#endregion
+
+namespace Vk.SDK.Model
 {
     public abstract class VKApiArray<T> : VKApiModel where T : VKApiModel
     {
-        private List<T> items;
         private int count;
+        private List<T> items;
     }
 }

@@ -1,10 +1,7 @@
-using Newtonsoft.Json.Linq;
-
-namespace Vk.SDK.model
+namespace Vk.SDK.Model
 {
     public class VKPhotoSizes : VKList<VKApiPhotoSize>
     {
-
         private static float sQuality = 1.0f;
 
         /**
@@ -12,25 +9,6 @@ namespace Vk.SDK.model
      * @param quality positive number between 0.0f and 1.0f.
      */
 
-        public static void setQuality(float quality)
-        {
-            sQuality = quality;
-        }
-
-        /**
-     * Original width of photo in pixels.
-     */
-        private int mOriginalWidth = 1;
-
-        /**
-     * Original height of photo in pixels.
-     */
-        private int mOriginalHeight = 1;
-
-        /**
-     * URL of last image thumb for width sampling algorithm.
-     */
-        private string mWidthThumb;
         /**
      * URL of last image thumb for height sampling algorithm.
      */
@@ -39,32 +17,35 @@ namespace Vk.SDK.model
         /**
      * Width of last image thumb for width sampling algorithm.
      */
-        private int mLastWidth;
 
         /**
      * Height of last image thumb for width sampling algorithm.
      */
         private int mLastHeight;
+        private int mLastWidth;
+        private int mOriginalHeight = 1;
+        private int mOriginalWidth = 1;
+        private string mWidthThumb;
+
+        public static void setQuality(float quality)
+        {
+            sQuality = quality;
+        }
 
 
         /**
      * Creates empty list of photo sizes.
      */
 
-        public VKPhotoSizes()
-        {
-
-        }
-
         /**
      * Creates and fills list of photo sizes.
      */
 
-        public VKPhotoSizes(JArray from)
-        {
+        //public VKPhotoSizes(JArray from)
+        //{
 
-            fill(from);
-        }
+        //    fill(from);
+        //}
 
         /**
      * Creates list of photo sizes which fill with according data.
@@ -73,22 +54,22 @@ namespace Vk.SDK.model
      * @param height original photo height in pixels.
      */
 
-        public void fill(JArray from, int width, int height)
-        {
-            setOriginalDimension(width, height);
-            fill(from);
-        }
+        //   public void fill(JArray from, int width, int height)
+        //   {
+        //       setOriginalDimension(width, height);
+        //       fill(from);
+        //   }
 
-        /**
-     * Fill list according with given data.
-     * @param from array of photo sizes returned by VK.
-     */
+        //   /**
+        //* Fill list according with given data.
+        //* @param from array of photo sizes returned by VK.
+        //*/
 
-        public void fill(JArray from)
-        {
-            fill(from, parser);
-            sort();
-        }
+        //   public void fill(JArray from)
+        //   {
+        //       fill(from, parser);
+        //       sort();
+        //   }
 
         /**
      * Return image according with given type of thumb.
@@ -117,11 +98,11 @@ namespace Vk.SDK.model
         {
             if (width != 0)
             {
-                this.mOriginalWidth = width;
+                mOriginalWidth = width;
             }
             if (height != 0)
             {
-                this.mOriginalHeight = height;
+                mOriginalHeight = height;
             }
         }
 
@@ -129,7 +110,7 @@ namespace Vk.SDK.model
      * Sorts thumbs according to their width.
      */
 
-   
+
         /**
      * Finds an image that fits perfectly into the specified dimensions.
      * Method is uses a cache of last thumbs for better performance.
@@ -145,7 +126,7 @@ namespace Vk.SDK.model
 
         private string getImageForWidth(int width)
         {
-            if ((mWidthThumb != null && mLastWidth != width) || isEmpty())
+            if ((mWidthThumb != null && mLastWidth != width) || Count == 0)
             {
                 return mWidthThumb;
             }
@@ -166,7 +147,7 @@ namespace Vk.SDK.model
 
         private string getImageForHeight(int height)
         {
-            if ((mHeightThumb != null && mLastHeight != height) || isEmpty())
+            if ((mHeightThumb != null && mLastHeight != height) || Count == 0)
             {
                 return mHeightThumb;
             }
@@ -190,8 +171,5 @@ namespace Vk.SDK.model
         {
             return 0;
         }
-
-
-
     }
 }

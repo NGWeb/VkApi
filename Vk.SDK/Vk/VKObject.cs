@@ -1,18 +1,23 @@
+#region usings
+
 using System;
 using System.Collections.Generic;
+
+#endregion
 
 namespace Vk.SDK.Vk
 {
     public class VKObject
     {
         private static readonly Dictionary<long, VKObject> sRegisteredObjects = new Dictionary<long, VKObject>();
-        private long mRegisteredObjectId = 0;
+        private long mRegisteredObjectId;
 
         /**
      * Returns object saved in local cache
      * @param registeredObjectId Registered object id
      * @return Object which was saved with registerObject() method
      */
+
         public static VKObject getRegisteredObject(long registeredObjectId)
         {
             return sRegisteredObjects[registeredObjectId];
@@ -22,6 +27,7 @@ namespace Vk.SDK.Vk
      * Saves object in local cache for future use. Always call unregisterObject() after use
      * @return Registered object id
      */
+
         public long registerObject()
         {
             Random rand = new Random();
@@ -41,11 +47,11 @@ namespace Vk.SDK.Vk
         /**
      * Unregister object from local cache.
      */
+
         public void unregisterObject()
         {
             sRegisteredObjects.Remove(mRegisteredObjectId);
             mRegisteredObjectId = 0;
         }
-
     }
 }

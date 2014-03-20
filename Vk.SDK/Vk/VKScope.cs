@@ -1,8 +1,13 @@
+#region usings
+
 using System.Collections.Generic;
+
+#endregion
 
 namespace Vk.SDK.Vk
 {
-    public class VKScope {
+    public class VKScope
+    {
         public static readonly string NOTIFY = "notify";
         public static readonly string FRIENDS = "friends";
         public static readonly string PHOTOS = "photos";
@@ -26,7 +31,9 @@ namespace Vk.SDK.Vk
      * @param permissionsValue integer permissions value
      * @return List contains string constants of permissions (scope)
      */
-        public static List<string> parseVkPermissionsFromInteger(int permissionsValue) {
+
+        public static List<string> parseVkPermissionsFromInteger(int permissionsValue)
+        {
             List<string> res = new List<string>();
             if ((permissionsValue & 1) > 0) res.Add(NOTIFY);
             if ((permissionsValue & 2) > 0) res.Add(FRIENDS);

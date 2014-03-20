@@ -1,11 +1,14 @@
+#region usings
+
 using System;
 using System.Collections.Generic;
+
+#endregion
 
 namespace Vk.SDK.Vk
 {
     public class VKSdk
     {
-
         public static readonly bool DEBUG = true;
         /**
      * Start SDK activity for result with that request code
@@ -18,11 +21,13 @@ namespace Vk.SDK.Vk
         private static volatile VKSdk sInstance;
 
         private static readonly string VK_SDK_ACCESS_TOKEN_PREF_KEY = "VK_SDK_ACCESS_TOKEN_PLEASE_DONT_TOUCH";
+        private static readonly string VK_APP_FINGERPRINT = "48761EEF50EE53AFC4CC9C5F10E6BDE7F8F5B82F";
+        private static readonly string VK_APP_PACKAGE_ID = "com.vkontakte.android";
+        private static readonly string VK_APP_AUTH_ACTION = "com.vkontakte.android.action.SDK_AUTH";
 
         /**
      * Responder for global SDK events
      */
-        private VKSdkListener mListener;
 
         /**
      * Access token for API-requests
@@ -33,10 +38,10 @@ namespace Vk.SDK.Vk
      * App id for current application
      */
         private string mCurrentAppId;
+        private VKSdkListener mListener;
 
         private VKSdk()
         {
-
         }
 
         //Context getContext() {
@@ -95,9 +100,6 @@ namespace Vk.SDK.Vk
         /**
        * Defines true VK application fingerprint
        */
-        private static readonly string VK_APP_FINGERPRINT = "48761EEF50EE53AFC4CC9C5F10E6BDE7F8F5B82F";
-        private static readonly string VK_APP_PACKAGE_ID = "com.vkontakte.android";
-        private static readonly string VK_APP_AUTH_ACTION = "com.vkontakte.android.action.SDK_AUTH";
 
         /**
      * Starts authorization process. If VKapp is available in system, it will opens and requests access from user.
@@ -237,7 +239,6 @@ namespace Vk.SDK.Vk
 
         public static bool wakeUpSession(VKAccessToken token)
         {
-
             if (sInstance.performTokenCheck(token, false))
             {
                 sInstance.mAccessToken = token;

@@ -1,8 +1,7 @@
-namespace Vk.SDK.model
+namespace Vk.SDK.Model
 {
     public class VKApiPostedPhoto : VKApiPhoto
     {
-
         /**
      * Fills a PostedPhoto instance from JObject.
      */
@@ -11,15 +10,11 @@ namespace Vk.SDK.model
           /**
        * Creates empty PostedPhoto instance.
        */
-        public VKApiPostedPhoto()
-        {
-
-        }
 
 
         public string getType()
         {
-            return TYPE_POSTED_PHOTO;
+            return AttachmentType.TYPE_POSTED_PHOTO;
         }
     }
 }

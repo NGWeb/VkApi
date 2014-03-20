@@ -1,9 +1,16 @@
-using Newtonsoft.Json.Linq;
-using Vk.SDK.httpClient;
+#region usings
 
-namespace Vk.SDK.photo
+using System.IO;
+using Newtonsoft.Json.Linq;
+using Vk.SDK.Http;
+using Vk.SDK.Model;
+
+#endregion
+
+namespace Vk.SDK.Photo
 {
-    public abstract class VKUploadPhotoBase : AbstractRequest {
+    public abstract class VKUploadPhotoBase<T> : AbstractRequest where T : VKApiModel
+    {
         /**
      * ID of album to upload
      */
@@ -15,34 +22,37 @@ namespace Vk.SDK.photo
         /**
      * ID of user wall to upload
      */
-        protected long mUserId;
         /**
      * Image to upload
      */
-        protected byte[] mImage;
+        protected FileInfo[] mImage;
+        protected long mUserId;
+
+        protected VKUploadPhotoBase(string uri)
+            : base(uri)
+        {
+        }
 
         protected abstract AbstractRequest getServerRequest();
 
-        protected abstract AbstractRequest getSaveRequest(JObject response);
-
-        protected VKUploadPhotoBase(string uri) : base(uri)
-        {}
+        protected abstract VKRequest<T> getSaveRequest(JObject response);
 
         public void cancel()
         {
-            if (lastOperation != null)
-                lastOperation.cancel();
-            super.cancel();
+            //if (lastOperation != null)
+            //    lastOperation.cancel();
+            //super.cancel();
         }
 
 
         public void finish()
         {
-            super.finish();
-            lastOperation = null;
+            //super.finish();
+            //lastOperation = null;
         }
-    
-        public VKAbstractOperation getOperation() {
+
+        public VKAbstractOperation getOperation()
+        {
             return new VKUploadImageOperation(GetPreparedRequest());
         }
     }

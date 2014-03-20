@@ -1,21 +1,24 @@
+#region usings
+
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 
-namespace Vk.SDK.model
+#endregion
+
+namespace Vk.SDK.Model
 {
     public abstract class VKApiModel
     {
-
         public JObject fields;
         /**
      * The model's tag.
      */
-        private object mTag;
 
         /**
      * Map used to store model's tags.
      */
         private Dictionary<int, object> mKeyedTags;
+        private object mTag;
 
         /**
      * Returns this model's tag.
@@ -25,6 +28,7 @@ namespace Vk.SDK.model
      * @see #setTag(object)
      * @see #getTag(int)
      */
+
         public object getTag()
         {
             return mTag;
@@ -39,6 +43,7 @@ namespace Vk.SDK.model
      * @see #getTag()
      * @see #setTag(int, object)
      */
+
         public void setTag(object tag)
         {
             mTag = tag;
@@ -54,6 +59,7 @@ namespace Vk.SDK.model
      * @see #setTag(int, object)
      * @see #getTag()
      */
+
         public object getTag(int key)
         {
             if (mKeyedTags != null) return mKeyedTags[key];
@@ -68,6 +74,7 @@ namespace Vk.SDK.model
      * @see #setTag(object)
      * @see #getTag(int)
      */
+
         public void setTag(int key, object tag)
         {
             if (mKeyedTags == null)
