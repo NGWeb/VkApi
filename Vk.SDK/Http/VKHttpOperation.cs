@@ -3,6 +3,7 @@
 using System;
 using System.IO;
 using System.Net;
+using System.Text;
 
 #endregion
 
@@ -62,7 +63,7 @@ namespace Vk.SDK.Http
             Request = uriRequest;
         }
 
-        public byte[] ResponseBytes { get; private set; }
+        public string ResponseString { get; private set; }
 
         /**
      * Start current prepared http-operation for result
@@ -72,17 +73,14 @@ namespace Vk.SDK.Http
         {
             OnBeginRequest();
             SetState(VKOperationState.Executing);
-            using (var response = Request.GetResponse())
+            using (var response = (HttpWebResponse)Request.GetResponse())
             {
                 using (var stream = response.GetResponseStream())
                 {
-                    using (var outputStream = new MemoryStream())
+                    var responseEncoding = Encoding.GetEncoding(response.CharacterSet);
+                    using (StreamReader sr = new StreamReader(response.GetResponseStream(), responseEncoding))
                     {
-                        if (stream != null)
-                            stream.CopyTo(outputStream);
-                        outputStream.Flush();
-                        ResponseBytes = outputStream.ToArray();
-                        outputStream.Close();
+                        ResponseString = sr.ReadToEnd();
                     }
                 }
             }

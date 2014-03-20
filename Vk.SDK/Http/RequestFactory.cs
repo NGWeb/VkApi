@@ -133,7 +133,8 @@ namespace Vk.SDK.Http
 
         private static Dictionary<string, string> getDefaultHeaders()
         {
-            return new Dictionary<string, string> {{"Accept-Encoding", "gzip"}};
+            return new Dictionary<string, string>();
+          //  return new Dictionary<string, string> {{"Accept-Encoding", "gzip"}};
         }
     }
 }

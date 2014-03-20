@@ -3,6 +3,7 @@
 using System.Net;
 using System.Text;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Vk.SDK.Model;
 
 #endregion
@@ -27,8 +28,8 @@ namespace Vk.SDK.Http
 
         protected void PostExecution(object sender)
         {
-            var str = Encoding.Default.GetString(ResponseBytes);
-            parsedModel = JsonConvert.DeserializeObject<T>(str);
+            JObject val = JObject.Parse(ResponseString);
+            parsedModel = val.GetValue("response").ToObject<T>();
         }
     }
 }

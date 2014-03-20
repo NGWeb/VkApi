@@ -18,7 +18,8 @@ namespace Vk.SDK.Http
      * @param uriRequest Request prepared manually or with RequestFactory
      */
 
-        public VKJsonOperation(WebRequest uriRequest) : base(uriRequest)
+        public VKJsonOperation(WebRequest uriRequest)
+            : base(uriRequest)
         {
             FinishRequest += postExecution;
         }
@@ -33,15 +34,8 @@ namespace Vk.SDK.Http
         {
             if (mResponseJson == null)
             {
-                string response = Encoding.Default.GetString(ResponseBytes);
-                try
-                {
-                    mResponseJson = new JObject(response);
-                }
-                catch (Exception e)
-                {
-                    mLastException = e;
-                }
+
+                mResponseJson = new JObject(ResponseString);
             }
             return mResponseJson;
         }

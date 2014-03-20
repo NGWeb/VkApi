@@ -18,7 +18,7 @@ namespace Vk.SDK.Vk
         /**
      * Instance of SDK
      */
-        private static volatile VKSdk sInstance;
+        private static readonly Lazy<VKSdk> sInstance = new Lazy<VKSdk>(() => new VKSdk());
 
         private static readonly string VK_SDK_ACCESS_TOKEN_PREF_KEY = "VK_SDK_ACCESS_TOKEN_PLEASE_DONT_TOUCH";
         private static readonly string VK_APP_FINGERPRINT = "48761EEF50EE53AFC4CC9C5F10E6BDE7F8F5B82F";
@@ -50,7 +50,7 @@ namespace Vk.SDK.Vk
 
         public static VKSdk instance()
         {
-            return sInstance;
+            return sInstance.Value;
         }
 
         /**
@@ -60,26 +60,14 @@ namespace Vk.SDK.Vk
      * @param appId    your application id (if you haven't, you can create standalone application here https://vk.com/editapp?act=create )
      */
 
-        public void initialize(string appId)
+        public static void initialize(string appId)
         {
             if (appId == null)
             {
                 throw new Exception("Application ID cannot be null");
             }
 
-            // Double checked locking singleton, for thread safety VKSdk.initialize() calls
-            if (sInstance == null)
-            {
-                lock (this)
-                {
-                    if (sInstance == null)
-                    {
-                        sInstance = new VKSdk();
-                    }
-                }
-            }
-
-            sInstance.mCurrentAppId = appId;
+       sInstance.Value.mCurrentAppId = appId;
         }
 
         /**
@@ -93,8 +81,9 @@ namespace Vk.SDK.Vk
 
         public static void initialize(string appId, VKAccessToken token)
         {
-            sInstance.mAccessToken = token;
-            sInstance.performTokenCheck(token, true);
+            initialize(appId);
+            sInstance.Value.mAccessToken = token;
+            sInstance.Value.performTokenCheck(token, true);
         }
 
         /**
@@ -118,7 +107,7 @@ namespace Vk.SDK.Vk
 
         public VKSdkListener sdkListener()
         {
-            return sInstance.mListener;
+            return sInstance.Value.mListener;
         }
 
         /**
@@ -129,7 +118,7 @@ namespace Vk.SDK.Vk
 
         public void setSdkListener(VKSdkListener newListener)
         {
-            sInstance.mListener = newListener;
+            sInstance.Value.mListener = newListener;
         }
 
         /**
@@ -163,17 +152,17 @@ namespace Vk.SDK.Vk
 
         public static void setAccessToken(VKAccessToken token, bool renew)
         {
-            sInstance.mAccessToken = token;
+            sInstance.Value.mAccessToken = token;
 
-            if (sInstance.mListener != null)
+            if (sInstance.Value.mListener != null)
             {
                 if (!renew)
                 {
-                    sInstance.mListener.onReceiveNewToken(token);
+                    sInstance.Value.mListener.onReceiveNewToken(token);
                 }
                 else
                 {
-                    sInstance.mListener.onRenewAccessToken(token);
+                    sInstance.Value.mListener.onRenewAccessToken(token);
                 }
             }
         }
@@ -186,13 +175,13 @@ namespace Vk.SDK.Vk
 
         public static VKAccessToken getAccessToken()
         {
-            if (sInstance.mAccessToken != null)
+            if (sInstance.Value.mAccessToken != null)
             {
-                if (sInstance.mAccessToken.IsExpired() && sInstance.mListener != null)
+                if (sInstance.Value.mAccessToken.IsExpired() && sInstance.Value.mListener != null)
                 {
-                    sInstance.mListener.onTokenExpired(sInstance.mAccessToken);
+                    sInstance.Value.mListener.onTokenExpired(sInstance.Value.mAccessToken);
                 }
-                return sInstance.mAccessToken;
+                return sInstance.Value.mAccessToken;
             }
 
             return null;
@@ -206,11 +195,11 @@ namespace Vk.SDK.Vk
 
         public static void setAccessTokenError(VKError error)
         {
-            sInstance.mAccessToken = null;
+            sInstance.Value.mAccessToken = null;
 
-            if (sInstance.mListener != null)
+            if (sInstance.Value.mListener != null)
             {
-                sInstance.mListener.onAccessDenied(error);
+                sInstance.Value.mListener.onAccessDenied(error);
             }
         }
 
@@ -239,9 +228,9 @@ namespace Vk.SDK.Vk
 
         public static bool wakeUpSession(VKAccessToken token)
         {
-            if (sInstance.performTokenCheck(token, false))
+            if (sInstance.Value.performTokenCheck(token, false))
             {
-                sInstance.mAccessToken = token;
+                sInstance.Value.mAccessToken = token;
                 return true;
             }
             return false;
@@ -260,7 +249,7 @@ namespace Vk.SDK.Vk
 
         public static bool isLoggedIn()
         {
-            return sInstance.mAccessToken != null && !sInstance.mAccessToken.IsExpired();
+            return sInstance.Value.mAccessToken != null && !sInstance.Value.mAccessToken.IsExpired();
         }
     }
 }

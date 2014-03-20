@@ -4,7 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Vk.SDK.Test
 {
     [TestClass]
-    public class UnitTest1
+    public class WallsTest
     {
         [TestMethod]
         public void TestMethod1()

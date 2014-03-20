@@ -14,7 +14,7 @@ namespace Vk.SDK.Model
         /**
      * Decorated list
      */
-        private readonly List<T> _items = new List<T>();
+        public List<T> Items { get; set; }
 
         /**
      * Field {@code count} which returned by server.
@@ -27,6 +27,7 @@ namespace Vk.SDK.Model
 
         public VKList()
         {
+            Items = new List<T>();
         }
 
         /**
@@ -35,7 +36,7 @@ namespace Vk.SDK.Model
 
         public VKList(IEnumerable<T> data)
         {
-            _items = new List<T>(data);
+            Items = new List<T>(data);
         }
 
         /**
@@ -173,7 +174,7 @@ namespace Vk.SDK.Model
         //   }
         public IEnumerator<T> GetEnumerator()
         {
-            return _items.GetEnumerator();
+            return Items.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
@@ -183,32 +184,32 @@ namespace Vk.SDK.Model
 
         public void Add(T item)
         {
-            _items.Add(item);
+            Items.Add(item);
         }
 
         public void Clear()
         {
-            _items.Clear();
+            Items.Clear();
         }
 
         public bool Contains(T item)
         {
-            return _items.Contains(item);
+            return Items.Contains(item);
         }
 
         public void CopyTo(T[] array, int arrayIndex)
         {
-            _items.CopyTo(array, arrayIndex);
+            Items.CopyTo(array, arrayIndex);
         }
 
         public bool Remove(T item)
         {
-            return _items.Remove(item);
+            return Items.Remove(item);
         }
 
         public int Count
         {
-            get { return _items.Count; }
+            get { return Items.Count; }
         }
 
         public bool IsReadOnly
@@ -218,23 +219,23 @@ namespace Vk.SDK.Model
 
         public int IndexOf(T item)
         {
-            return _items.IndexOf(item);
+            return Items.IndexOf(item);
         }
 
         public void Insert(int index, T item)
         {
-            _items.Insert(index, item);
+            Items.Insert(index, item);
         }
 
         public void RemoveAt(int index)
         {
-            _items.RemoveAt(index);
+            Items.RemoveAt(index);
         }
 
         public T this[int index]
         {
-            get { return _items[index]; }
-            set { _items[index] = value; }
+            get { return Items[index]; }
+            set { Items[index] = value; }
         }
     }
 }
