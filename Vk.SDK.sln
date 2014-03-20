@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.30110.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vk.SDK", "Vk.SDK\Vk.SDK.csproj", "{65F3757C-10DB-49A1-889A-C34AB7B76B29}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vk.SDK.Test", "Vk.SDK.Test\Vk.SDK.Test.csproj", "{5AF1B49D-FC17-420A-9006-F43E3962BC69}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{65F3757C-10DB-49A1-889A-C34AB7B76B29}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{65F3757C-10DB-49A1-889A-C34AB7B76B29}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{65F3757C-10DB-49A1-889A-C34AB7B76B29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AF1B49D-FC17-420A-9006-F43E3962BC69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AF1B49D-FC17-420A-9006-F43E3962BC69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AF1B49D-FC17-420A-9006-F43E3962BC69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AF1B49D-FC17-420A-9006-F43E3962BC69}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
