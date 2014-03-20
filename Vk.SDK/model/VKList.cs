@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace Vk.SDK.Model
 {
-    public class VKList<T> : VKApiModel, IList<T> where T : VKApiModel
+    public class VKList<T> : VKApiModel where T : VKApiModel
     {
         private static readonly int NO_COUNT = -1;
 
@@ -177,11 +177,7 @@ namespace Vk.SDK.Model
             return Items.GetEnumerator();
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
-
+   
         public void Add(T item)
         {
             Items.Add(item);
@@ -209,7 +205,8 @@ namespace Vk.SDK.Model
 
         public int Count
         {
-            get { return Items.Count; }
+            get;
+            set;
         }
 
         public bool IsReadOnly

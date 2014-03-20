@@ -63,8 +63,8 @@ namespace Vk.SDK.Test
         public void GetUsersTest()
         {
             VKSdk.initialize("4256757", VKAccessToken.TokenFromUrlstring("https://oauth.vk.com/blank.html#access_token=0a6b9c8d685cbc1f0259aa6d8076612865efb100b328f5ed6fe7c2f3a10744227b26684114b9ee1c16036&expires_in=0&user_id=125342956"));
-            var objects = VKApi.users().getFollowers(new VKParameters() { { "user_id", "125342956" } }).GetResponse();
-            Assert.IsNull(objects);
+            var objects = VKApi.users().getFollowers(new VKParameters() { { "user_id", "125342956" }, { "fields", "screen_name" } }).GetResponse();
+            Assert.IsNotNull(objects);
         }
     }
 }

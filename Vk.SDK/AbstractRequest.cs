@@ -41,7 +41,7 @@ namespace Vk.SDK
         /**
      * Requests that should be called after current request.
      */
-        protected List<AbstractRequest> PostRequestsQueue;
+        protected List<AbstractRequest> PostRequestsQueue = new List<AbstractRequest>();
 
         /**
      * Specify language for API request
@@ -76,6 +76,7 @@ namespace Vk.SDK
         protected AbstractRequest(string method)
             : this(method, null)
         {
+            
         }
 
         /**
