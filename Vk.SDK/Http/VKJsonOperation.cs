@@ -35,7 +35,7 @@ namespace Vk.SDK.Http
             if (mResponseJson == null)
             {
 
-                mResponseJson = new JObject(ResponseString);
+                mResponseJson = JObject.Parse(ResponseString);
             }
             return mResponseJson;
         }
