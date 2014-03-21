@@ -1,6 +1,10 @@
-Документация [a link](https://github.com/NGWeb/VkApi/wiki)
-Фьючерсы:
+[Документация ](https://github.com/NGWeb/VkApi/wiki)
 
+Фьючерсы:
++ AccessTokenManager
++ NuGet Package
+
+в 1.0
 + Unit Testing
 + Ninject or Autofac injection
 
