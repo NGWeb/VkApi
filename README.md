@@ -1,5 +1,4 @@
-Документация
-[Home]
+Документация [a link](https://github.com/NGWeb/VkApi/wiki)
 Фьючерсы:
 
 + Unit Testing
