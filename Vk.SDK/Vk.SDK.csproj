@@ -78,9 +78,7 @@
     <Compile Include="VKProgressType.cs" />
     <Compile Include="VKRequestListener.cs" />
     <Compile Include="Vk\VKAccessToken.cs" />
-    <Compile Include="Vk\VKCaptchaDialog.cs" />
     <Compile Include="Vk\VKObject.cs" />
-    <Compile Include="Vk\VKOpenAuthActivity.cs" />
     <Compile Include="Vk\VKScope.cs" />
     <Compile Include="Vk\VKSdk.cs" />
     <Compile Include="Vk\VKSdkListener.cs" />

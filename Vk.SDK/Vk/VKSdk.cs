@@ -10,43 +10,16 @@ namespace Vk.SDK.Vk
     public class VKSdk
     {
         public static readonly bool DEBUG = true;
-        /**
-     * Start SDK activity for result with that request code
-     */
-        public static readonly int VK_SDK_REQUEST_CODE = 0xf228;
 
-        /**
-     * Instance of SDK
-     */
         private static readonly Lazy<VKSdk> sInstance = new Lazy<VKSdk>(() => new VKSdk());
 
-        private static readonly string VK_SDK_ACCESS_TOKEN_PREF_KEY = "VK_SDK_ACCESS_TOKEN_PLEASE_DONT_TOUCH";
-        private static readonly string VK_APP_FINGERPRINT = "48761EEF50EE53AFC4CC9C5F10E6BDE7F8F5B82F";
-        private static readonly string VK_APP_PACKAGE_ID = "com.vkontakte.android";
-        private static readonly string VK_APP_AUTH_ACTION = "com.vkontakte.android.action.SDK_AUTH";
-
-        /**
-     * Responder for global SDK events
-     */
-
-        /**
-     * Access token for API-requests
-     */
         private VKAccessToken mAccessToken;
 
-        /**
-     * App id for current application
-     */
-        private string mCurrentAppId;
         private VKSdkListener mListener;
 
         private VKSdk()
         {
         }
-
-        //Context getContext() {
-        //    return VKUIHelper.getTopActivity();
-        //}
 
         public static VKSdk instance()
         {
@@ -66,8 +39,6 @@ namespace Vk.SDK.Vk
             {
                 throw new Exception("Application ID cannot be null");
             }
-
-       sInstance.Value.mCurrentAppId = appId;
         }
 
         /**
@@ -85,19 +56,6 @@ namespace Vk.SDK.Vk
             sInstance.Value.mAccessToken = token;
             sInstance.Value.performTokenCheck(token, true);
         }
-
-        /**
-       * Defines true VK application fingerprint
-       */
-
-        /**
-     * Starts authorization process. If VKapp is available in system, it will opens and requests access from user.
-     * Otherwise UIWebView with standard UINavigationBar will be opened for access request.
-     *
-     * @param scope array of permissions for your applications. All permissions you can
-     * @param revoke      if true, user will allow logout (to change user)
-     * @param forceOAuth  sdk will use only oauth authorization, through uiwebview
-     */
 
         /**
      * Returns current VK SDK listener
@@ -213,7 +171,7 @@ namespace Vk.SDK.Vk
                 }
                 else if (token.accessToken != null)
                 {
-         //           if (isUserToken) mListener.onAcceptUserToken(token);
+                    //           if (isUserToken) mListener.onAcceptUserToken(token);
                     return true;
                 }
                 else
