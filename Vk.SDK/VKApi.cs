@@ -15,9 +15,9 @@ namespace Vk.SDK
          * Returns object for preparing requests to users part of API
          */
 
-        public static VKApiUsers users()
+        public static UsersService users()
         {
-            return new VKApiUsers();
+            return new UsersService();
         }
 
         /**
@@ -25,9 +25,9 @@ namespace Vk.SDK
          * Returns object for preparing requests to users part of API
          */
 
-        public static VKApiFriends friends()
+        public static FriendsService friends()
         {
-            return new VKApiFriends();
+            return new FriendsService();
         }
 
         /**
@@ -35,9 +35,9 @@ namespace Vk.SDK
          * Returns object for preparing requests to wall part of API
          */
 
-        public static VKApiWall wall()
+        public static WallService wall()
         {
-            return new VKApiWall();
+            return new WallService();
         }
 
         /**
@@ -45,9 +45,9 @@ namespace Vk.SDK
          * Returns object for preparing requests to photos part of API
          */
 
-        public static VKApiPhotos photos()
+        public static PhotosService photos()
         {
-            return new VKApiPhotos();
+            return new PhotosService();
         }
 
         /**

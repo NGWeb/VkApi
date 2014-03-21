@@ -90,12 +90,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\VKApiBase.cs" />
-    <Compile Include="Context\VKApiCaptcha.cs" />
-    <Compile Include="Context\VKApiFriends.cs" />
-    <Compile Include="Context\VKApiGroups.cs" />
-    <Compile Include="Context\VKApiPhotos.cs" />
-    <Compile Include="Context\VKApiUsers.cs" />
-    <Compile Include="Context\VKApiWall.cs" />
+    <Compile Include="Context\CaptchaService.cs" />
+    <Compile Include="Context\FriendsService.cs" />
+    <Compile Include="Context\GroupsService.cs" />
+    <Compile Include="Context\PhotosService.cs" />
+    <Compile Include="Context\UsersService.cs" />
+    <Compile Include="Context\WallService.cs" />
     <Compile Include="Model\IIdentifiable.cs" />
     <Compile Include="Model\ParseUtils.cs" />
     <Compile Include="Model\VKApiApplicationContent.cs" />
