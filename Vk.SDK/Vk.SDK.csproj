@@ -42,6 +42,11 @@
   <ItemGroup>
     <Compile Include="AbstractRequest.cs" />
     <Compile Include="CompleteDelegate.cs" />
+    <Compile Include="Context\IFriendsService.cs" />
+    <Compile Include="Context\IGroupsService.cs" />
+    <Compile Include="Context\IPhotosService.cs" />
+    <Compile Include="Context\IUsersService.cs" />
+    <Compile Include="Context\IWallService.cs" />
     <Compile Include="Declarations\AttachmentType.cs" />
     <Compile Include="ErrorDelegate.cs" />
     <Compile Include="Http\BeginRequestDelegate.cs" />
