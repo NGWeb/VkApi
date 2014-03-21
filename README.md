@@ -1,5 +1,5 @@
 Документация
-[[Home]]
+[Home]
 Фьючерсы:
 
 + Unit Testing
