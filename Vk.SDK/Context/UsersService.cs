@@ -1,5 +1,6 @@
 #region usings
 
+using Vk.SDK.Http;
 using Vk.SDK.Model;
 
 #endregion
@@ -20,6 +21,10 @@ namespace Vk.SDK.Context
      * @param params use parameters from description with VKApiConst class
      * @return Request for load
      */
+
+        public UsersService(IRequestFactory factory) : base(factory)
+        {
+        }
 
         public VKRequest<VKApiUser> Get(VKParameters parameters)
         {

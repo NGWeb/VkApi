@@ -21,62 +21,25 @@ namespace Vk.SDK
             POST
         }
 
-        /**
-     * Selected method name
-     */
-        /**
-     * HTTP method for loading
-     */
+        private readonly IRequestFactory _requestFactory;
+
         public readonly HttpMethod httpMethod;
-        /**
-     * Passed parameters for method
-     */
         private readonly VKParameters mMethodParameters;
         public readonly string methodName;
         public bool ParseModel;
-        /**
-     * Method parametes with common parameters
-     */
-
-        /**
-     * Requests that should be called after current request.
-     */
         protected List<AbstractRequest> PostRequestsQueue = new List<AbstractRequest>();
 
-        /**
-     * Specify language for API request
-     */
-
-        /**
-        /**
-     * Specify attempts for request loading if caused HTTP-error. 0 for infinite
-     */
         public int attempts;
         private int mAttemptsUsed;
         private string mPreferredLang;
         private VKParameters mPreparedParameters;
-        /**
-     * Use HTTPS requests (by default is YES). If http-request is impossible (user denied no https access), SDK will load https version
-     */
         public bool secure;
-        /**
-     * Sets current system language as default for API data
-     */
         public bool useSystemLanguage;
-        /**
-     * Set to false if you don't need automatic model parsing
-     */
 
-        /**
-     * Creates new request with parameters. See documentation for methods here https://vk.com/dev/methods
-     *
-     * @param method API-method name, e.g. audio.get
-     */
-
-        protected AbstractRequest(string method)
-            : this(method, null)
+        protected AbstractRequest(string method, IRequestFactory requestFactory)
+            : this(method, null, requestFactory)
         {
-            
+
         }
 
         /**
@@ -86,8 +49,8 @@ namespace Vk.SDK
      * @param parameters method parameters
      */
 
-        public AbstractRequest(string method, VKParameters parameters)
-            : this(method, parameters, HttpMethod.GET)
+        protected AbstractRequest(string method, VKParameters parameters, IRequestFactory requestFactory)
+            : this(method, parameters, HttpMethod.GET, requestFactory)
         {
         }
 
@@ -99,7 +62,7 @@ namespace Vk.SDK
      * @param httpMethod HTTP method for execution, e.g. GET, POST
      */
 
-        public AbstractRequest(string method, VKParameters parameters, HttpMethod httpMethod)
+        public AbstractRequest(string method, VKParameters parameters, HttpMethod httpMethod, IRequestFactory requestFactory)
         {
             methodName = method;
             if (parameters == null)
@@ -110,6 +73,7 @@ namespace Vk.SDK
             if (httpMethod == null)
                 httpMethod = HttpMethod.GET;
             this.httpMethod = httpMethod;
+            this._requestFactory = requestFactory;
             mAttemptsUsed = 0;
 
             secure = true;
@@ -150,22 +114,11 @@ namespace Vk.SDK
         {
             return httpMethod;
         }
-
-        /**
-     * @return Returns list of method parameters (without common parameters)
-     */
-
+    
         public VKParameters GetMethodParameters()
         {
             return mMethodParameters;
         }
-
-        /**
-         * Register current request for execute after passed request, if passed request is successful. If it's not, errorBlock will be called.
-         *
-         * @param request  after which request must be called that request
-         * @param listener listener for request events
-         */
 
         public void ExecuteAfterRequest(AbstractRequest request)
         {
@@ -218,15 +171,9 @@ namespace Vk.SDK
             return mPreparedParameters;
         }
 
-        /**
-     * Prepares request for loading
-     *
-     * @return Prepared HttpUriRequest for that VKRequest
-     */
-
         public WebRequest GetPreparedRequest()
         {
-            var request = RequestFactory.RequestWithVkRequest(this);
+            var request = _requestFactory.RequestWithVkRequest(this);
 
             if (request != null)
                 return request;
@@ -263,7 +210,7 @@ namespace Vk.SDK
                     result = "ua";
                 }
 
-                if (new[] {"ru", "en", "ua", "es", "fi", "de", "it"}.Contains(result))
+                if (new[] { "ru", "en", "ua", "es", "fi", "de", "it" }.Contains(result))
                 {
                     result = mPreferredLang;
                 }
@@ -297,20 +244,6 @@ namespace Vk.SDK
 
             OnComplete(response);
         }
-
-        /**
-     * Adds additional parameter to that request
-     *
-     * @param key   parameter name
-     * @param value parameter value
-     */
-
-
-        /**
-     * Adds additional parameters to that request
-     *
-     * @param extraParameters parameters supposed to be added
-     */
 
         public void addExtraParameters(VKParameters extraParameters)
         {
@@ -347,11 +280,6 @@ namespace Vk.SDK
             return false;
         }
 
-
-        /**
-     * Sets preferred language for api results.
-     * @param lang Two letter language code. May be "ru", "en", "ua", "es", "fi", "de", "it"
-     */
 
         public void setPreferredLang(string lang)
         {

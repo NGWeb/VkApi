@@ -1,5 +1,6 @@
 #region usings
 
+using Vk.SDK.Http;
 using Vk.SDK.Model;
 using Vk.SDK.Util;
 
@@ -9,6 +10,10 @@ namespace Vk.SDK.Context
 {
     public class PhotosService : VKApiBase, IPhotosService
     {
+        public PhotosService(IRequestFactory factory) : base(factory)
+        {
+        }
+
         public VkJsonRequest GetUploadServer(long albumId)
         {
             return PrepareJsonRequest("getUploadServer", VKUtil.paramsFrom(VKApiConst.ALBUM_ID, albumId));

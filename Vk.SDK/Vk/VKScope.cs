@@ -53,5 +53,7 @@ namespace Vk.SDK.Vk
             if ((permissionsValue & 1048576) > 0) res.Add(STATS);
             return res;
         }
+   
+
     }
 }

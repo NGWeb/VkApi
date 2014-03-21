@@ -11,18 +11,18 @@ namespace Vk.SDK
     {
         private VKModelOperation<T> mLoadingOperation;
 
-        public VKRequest(string method)
-            : base(method)
+        public VKRequest(string method, IRequestFactory factory)
+            : base(method, factory)
         {
         }
 
-        public VKRequest(string method, VKParameters parameters)
-            : base(method, parameters)
+        public VKRequest(string method, VKParameters parameters, IRequestFactory factory)
+            : base(method, parameters, factory)
         {
         }
 
-        public VKRequest(string method, VKParameters parameters, HttpMethod httpMethod)
-            : base(method, parameters, httpMethod)
+        public VKRequest(string method, VKParameters parameters, HttpMethod httpMethod, IRequestFactory factory)
+            : base(method, parameters, httpMethod, factory)
         {
         }
 

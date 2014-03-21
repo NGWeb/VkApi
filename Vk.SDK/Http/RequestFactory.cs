@@ -12,40 +12,23 @@ using Vk.SDK.Util;
 
 namespace Vk.SDK.Http
 {
-    public class RequestFactory /*: HttpClient*/
+    public interface IRequestFactory
     {
-        private static readonly Lazy<RequestFactory> SInstance = new Lazy<RequestFactory>(() => new RequestFactory());
-        /**
-     * Default constructor from basic class
-     *
-     * @param conman The connection manager
-     * @param params The parameters
-     */
+        WebRequest RequestWithVkRequest(AbstractRequest vkRequest);
+        WebRequest FileUploadRequest(string uploadUrl, params FileInfo[] files);
+    }
 
-        private RequestFactory( /*ClientConnectionManager conman, HttpParams param*/)
+    public class RequestFactory /*: HttpClient*/ : IRequestFactory
+    {
+        private readonly IRequestCreator _creator;
+
+        public RequestFactory(IRequestCreator creator)
         {
+            _creator = creator;
             // super(conman, param);
         }
 
-        /**
-     * Creates the http client (if need). Returns reusing client
-     *
-     * @return Prepared client used for API requests loading
-     */
-
-        public static RequestFactory Client
-        {
-            get { return SInstance.Value; }
-        }
-
-        /**
-     * Prepares new "normal" request from VKRequest
-     *
-     * @param vkRequest Request, created for some method
-     * @return Prepared request for creating VKHttpOperation
-     */
-
-        public static WebRequest RequestWithVkRequest(AbstractRequest vkRequest)
+        public WebRequest RequestWithVkRequest(AbstractRequest vkRequest)
         {
             WebRequest request = null;
             VKParameters preparedParameters = vkRequest.GetPreparedParameters();
@@ -59,11 +42,11 @@ namespace Vk.SDK.Http
                     {
                         urlstringBuilder.Append("?").Append(VKstringJoiner.joinUriParams(preparedParameters));
                     }
-                    request = WebRequest.Create(urlstringBuilder.ToString());
+                    request = _creator.Create(urlstringBuilder.ToString());
                     break;
 
                 case AbstractRequest.HttpMethod.POST:
-                    var post = WebRequest.Create(urlstringBuilder.ToString());
+                    var post = _creator.Create(urlstringBuilder.ToString());
                     request.Method = "POST";
                     var pairs = new Dictionary<string, object>(preparedParameters.Count);
                     foreach (var entry in preparedParameters)
@@ -71,7 +54,7 @@ namespace Vk.SDK.Http
                         object value = entry.Value;
                         if (value is Collection<object>)
                         {
-                            var values = (List<object>) value;
+                            var values = (List<object>)value;
                             foreach (object v in values)
                             {
                                 // This will add a parameter for each value in the Collection/List
@@ -107,7 +90,7 @@ namespace Vk.SDK.Http
 
                     break;
             }
-            Dictionary<string, string> defaultHeaders = getDefaultHeaders();
+            Dictionary<string, string> defaultHeaders = GetDefaultHeaders();
             foreach (var key in defaultHeaders)
             {
                 request.Headers.Add(key.Key, key.Value);
@@ -116,25 +99,19 @@ namespace Vk.SDK.Http
             return request;
         }
 
-        public static WebRequest FileUploadRequest(string uploadUrl, params FileInfo[] files)
+        public WebRequest FileUploadRequest(string uploadUrl, params FileInfo[] files)
         {
-            WebRequest post = WebRequest.Create(uploadUrl);
+            WebRequest post = _creator.Create(uploadUrl);
             post.Method = "POST";
             var e = new VKMultipartEntity(files);
             e.writeTo(post.GetRequestStream());
             return post;
         }
 
-        /**
-     * Returns Dictionary of default headers for any request
-     *
-     * @return Dictionary of default headers
-     */
-
-        private static Dictionary<string, string> getDefaultHeaders()
+        private Dictionary<string, string> GetDefaultHeaders()
         {
             return new Dictionary<string, string>();
-          //  return new Dictionary<string, string> {{"Accept-Encoding", "gzip"}};
+            //  return new Dictionary<string, string> {{"Accept-Encoding", "gzip"}};
         }
     }
 }

@@ -3,6 +3,8 @@
 using System;
 using System.IO;
 using Newtonsoft.Json.Linq;
+using Vk.SDK.Context;
+using Vk.SDK.Http;
 using Vk.SDK.Model;
 using Vk.SDK.Util;
 
@@ -12,33 +14,34 @@ namespace Vk.SDK.Photo
 {
     public class VKUploadAlbumPhotoRequest : VKUploadPhotoBase<VKPhotoArray>
     {
-        public VKUploadAlbumPhotoRequest(FileInfo[] image, long albumId, long groupId)
-            : base("")
+        private readonly IPhotosService _photosService;
+        public VKUploadAlbumPhotoRequest(FileInfo[] image, long albumId, long groupId, IRequestFactory factory)
+            : base("", factory)
         {
             mAlbumId = albumId;
             mGroupId = groupId;
             mImage = image;
         }
 
-        public VKUploadAlbumPhotoRequest(VKUploadImage image, long albumId, long groupId)
-            : base("")
+        public VKUploadAlbumPhotoRequest(VKUploadImage image, long albumId, long groupId, IRequestFactory factory)
+            : base("", factory)
         {
             mAlbumId = albumId;
             mGroupId = groupId;
-            mImage = new[] {image.mImageData};
+            mImage = new[] { image.mImageData };
         }
 
         protected override AbstractRequest getServerRequest()
         {
             if (mAlbumId != 0 && mGroupId != 0)
-                return VKApi.photos().GetUploadServer(mAlbumId, mGroupId);
-            return VKApi.photos().GetUploadServer(mAlbumId);
+                return _photosService.GetUploadServer(mAlbumId, mGroupId);
+            return _photosService.GetUploadServer(mAlbumId);
         }
 
 
         protected override VKRequest<VKPhotoArray> getSaveRequest(JObject response)
         {
-            var saveRequest = VKApi.photos().Save(new VKParameters(VKJsonHelper.toMap(response)));
+            var saveRequest = _photosService.Save(new VKParameters(VKJsonHelper.toMap(response)));
             if (mAlbumId != 0)
                 saveRequest.addExtraParameters(VKUtil.paramsFrom(VKApiConst.ALBUM_ID, mAlbumId));
             if (mGroupId != 0)

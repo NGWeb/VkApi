@@ -28,8 +28,8 @@ namespace Vk.SDK.Photo
         protected FileInfo[] mImage;
         protected long mUserId;
 
-        protected VKUploadPhotoBase(string uri)
-            : base(uri)
+        protected VKUploadPhotoBase(string uri,IRequestFactory factory)
+            : base(uri,factory)
         {
         }
 
