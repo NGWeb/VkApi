@@ -7,32 +7,32 @@ using Vk.SDK.Model;
 
 namespace Vk.SDK.Context
 {
-    public class VKApiBase
+    public abstract class VKApiBase
     {
         /**
      * Selected methods group
      */
-        private readonly string mMethodGroup;
+        private readonly string _mMethodGroup;
 
-        public VKApiBase()
+        protected VKApiBase()
         {
             string className = GetType().Name;
             if (className == null)
             {
                 throw new Exception("Enclosing classes denied");
             }
-            mMethodGroup = className.Substring("VKApi".Length).ToLower();
+            _mMethodGroup = className.Substring("VKApi".Length).ToLower();
         }
 
-        protected VKRequest<T> prepareRequest<T>(string methodName, VKParameters methodParameters) where T : VKApiModel
+        protected VKRequest<T> PrepareRequest<T>(string methodName, VKParameters methodParameters) where T : VKApiModel
         {
-            return prepareRequest<T>(methodName, methodParameters, AbstractRequest.HttpMethod.GET);
+            return PrepareRequest<T>(methodName, methodParameters, AbstractRequest.HttpMethod.GET);
         }
 
-        protected VKRequest<T> prepareRequest<T>(string methodName, VKParameters methodParameters,
+        protected VKRequest<T> PrepareRequest<T>(string methodName, VKParameters methodParameters,
             AbstractRequest.HttpMethod httpMethod) where T : VKApiModel
         {
-            return new VKRequest<T>(string.Format("{0}.{1}", mMethodGroup, methodName), methodParameters, httpMethod);
+            return new VKRequest<T>(string.Format("{0}.{1}", _mMethodGroup, methodName), methodParameters, httpMethod);
         }
 
         protected VkJsonRequest PrepareJsonRequest(string methodName, VKParameters methodParameters)
@@ -43,7 +43,7 @@ namespace Vk.SDK.Context
         protected VkJsonRequest PrepareJsonRequest(string methodName, VKParameters methodParameters,
             AbstractRequest.HttpMethod httpMethod)
         {
-            return new VkJsonRequest(string.Format("{0}.{1}", mMethodGroup, methodName), methodParameters, httpMethod);
+            return new VkJsonRequest(string.Format("{0}.{1}", _mMethodGroup, methodName), methodParameters, httpMethod);
         }
     }
 }

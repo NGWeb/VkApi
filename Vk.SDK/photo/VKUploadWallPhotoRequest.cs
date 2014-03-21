@@ -29,14 +29,14 @@ namespace Vk.SDK.Photo
 
         protected override AbstractRequest getServerRequest()
         {
-            return mGroupId != 0 ? VKApi.photos().getWallUploadServer(mGroupId) : VKApi.photos().getWallUploadServer();
+            return mGroupId != 0 ? VKApi.photos().GetWallUploadServer(mGroupId) : VKApi.photos().GetWallUploadServer();
         }
 
 
         protected override VKRequest<VKPhotoArray> getSaveRequest(JObject response)
         {
             VKRequest<VKPhotoArray> saveRequest =
-                VKApi.photos().saveWallPhoto(new VKParameters(VKJsonHelper.toMap(response)));
+                VKApi.photos().SaveWallPhoto(new VKParameters(VKJsonHelper.toMap(response)));
             if (mUserId != 0)
                 saveRequest.addExtraParameters(VKUtil.paramsFrom(VKApiConst.USER_ID, mUserId));
             if (mGroupId != 0)
