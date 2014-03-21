@@ -1,5 +1,6 @@
 #region usings
 
+using Vk.SDK.Http;
 using Vk.SDK.Model;
 
 #endregion
@@ -8,6 +9,10 @@ namespace Vk.SDK.Context
 {
     public class GroupsService : VKApiBase, IGroupsService
     {
+        public GroupsService(IRequestFactory factory) : base(factory)
+        {
+        }
+
         public VkJsonRequest IsMember(VKParameters parameters)
         {
             return PrepareJsonRequest("isMember", parameters);

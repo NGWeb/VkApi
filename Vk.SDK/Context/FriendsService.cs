@@ -1,5 +1,6 @@
 #region usings
 
+using Vk.SDK.Http;
 using Vk.SDK.Model;
 
 #endregion
@@ -8,6 +9,10 @@ namespace Vk.SDK.Context
 {
     public class FriendsService : VKApiBase, IFriendsService
     {
+        public FriendsService(IRequestFactory factory) : base(factory)
+        {
+        }
+
         public VKRequest<VKUsersArray> Get(VKParameters parameters)
         {
             if (parameters["fields"] != null)

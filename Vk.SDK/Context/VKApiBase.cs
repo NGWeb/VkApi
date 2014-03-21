@@ -1,6 +1,7 @@
 #region usings
 
 using System;
+using Vk.SDK.Http;
 using Vk.SDK.Model;
 
 #endregion
@@ -13,15 +14,17 @@ namespace Vk.SDK.Context
      * Selected methods group
      */
         private readonly string _mMethodGroup;
+        private readonly IRequestFactory _factory;
 
-        protected VKApiBase()
+        protected VKApiBase(IRequestFactory factory)
         {
+            this._factory = factory;
             string className = GetType().Name;
             if (className == null)
             {
                 throw new Exception("Enclosing classes denied");
             }
-            _mMethodGroup = className.Substring("VKApi".Length).ToLower();
+            _mMethodGroup = className.Replace("Service","").ToLower();
         }
 
         protected VKRequest<T> PrepareRequest<T>(string methodName, VKParameters methodParameters) where T : VKApiModel
@@ -32,7 +35,7 @@ namespace Vk.SDK.Context
         protected VKRequest<T> PrepareRequest<T>(string methodName, VKParameters methodParameters,
             AbstractRequest.HttpMethod httpMethod) where T : VKApiModel
         {
-            return new VKRequest<T>(string.Format("{0}.{1}", _mMethodGroup, methodName), methodParameters, httpMethod);
+            return new VKRequest<T>(string.Format("{0}.{1}", _mMethodGroup, methodName), methodParameters, httpMethod,_factory);
         }
 
         protected VkJsonRequest PrepareJsonRequest(string methodName, VKParameters methodParameters)
@@ -43,7 +46,7 @@ namespace Vk.SDK.Context
         protected VkJsonRequest PrepareJsonRequest(string methodName, VKParameters methodParameters,
             AbstractRequest.HttpMethod httpMethod)
         {
-            return new VkJsonRequest(string.Format("{0}.{1}", _mMethodGroup, methodName), methodParameters, httpMethod);
+            return new VkJsonRequest(string.Format("{0}.{1}", _mMethodGroup, methodName), methodParameters, httpMethod,_factory);
         }
     }
 }

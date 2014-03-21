@@ -107,33 +107,27 @@ namespace Vk.SDK.Vk
         {
             if (parameters == null || parameters.Count == 0)
                 return null;
+            
             var token = new VKAccessToken();
-            try
-            {
-                token.accessToken = parameters[ACCESS_TOKEN];
-                token.expiresIn = Convert.ToInt32(parameters[EXPIRES_IN]);
-                token.userId = parameters[USER_ID];
-                token.secret = parameters[SECRET];
-                token.httpsRequired = false;
+            token.accessToken = parameters[ACCESS_TOKEN];
+            token.expiresIn = Convert.ToInt32(parameters[EXPIRES_IN]);
+            token.userId = parameters[USER_ID];
+            //token.secret = parameters[SECRET];
+            token.httpsRequired = false;
 
-                if (parameters.ContainsKey(HTTPS_REQUIRED))
-                {
-                    token.httpsRequired = parameters[HTTPS_REQUIRED] == "1";
-                }
-                if (parameters.ContainsKey(CREATED))
-                {
-                    token.created = Convert.ToInt64(parameters[CREATED]);
-                }
-                else
-                {
-                    token.created = DateTime.Now.Millisecond;
-                }
-                return token;
-            }
-            catch (Exception e)
+            if (parameters.ContainsKey(HTTPS_REQUIRED))
             {
-                return null;
+                token.httpsRequired = parameters[HTTPS_REQUIRED] == "1";
             }
+            if (parameters.ContainsKey(CREATED))
+            {
+                token.created = Convert.ToInt64(parameters[CREATED]);
+            }
+            else
+            {
+                token.created = DateTime.Now.Millisecond;
+            }
+            return token;
         }
 
         /**
@@ -144,7 +138,7 @@ namespace Vk.SDK.Vk
 
         public bool IsExpired()
         {
-            return expiresIn > 0 && expiresIn*1000 + created < DateTime.Now.Millisecond;
+            return expiresIn > 0 && expiresIn * 1000 + created < DateTime.Now.Millisecond;
         }
     }
 }

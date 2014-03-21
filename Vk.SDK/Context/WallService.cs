@@ -1,5 +1,6 @@
 #region usings
 
+using Vk.SDK.Http;
 using Vk.SDK.Model;
 
 #endregion
@@ -8,6 +9,10 @@ namespace Vk.SDK.Context
 {
     public class WallService : VKApiBase, IWallService
     {
+        public WallService(IRequestFactory factory) : base(factory)
+        {
+        }
+
         public VKRequest<VKPostArray> Get(VKParameters parameters)
         {
             if (((int) parameters["extended"]) == 1)

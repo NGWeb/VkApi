@@ -9,18 +9,18 @@ namespace Vk.SDK
 {
     public class VkJsonRequest : AbstractRequest
     {
-        public VkJsonRequest(string method)
-            : base(method)
+        public VkJsonRequest(string method, IRequestFactory factory)
+            : base(method, factory)
         {
         }
 
-        public VkJsonRequest(string method, VKParameters parameters)
-            : base(method, parameters)
+        public VkJsonRequest(string method, VKParameters parameters, IRequestFactory factory)
+            : base(method, parameters, factory)
         {
         }
 
-        public VkJsonRequest(string method, VKParameters parameters, HttpMethod httpMethod)
-            : base(method, parameters, httpMethod)
+        public VkJsonRequest(string method, VKParameters parameters, HttpMethod httpMethod, IRequestFactory factory)
+            : base(method, parameters, httpMethod, factory)
         {
         }
 

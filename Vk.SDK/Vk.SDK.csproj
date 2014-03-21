@@ -53,6 +53,7 @@
     <Compile Include="Http\CompleteDelegate.cs" />
     <Compile Include="Http\ErrorDelegate.cs" />
     <Compile Include="Http\FinishRequestDelegate.cs" />
+    <Compile Include="Http\IRequestCreator.cs" />
     <Compile Include="Model\Answer.cs" />
     <Compile Include="Model\Attitude.cs" />
     <Compile Include="Model\Contact.cs" />

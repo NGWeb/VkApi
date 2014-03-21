@@ -1,7 +1,7 @@
-﻿using System;
-using System.Text;
-using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Ninject;
+using Vk.SDK.Context;
+using Vk.SDK.Http;
 using Vk.SDK.Vk;
 
 namespace Vk.SDK.Test
@@ -20,6 +20,7 @@ namespace Vk.SDK.Test
         }
 
         private TestContext testContextInstance;
+        private StandardKernel kernel;
 
         /// <summary>
         ///Gets or sets the test context which provides
@@ -62,13 +63,17 @@ namespace Vk.SDK.Test
         [TestInitialize]
         public void InitTest()
         {
-            VKSdk.initialize("4256757", VKAccessToken.TokenFromUrlstring("https://oauth.vk.com/blank.html#access_token=0a6b9c8d685cbc1f0259aa6d8076612865efb100b328f5ed6fe7c2f3a10744227b26684114b9ee1c16036&expires_in=0&user_id=125342956"));
+            VKSdk.initialize("4256757", VKAccessToken.TokenFromUrlstring("access_token=0a6b9c8d685cbc1f0259aa6d8076612865efb100b328f5ed6fe7c2f3a10744227b26684114b9ee1c16036&expires_in=0&user_id=125342956"));
+            kernel = new Ninject.StandardKernel();
+            kernel.Bind<IRequestCreator>().To<RequestCreator>();
+            kernel.Bind<IRequestFactory>().To<RequestFactory>();
+            kernel.Bind<IUsersService>().To<UsersService>();
         }
 
         [TestMethod]
         public void GetUserTest()
         {
-            var objects = VKApi.users().GetFollowers(new VKParameters() { { "user_id", "125342956" }, { "fields", "screen_name" } }).GetResponse();
+            var objects = kernel.Get<IUsersService>().GetFollowers(new VKParameters() { { "user_id", "125342956" }, { "fields", "screen_name" } }).GetResponse();
             Assert.IsNotNull(objects);
 
         }
@@ -76,14 +81,14 @@ namespace Vk.SDK.Test
         [TestMethod]
         public void GetUsersTest()
         {
-            var objects = VKApi.users().GetFollowers(new VKParameters() { { "user_id", "125342956" }, { "fields", "screen_name" } }).GetResponse();
+            var objects = kernel.Get<IUsersService>().GetFollowers(new VKParameters() { { "user_id", "125342956" }, { "fields", "screen_name" } }).GetResponse();
             Assert.IsNotNull(objects);
         }
 
         [TestMethod]
         public void GetSubscriptions()
         {
-            var objects = VKApi.users().GetSubscriptions(new VKParameters { { "user_id", "125342956" }, { "fields", "screen_name" } }).GetResponse();
+            var objects = kernel.Get<IUsersService>().GetSubscriptions(new VKParameters { { "user_id", "125342956" }, { "fields", "screen_name" } }).GetResponse();
             Assert.IsNotNull(objects);
         }
     }

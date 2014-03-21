@@ -213,7 +213,7 @@ namespace Vk.SDK.Vk
                 }
                 else if (token.accessToken != null)
                 {
-                    if (isUserToken) mListener.onAcceptUserToken(token);
+         //           if (isUserToken) mListener.onAcceptUserToken(token);
                     return true;
                 }
                 else
