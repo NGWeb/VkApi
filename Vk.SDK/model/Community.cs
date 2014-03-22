@@ -1,6 +1,6 @@
 namespace Vk.SDK.Model
 {
-    public class Community : IvkApiOwner
+    public class Community : Owner
     {
         public enum AdminLevel
         {
@@ -46,7 +46,7 @@ namespace Vk.SDK.Model
      */
         public bool is_member;
         public string name;
-        public VkPhotoSizes photo = new VkPhotoSizes();
+        public PhotoSizes photo = new PhotoSizes();
 
         /**
      * Community type

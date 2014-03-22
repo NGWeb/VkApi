@@ -8,7 +8,7 @@ namespace Vk.SDK.Context
         VkJsonRequest GetUploadServer(long albumId, long groupId);
         VkJsonRequest GetWallUploadServer();
         VkJsonRequest GetWallUploadServer(long groupId);
-        VKRequest<VkPhotoArray> SaveWallPhoto(VKParameters parameters);
-        VKRequest<VkPhotoArray> Save(VKParameters parameters);
+        VKRequest<PhotoArray> SaveWallPhoto(VKParameters parameters);
+        VKRequest<PhotoArray> Save(VKParameters parameters);
     }
 }

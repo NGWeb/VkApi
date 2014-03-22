@@ -17,7 +17,7 @@ namespace Vk.SDK.Model
      * Application name
      */
         public string name;
-        public VkPhotoSizes photo = new VkPhotoSizes();
+        public PhotoSizes photo = new PhotoSizes();
 
         /**
      * Image URL for preview with maximum width in 130px

@@ -12,7 +12,7 @@ using Vk.SDK.Util;
 
 namespace Vk.SDK.Photo
 {
-    public class VKUploadWallPhotoRequest : VKUploadPhotoBase<VkPhotoArray>
+    public class VKUploadWallPhotoRequest : VKUploadPhotoBase<PhotoArray>
     {
         private readonly IPhotosService _photosService;
         public VKUploadWallPhotoRequest(FileInfo[] image, long userId, int groupId,IRequestFactory factory) : base("",factory)
@@ -37,9 +37,9 @@ namespace Vk.SDK.Photo
         }
 
 
-        protected override VKRequest<VkPhotoArray> getSaveRequest(JObject response)
+        protected override VKRequest<PhotoArray> getSaveRequest(JObject response)
         {
-            VKRequest<VkPhotoArray> saveRequest =
+            VKRequest<PhotoArray> saveRequest =
                 _photosService.SaveWallPhoto(new VKParameters(VKJsonHelper.toMap(response)));
             if (mUserId != 0)
                 saveRequest.addExtraParameters(VKUtil.paramsFrom(VKApiConst.USER_ID, mUserId));

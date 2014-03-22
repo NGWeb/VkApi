@@ -5,14 +5,14 @@ namespace Vk.SDK.Context
 {
     public interface IUsersService
     {
-        VKRequest<VkModelsList<IvkApiUser>> Get(VKParameters parameters);
-        VKRequest<VkUsersArray> Search(VKParameters parameters);
+        VKRequest<VkModelsList<User>> Get(VKParameters parameters);
+        VKRequest<UserArray> Search(VKParameters parameters);
         VkJsonRequest IsAppUser();
         VkJsonRequest IsAppUser(int userID);
         VkJsonRequest GetSubscriptions();
         VkJsonRequest GetSubscriptions(VKParameters parameters);
-        VKRequest<VkUsersArray> GetFollowers();
-        VKRequest<VkUsersArray> GetFollowers(VKParameters parameters);
+        VKRequest<UserArray> GetFollowers();
+        VKRequest<UserArray> GetFollowers(VKParameters parameters);
         VkJsonRequest Report(VKParameters parameters);
     }
 }

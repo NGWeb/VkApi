@@ -35,14 +35,14 @@ namespace Vk.SDK.Context
             return PrepareJsonRequest("getWallUploadServer", VKUtil.paramsFrom(VKApiConst.GROUP_ID, groupId));
         }
 
-        public VKRequest<VkPhotoArray> SaveWallPhoto(VKParameters parameters)
+        public VKRequest<PhotoArray> SaveWallPhoto(VKParameters parameters)
         {
-            return PrepareRequest<VkPhotoArray>("saveWallPhoto", parameters, AbstractRequest.HttpMethod.POST);
+            return PrepareRequest<PhotoArray>("saveWallPhoto", parameters, AbstractRequest.HttpMethod.POST);
         }
 
-        public VKRequest<VkPhotoArray> Save(VKParameters parameters)
+        public VKRequest<PhotoArray> Save(VKParameters parameters)
         {
-            return PrepareRequest<VkPhotoArray>("save", parameters, AbstractRequest.HttpMethod.POST);
+            return PrepareRequest<PhotoArray>("save", parameters, AbstractRequest.HttpMethod.POST);
         }
     }
 }

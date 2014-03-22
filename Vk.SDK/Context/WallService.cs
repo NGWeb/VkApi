@@ -13,22 +13,22 @@ namespace Vk.SDK.Context
         {
         }
 
-        public VKRequest<VkPostArray> Get(VKParameters parameters)
+        public VKRequest<PostArray> Get(VKParameters parameters)
         {
             if (((int) parameters["extended"]) == 1)
             {
-                return PrepareRequest<VkPostArray>("get", parameters, AbstractRequest.HttpMethod.GET);
+                return PrepareRequest<PostArray>("get", parameters, AbstractRequest.HttpMethod.GET);
             }
-            return PrepareRequest<VkPostArray>("get", parameters);
+            return PrepareRequest<PostArray>("get", parameters);
         }
 
-        public VKRequest<VkPostArray> GetById(VKParameters parameters)
+        public VKRequest<PostArray> GetById(VKParameters parameters)
         {
             if (((int) parameters["extended"]) == 1)
             {
-                return PrepareRequest<VkPostArray>("get", parameters, AbstractRequest.HttpMethod.GET);
+                return PrepareRequest<PostArray>("get", parameters, AbstractRequest.HttpMethod.GET);
             }
-            return PrepareRequest<VkPostArray>("get", parameters);
+            return PrepareRequest<PostArray>("get", parameters);
         }
 
         public VkJsonRequest SavePost(VKParameters parameters)

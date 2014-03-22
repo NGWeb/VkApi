@@ -63,7 +63,7 @@ namespace Vk.SDK.Model
      * All photo thumbs in photo sizes.
      * It has data even if server returned them without {@code PhotoSizes} format.
      */
-        public VkPhotoSizes src = new VkPhotoSizes();
+        public PhotoSizes src = new PhotoSizes();
 
         /**
      * Information whether the current user liked the photo.

@@ -7,7 +7,7 @@ namespace Vk.SDK.Context
         VkJsonRequest IsMember(VKParameters parameters);
         VKRequest<CommunityArray> GetById(VKParameters parameters);
         VKRequest<CommunityArray> Get(VKParameters parameters);
-        VKRequest<VkUsersArray> GetMembers(VKParameters parameters);
+        VKRequest<UserArray> GetMembers(VKParameters parameters);
         VkJsonRequest Join(VKParameters parameters);
         VkJsonRequest Leave(VKParameters parameters);
         VkJsonRequest Leave(int group_id);
@@ -15,6 +15,6 @@ namespace Vk.SDK.Context
         VKRequest<CommunityArray> GetInvites(VKParameters parameters);
         VkJsonRequest BanUser(VKParameters parameters);
         VkJsonRequest UnbanUser(VKParameters parameters);
-        VKRequest<VkUsersArray> GetBanned(VKParameters parameters);
+        VKRequest<UserArray> GetBanned(VKParameters parameters);
     }
 }

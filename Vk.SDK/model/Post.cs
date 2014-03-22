@@ -33,7 +33,7 @@ namespace Vk.SDK.Model
      */
         public bool friends_only;
         public int from_id;
-        public IvkApiPlace geo;
+        public Place geo;
         public int id;
 
         /**

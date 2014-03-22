@@ -27,9 +27,9 @@ namespace Vk.SDK.Context
         {
         }
 
-        public VKRequest<VkModelsList<IvkApiUser>> Get(VKParameters parameters)
+        public VKRequest<VkModelsList<User>> Get(VKParameters parameters)
         {
-            return PrepareRequest<VkModelsList<IvkApiUser>>("get", parameters, AbstractRequest.HttpMethod.GET);
+            return PrepareRequest<VkModelsList<User>>("get", parameters, AbstractRequest.HttpMethod.GET);
         }
 
         /**
@@ -39,9 +39,9 @@ namespace Vk.SDK.Context
      * @return Request for load
      */
 
-        public VKRequest<VkUsersArray> Search(VKParameters parameters)
+        public VKRequest<UserArray> Search(VKParameters parameters)
         {
-            return PrepareRequest<VkUsersArray>("search", parameters, AbstractRequest.HttpMethod.GET);
+            return PrepareRequest<UserArray>("search", parameters, AbstractRequest.HttpMethod.GET);
         }
 
         /**
@@ -96,7 +96,7 @@ namespace Vk.SDK.Context
      * @return Request for load
      */
 
-        public VKRequest<VkUsersArray> GetFollowers()
+        public VKRequest<UserArray> GetFollowers()
         {
             return GetFollowers(null);
         }
@@ -108,9 +108,9 @@ namespace Vk.SDK.Context
      * @return Request for load
      */
 
-        public VKRequest<VkUsersArray> GetFollowers(VKParameters parameters)
+        public VKRequest<UserArray> GetFollowers(VKParameters parameters)
         {
-            return PrepareRequest<VkUsersArray>("getFollowers", parameters);
+            return PrepareRequest<UserArray>("getFollowers", parameters);
         }
 
         /**

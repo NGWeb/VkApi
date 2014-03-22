@@ -32,9 +32,9 @@ namespace Vk.SDK.Context
             return PrepareRequest<CommunityArray>("get", parameters);
         }
 
-        public VKRequest<VkUsersArray> GetMembers(VKParameters parameters)
+        public VKRequest<UserArray> GetMembers(VKParameters parameters)
         {
-            return PrepareRequest<VkUsersArray>("getMembers", parameters);
+            return PrepareRequest<UserArray>("getMembers", parameters);
         }
 
         public VkJsonRequest Join(VKParameters parameters)
@@ -72,9 +72,9 @@ namespace Vk.SDK.Context
             return PrepareJsonRequest("unbanUser", parameters);
         }
 
-        public VKRequest<VkUsersArray> GetBanned(VKParameters parameters)
+        public VKRequest<UserArray> GetBanned(VKParameters parameters)
         {
-            return PrepareRequest<VkUsersArray>("GetBanned", parameters, AbstractRequest.HttpMethod.GET);
+            return PrepareRequest<UserArray>("GetBanned", parameters, AbstractRequest.HttpMethod.GET);
         }
     }
 }

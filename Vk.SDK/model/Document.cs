@@ -21,7 +21,7 @@ namespace Vk.SDK.Model
      * ID of the user or group who uploaded the document.
      */
         public int owner_id;
-        public VkPhotoSizes photo = new VkPhotoSizes();
+        public PhotoSizes photo = new PhotoSizes();
 
         /**
      * Document title.

@@ -44,7 +44,7 @@ namespace Vk.SDK.Model
         public string description;
         public int id;
         public int owner_id;
-        public VkPhotoSizes photo = new VkPhotoSizes();
+        public PhotoSizes photo = new PhotoSizes();
         public int privacy;
         public int size;
 
@@ -89,7 +89,7 @@ namespace Vk.SDK.Model
             //if(from.has("privacy")) {
             //    privacy = from.optInt("privacy");
             //} else {
-            //    privacy = VKPrivacy.parsePrivacy(from.optJObject("privacy_view"));
+            //    privacy = Privacy.parsePrivacy(from.optJObject("privacy_view"));
             //}
             //JSONArray sizes = from.optJSONArray("sizes");
             //if(sizes != null) {
@@ -109,7 +109,7 @@ namespace Vk.SDK.Model
 
         public bool isClosed()
         {
-            return privacy != VKPrivacy.PRIVACY_ALL;
+            return privacy != Privacy.PRIVACY_ALL;
         }
 
 

@@ -4,7 +4,7 @@
     {
         public string desc;
         public string email;
-        public IvkApiUser user;
+        public User user;
         public int user_id;
 
 

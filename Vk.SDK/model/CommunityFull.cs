@@ -136,7 +136,7 @@
      * Number of community members.
      */
         public int members_count;
-        public IvkApiPlace place;
+        public Place place;
         public string site;
 
         /**
