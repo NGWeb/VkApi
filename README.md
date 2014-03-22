@@ -1,6 +1,6 @@
 Установка
 
-'PM> Install-Package VKSDK'
+` PM> Install-Package VKSDK `
 
 [Документация ](https://github.com/NGWeb/VkApi/wiki)
 
