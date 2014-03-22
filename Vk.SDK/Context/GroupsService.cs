@@ -18,23 +18,23 @@ namespace Vk.SDK.Context
             return PrepareJsonRequest("isMember", parameters);
         }
 
-        public VKRequest<VKApiCommunityArray> GetById(VKParameters parameters)
+        public VKRequest<CommunityArray> GetById(VKParameters parameters)
         {
-            return PrepareRequest<VKApiCommunityArray>("getById", parameters, AbstractRequest.HttpMethod.GET);
+            return PrepareRequest<CommunityArray>("getById", parameters, AbstractRequest.HttpMethod.GET);
         }
 
-        public VKRequest<VKApiCommunityArray> Get(VKParameters parameters)
+        public VKRequest<CommunityArray> Get(VKParameters parameters)
         {
             if (((int)parameters["extended"]) == 1)
             {
-                return PrepareRequest<VKApiCommunityArray>("get", parameters, AbstractRequest.HttpMethod.GET);
+                return PrepareRequest<CommunityArray>("get", parameters, AbstractRequest.HttpMethod.GET);
             }
-            return PrepareRequest<VKApiCommunityArray>("get", parameters);
+            return PrepareRequest<CommunityArray>("get", parameters);
         }
 
-        public VKRequest<VKUsersArray> GetMembers(VKParameters parameters)
+        public VKRequest<UserArray> GetMembers(VKParameters parameters)
         {
-            return PrepareRequest<VKUsersArray>("getMembers", parameters);
+            return PrepareRequest<UserArray>("getMembers", parameters);
         }
 
         public VkJsonRequest Join(VKParameters parameters)
@@ -52,14 +52,14 @@ namespace Vk.SDK.Context
             return PrepareJsonRequest("leave", new VKParameters { { VKApiConst.GROUP_ID, group_id } });
         }
 
-        public VKRequest<VKApiCommunityArray> Search(VKParameters parameters)
+        public VKRequest<CommunityArray> Search(VKParameters parameters)
         {
-            return PrepareRequest<VKApiCommunityArray>("search", parameters, AbstractRequest.HttpMethod.GET);
+            return PrepareRequest<CommunityArray>("search", parameters, AbstractRequest.HttpMethod.GET);
         }
 
-        public VKRequest<VKApiCommunityArray> GetInvites(VKParameters parameters)
+        public VKRequest<CommunityArray> GetInvites(VKParameters parameters)
         {
-            return PrepareRequest<VKApiCommunityArray>("getInvites", parameters, AbstractRequest.HttpMethod.GET);
+            return PrepareRequest<CommunityArray>("getInvites", parameters, AbstractRequest.HttpMethod.GET);
         }
 
         public VkJsonRequest BanUser(VKParameters parameters)
@@ -72,9 +72,9 @@ namespace Vk.SDK.Context
             return PrepareJsonRequest("unbanUser", parameters);
         }
 
-        public VKRequest<VKUsersArray> GetBanned(VKParameters parameters)
+        public VKRequest<UserArray> GetBanned(VKParameters parameters)
         {
-            return PrepareRequest<VKUsersArray>("GetBanned", parameters, AbstractRequest.HttpMethod.GET);
+            return PrepareRequest<UserArray>("GetBanned", parameters, AbstractRequest.HttpMethod.GET);
         }
     }
 }

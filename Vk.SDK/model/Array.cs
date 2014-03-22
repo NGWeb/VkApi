@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace Vk.SDK.Model
 {
-    public abstract class VKApiArray<T> : VKApiModel where T : VKApiModel
+    public abstract class Array<T> : IVKApiModel where T : IVKApiModel
     {
         private int count;
         private List<T> items;

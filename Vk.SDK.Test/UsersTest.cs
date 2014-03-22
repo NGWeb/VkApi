@@ -68,7 +68,7 @@ namespace Vk.SDK.Test
              * https://oauth.vk.com/authorize?client_id=4256757&scope=groups,photos,friends,offline,wall,photos,notify,status&redirect_uri=http://oauth.vk.com/blank.html&display=popup&response_type=token
              
              */
-            VKSdk.initialize("4256757", VKAccessToken.TokenFromUrlstring("access_token=aa6d8076612865efb100b328f5ed6fe7c2f3a10744227b26684114b9ee1c16036&expires_in=0&user_id=125342956"));
+            VKSdk.initialize("4256757", VKAccessToken.TokenFromUrlstring("access_token=e9e5eef8aab8d660f970f2d728b9d333a1c5a5ae7710baf4cbbd9dc882723122c5426c28a816a22f&expires_in=0&user_id=125342956"));
             kernel = new Ninject.StandardKernel();
             kernel.Bind<IRequestCreator>().To<RequestCreator>();
             kernel.Bind<IRequestFactory>().To<RequestFactory>();
@@ -78,7 +78,7 @@ namespace Vk.SDK.Test
         [TestMethod]
         public void GetUserTest()
         {
-            var objects = kernel.Get<IUsersService>().GetFollowers(new VKParameters() { { "user_id", "125342956" }, { "fields", "screen_name" } }).GetResponse();
+            var objects = kernel.Get<IUsersService>().Get(new VKParameters() { { "user_ids", "125342956" }, { "fields", "screen_name" } }).GetResponse();
             Assert.IsNotNull(objects);
 
         }

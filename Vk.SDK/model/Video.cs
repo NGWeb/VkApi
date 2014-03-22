@@ -8,7 +8,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Vk.SDK.Model
 {
-    public class VKApiVideo : VKApiAttachment
+    public class Video : Attachment
     {
         /**
      * Video ID.
@@ -78,7 +78,7 @@ namespace Vk.SDK.Model
      */
         public string mp4_720;
         public int owner_id;
-        public VKPhotoSizes photo = new VKPhotoSizes();
+        public PhotoSizes photo = new PhotoSizes();
         public string photo_130;
 
         /**
@@ -107,7 +107,7 @@ namespace Vk.SDK.Model
      * Fills a Video instance from JObject.
      */
 
-        public VKApiVideo parse(JObject from)
+        public Video parse(JObject from)
         {
             //id = from.optInt("id");
             //owner_id = from.optInt("owner_id");
@@ -131,8 +131,8 @@ namespace Vk.SDK.Model
             //can_repost = parsebool(from, "can_repost");
             //repeat = parsebool(from, "repeat");
 
-            //privacy_view = VKPrivacy.parsePrivacy(from.optJObject("privacy_view"));
-            //privacy_comment = VKPrivacy.parsePrivacy(from.optJObject("privacy_comment"));
+            //privacy_view = Privacy.parsePrivacy(from.optJObject("privacy_view"));
+            //privacy_comment = Privacy.parsePrivacy(from.optJObject("privacy_comment"));
 
             //JObject files = from.optJObject("files");
             //if(files != null) {

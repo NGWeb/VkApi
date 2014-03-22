@@ -1,6 +1,6 @@
 namespace Vk.SDK.Model
 {
-    public class VKApiChat : VKApiModel, IIdentifiable
+    public class Chat : IVKApiModel, IIdentifiable
     {
         /**
      * Chat ID, positive number.

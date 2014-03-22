@@ -12,12 +12,6 @@ using Vk.SDK.Util;
 
 namespace Vk.SDK.Http
 {
-    public interface IRequestFactory
-    {
-        WebRequest RequestWithVkRequest(AbstractRequest vkRequest);
-        WebRequest FileUploadRequest(string uploadUrl, params FileInfo[] files);
-    }
-
     public class RequestFactory /*: HttpClient*/ : IRequestFactory
     {
         private readonly IRequestCreator _creator;

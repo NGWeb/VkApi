@@ -1,6 +1,6 @@
 namespace Vk.SDK.Model
 {
-    public abstract class VKApiAttachment : VKApiModel, IIdentifiable
+    public abstract class Attachment : IVKApiModel, IIdentifiable
     {
         /**
              * Convert attachment to special string to attach it to the post, message or comment.

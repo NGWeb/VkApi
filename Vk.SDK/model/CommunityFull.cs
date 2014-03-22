@@ -1,6 +1,6 @@
 ﻿namespace Vk.SDK.Model
 {
-    public class VKApiCommunityFull : VKApiCommunity
+    public class CommunityFull : Community
     {
         /**
      * Filed city from VK fields set
@@ -107,14 +107,14 @@
         /**
      * City specified in information about community.
      */
-        public VKApiCity city;
-        public VKList<Contact> contacts;
+        public City city;
+        public VkList<Contact> contacts;
         public Counters counters;
 
         /**
      * Country specified in information about community.
      */
-        public VKApiCountry country;
+        public Country country;
 
         /**
      * Audio which broadcasting to status.
@@ -126,7 +126,7 @@
         public string description;
         public long end_date;
         public int fixed_post;
-        public VKList<Link> links;
+        public VkList<Link> links;
 
         /**
      * Name of the home wiki-page of the community.
@@ -136,7 +136,7 @@
      * Number of community members.
      */
         public int members_count;
-        public VKApiPlace place;
+        public Place place;
         public string site;
 
         /**
@@ -156,7 +156,7 @@
      * Group status.
      */
         public string status;
-        public VKApiAudio status_audio;
+        public Audio status_audio;
 
         /**
      * Information from public page contact module.

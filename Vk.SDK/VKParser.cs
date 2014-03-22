@@ -9,6 +9,6 @@ namespace Vk.SDK
 {
     public interface VKParser
     {
-        VKApiModel CreateModel(JObject jsobject);
+        IVKApiModel CreateModel(JObject jsobject);
     }
 }

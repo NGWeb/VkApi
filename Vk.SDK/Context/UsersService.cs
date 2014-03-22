@@ -1,5 +1,6 @@
 #region usings
 
+using System.Collections.Generic;
 using Vk.SDK.Http;
 using Vk.SDK.Model;
 
@@ -26,9 +27,9 @@ namespace Vk.SDK.Context
         {
         }
 
-        public VKRequest<VKApiUser> Get(VKParameters parameters)
+        public VKRequest<VkModelsList<User>> Get(VKParameters parameters)
         {
-            return PrepareRequest<VKApiUser>("get", parameters, AbstractRequest.HttpMethod.GET);
+            return PrepareRequest<VkModelsList<User>>("get", parameters, AbstractRequest.HttpMethod.GET);
         }
 
         /**
@@ -38,9 +39,9 @@ namespace Vk.SDK.Context
      * @return Request for load
      */
 
-        public VKRequest<VKUsersArray> Search(VKParameters parameters)
+        public VKRequest<UserArray> Search(VKParameters parameters)
         {
-            return PrepareRequest<VKUsersArray>("search", parameters, AbstractRequest.HttpMethod.GET);
+            return PrepareRequest<UserArray>("search", parameters, AbstractRequest.HttpMethod.GET);
         }
 
         /**
@@ -95,7 +96,7 @@ namespace Vk.SDK.Context
      * @return Request for load
      */
 
-        public VKRequest<VKUsersArray> GetFollowers()
+        public VKRequest<UserArray> GetFollowers()
         {
             return GetFollowers(null);
         }
@@ -107,9 +108,9 @@ namespace Vk.SDK.Context
      * @return Request for load
      */
 
-        public VKRequest<VKUsersArray> GetFollowers(VKParameters parameters)
+        public VKRequest<UserArray> GetFollowers(VKParameters parameters)
         {
-            return PrepareRequest<VKUsersArray>("getFollowers", parameters);
+            return PrepareRequest<UserArray>("getFollowers", parameters);
         }
 
         /**

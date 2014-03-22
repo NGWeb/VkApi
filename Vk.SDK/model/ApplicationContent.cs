@@ -6,7 +6,7 @@ using System;
 
 namespace Vk.SDK.Model
 {
-    public class VKApiApplicationContent : VKApiAttachment
+    public class ApplicationContent : Attachment
     {
         /**
      * ID of the application that posted on the wall;
@@ -17,7 +17,7 @@ namespace Vk.SDK.Model
      * Application name
      */
         public string name;
-        public VKPhotoSizes photo = new VKPhotoSizes();
+        public PhotoSizes photo = new PhotoSizes();
 
         /**
      * Image URL for preview with maximum width in 130px

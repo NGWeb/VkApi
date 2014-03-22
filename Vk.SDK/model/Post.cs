@@ -7,7 +7,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Vk.SDK.Model
 {
-    public class VKApiPost : VKApiAttachment
+    public class Post : Attachment
     {
         /**
      * Post ID on the wall, positive number
@@ -16,12 +16,12 @@ namespace Vk.SDK.Model
         /**
      * Date (in Unix time) the post was added.
      */
-        public VKAttachments attachments = new VKAttachments();
+        public VkAttachments attachments = new VkAttachments();
         public bool can_like;
         public bool can_post_comment;
         public bool can_publish;
         public int comments_count;
-        public VKList<VKApiPost> copy_history;
+        public VkList<Post> copy_history;
         public long date;
 
         /**
@@ -33,7 +33,7 @@ namespace Vk.SDK.Model
      */
         public bool friends_only;
         public int from_id;
-        public VKApiPlace geo;
+        public Place geo;
         public int id;
 
         /**
@@ -83,7 +83,7 @@ namespace Vk.SDK.Model
      * Fills a Post instance from JObject.
      */
 
-        public VKApiPost parse(JObject source)
+        public Post parse(JObject source)
         {
             //id = source.optInt("id");
             //to_id = source.optInt("to_id");
@@ -150,9 +150,9 @@ namespace Vk.SDK.Model
         }
 
 
-        public VKApiPost[] newArray(int size)
+        public Post[] newArray(int size)
         {
-            return new VKApiPost[size];
+            return new Post[size];
         }
     };
 }

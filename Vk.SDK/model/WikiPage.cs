@@ -7,7 +7,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Vk.SDK.Model
 {
-    public class VKApiWikiPage : VKApiAttachment
+    public class WikiPage : Attachment
     {
         /**
      * Wiki page ID;
@@ -68,7 +68,7 @@ namespace Vk.SDK.Model
      * Fills a WikiPage instance from JObject.
      */
 
-        public VKApiWikiPage parse(JObject source)
+        public WikiPage parse(JObject source)
         {
             //id = source.optInt("id");
             //group_id = source.optInt("group_id");

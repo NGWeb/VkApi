@@ -1,10 +1,10 @@
 ﻿namespace Vk.SDK.Model
 {
-    public class Contact : VKApiModel, IIdentifiable
+    public class Contact : IVKApiModel, IIdentifiable
     {
         public string desc;
         public string email;
-        public VKApiUser user;
+        public User user;
         public int user_id;
 
 

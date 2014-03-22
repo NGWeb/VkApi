@@ -1,6 +1,6 @@
 ﻿namespace Vk.SDK.Model
 {
-    public class VKApiMessage : VKApiModel, IIdentifiable
+    public class Message : IVKApiModel, IIdentifiable
     {
         /**
      * 	Message ID. (Not returned for forwarded messages), positive number
@@ -9,12 +9,12 @@
         /**
      * 	Date (in Unix time) when the message was sent.
      */
-        public VKAttachments attachments = new VKAttachments();
+        public VkAttachments attachments = new VkAttachments();
         public string body;
         public long date;
         public bool deleted;
         public bool emoji;
-        public VKList<VKApiMessage> fwd_messages;
+        public VkList<Message> fwd_messages;
         public int id;
 
         /**
@@ -54,9 +54,9 @@
         }
 
 
-        public VKApiMessage[] newArray(int size)
+        public Message[] newArray(int size)
         {
-            return new VKApiMessage[size];
+            return new Message[size];
         }
     };
 }

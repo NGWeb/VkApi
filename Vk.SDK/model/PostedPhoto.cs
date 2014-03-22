@@ -1,6 +1,6 @@
 namespace Vk.SDK.Model
 {
-    public class VKApiPostedPhoto : VKApiPhoto
+    public class PostedPhoto : Photo
     {
         /**
      * Fills a PostedPhoto instance from JObject.

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Vk.SDK.Model
 {
-    public class VKApiPhoto : VKApiAttachment, IIdentifiable
+    public class Photo : Attachment, IIdentifiable
     {
         /**
      * Photo ID, positive number
@@ -63,7 +63,7 @@ namespace Vk.SDK.Model
      * All photo thumbs in photo sizes.
      * It has data even if server returned them without {@code PhotoSizes} format.
      */
-        public VKPhotoSizes src = new VKPhotoSizes();
+        public PhotoSizes src = new PhotoSizes();
 
         /**
      * Information whether the current user liked the photo.

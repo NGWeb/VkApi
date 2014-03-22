@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Vk.SDK.Model
 {
-    public class VKApiAudio : VKApiAttachment, IIdentifiable
+    public class Audio : Attachment, IIdentifiable
     {
         /**
      * Audio ID.

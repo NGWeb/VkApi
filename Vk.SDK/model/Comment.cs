@@ -1,6 +1,6 @@
 namespace Vk.SDK.Model
 {
-    public class VKApiComment : VKApiModel, IIdentifiable
+    public class Comment : IVKApiModel, IIdentifiable
     {
         /**
      * Comment ID, positive number
@@ -9,7 +9,7 @@ namespace Vk.SDK.Model
         /**
      * Date when the comment was added as unixtime.
      */
-        public VKAttachments attachments = new VKAttachments();
+        public VkAttachments attachments = new VkAttachments();
         public bool can_like;
         public long date;
         public int from_id;

@@ -1,6 +1,6 @@
 namespace Vk.SDK.Model
 {
-    public class Answer : VKApiModel, IIdentifiable
+    public class Answer : IVKApiModel, IIdentifiable
     {
         /**
        * Text of the answer

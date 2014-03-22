@@ -1,6 +1,6 @@
 namespace Vk.SDK.Model
 {
-    public class VKApiPoll : VKApiAttachment
+    public class Poll : Attachment
     {
         /**
      * Poll ID to get information about it using polls.getById method;
@@ -10,7 +10,7 @@ namespace Vk.SDK.Model
         /**
      * Array of answers for this question.
      */
-        public VKList<Answer> answers;
+        public VkList<Answer> answers;
         public long created;
         public int id;
 

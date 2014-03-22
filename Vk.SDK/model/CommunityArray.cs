@@ -1,9 +1,9 @@
 namespace Vk.SDK.Model
 {
-    public class VKPhotoArray : VKList<VKApiPhoto>
+    public class CommunityArray : VkList<CommunityFull>
     {
         //public VKApiModel parse(JObject response) {
-        //    fill(response, typeof(VKApiPhoto));
+        //    fill(response, typeof(VKApiCommunityFull));
         //    return this;
         //}
     }

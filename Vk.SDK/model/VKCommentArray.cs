@@ -1,6 +1,6 @@
 namespace Vk.SDK.Model
 {
-    public class VKCommentArray : VKList<VKApiComment>
+    public class VkCommentArray : VkList<Comment>
     {
         //public VKApiModel parse(JObject response)
         //{

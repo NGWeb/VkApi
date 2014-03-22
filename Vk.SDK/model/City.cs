@@ -1,33 +1,28 @@
 namespace Vk.SDK.Model
 {
-    public class VKApiCountry : VKApiModel, IIdentifiable
+    public class City : IVKApiModel, IIdentifiable
     {
         /**
-     * Country ID.
+     * City ID.
      */
         public int id;
 
         /**
-     * Country name
+     * City name
      */
         public string title;
 
         /**
-     * Fills a Country instance from JObject.
+     * Fills a City instance from JObject.
      */
-        //public VKApiCountry parse(JObject from)
-        //{
+        //public VKApiCity parse(JObject from) {
         //    id = from.optInt("id");
         //    title = from.optstring("title");
         //    return this;
         //}
-
         /**
-     * Creates a Country instance from Parcel.
+     * Creates empty City instance.
      */
-        /**
-         * Creates empty Country instance.
-         */
 
 
         public int Id
@@ -47,9 +42,9 @@ namespace Vk.SDK.Model
             return 0;
         }
 
-        public VKApiCountry[] newArray(int size)
+        public City[] newArray(int size)
         {
-            return new VKApiCountry[size];
+            return new City[size];
         }
     };
 }

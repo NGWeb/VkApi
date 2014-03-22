@@ -6,13 +6,13 @@ using System.Collections.Generic;
 
 namespace Vk.SDK.Model
 {
-    public class VKAttachments : VKList<VKApiAttachment>
+    public class VkAttachments : VkList<Attachment>
     {
-        public VKAttachments()
+        public VkAttachments()
         {
         }
 
-        public VKAttachments(List<VKApiAttachment> data)
+        public VkAttachments(List<Attachment> data)
             : base(data)
         {
         }

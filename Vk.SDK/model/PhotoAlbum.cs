@@ -7,7 +7,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Vk.SDK.Model
 {
-    public class VKApiPhotoAlbum : VKApiAttachment
+    public class PhotoAlbum : Attachment
     {
         /**
      * URL for empty album cover with max width at 75px
@@ -44,7 +44,7 @@ namespace Vk.SDK.Model
         public string description;
         public int id;
         public int owner_id;
-        public VKPhotoSizes photo = new VKPhotoSizes();
+        public PhotoSizes photo = new PhotoSizes();
         public int privacy;
         public int size;
 
@@ -74,7 +74,7 @@ namespace Vk.SDK.Model
      * Creates a PhotoAlbum instance from JObject.
      */
 
-        public VKApiPhotoAlbum parse(JObject from)
+        public PhotoAlbum parse(JObject from)
         {
             //id = from.optInt("id");
             //thumb_id = from.optInt("thumb_id");
@@ -89,7 +89,7 @@ namespace Vk.SDK.Model
             //if(from.has("privacy")) {
             //    privacy = from.optInt("privacy");
             //} else {
-            //    privacy = VKPrivacy.parsePrivacy(from.optJObject("privacy_view"));
+            //    privacy = Privacy.parsePrivacy(from.optJObject("privacy_view"));
             //}
             //JSONArray sizes = from.optJSONArray("sizes");
             //if(sizes != null) {
@@ -109,7 +109,7 @@ namespace Vk.SDK.Model
 
         public bool isClosed()
         {
-            return privacy != VKPrivacy.PRIVACY_ALL;
+            return privacy != Privacy.PRIVACY_ALL;
         }
 
 

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Vk.SDK.Model
 {
-    public class VKApiNote : VKApiAttachment, IIdentifiable
+    public class Note : Attachment, IIdentifiable
     {
         /**
      * Note ID, positive number

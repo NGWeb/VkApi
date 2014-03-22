@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Vk.SDK.Model
 {
-    public class VKApiDocument : VKApiAttachment, IIdentifiable
+    public class Document : Attachment, IIdentifiable
     {
         /**
      * Document ID.
@@ -21,7 +21,7 @@ namespace Vk.SDK.Model
      * ID of the user or group who uploaded the document.
      */
         public int owner_id;
-        public VKPhotoSizes photo = new VKPhotoSizes();
+        public PhotoSizes photo = new PhotoSizes();
 
         /**
      * Document title.
@@ -123,9 +123,9 @@ namespace Vk.SDK.Model
             return 0;
         }
 
-        public VKApiDocument[] newArray(int size)
+        public Document[] newArray(int size)
         {
-            return new VKApiDocument[size];
+            return new Document[size];
         }
     };
 }
