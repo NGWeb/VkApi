@@ -1,6 +1,6 @@
 namespace Vk.SDK.Model
 {
-    public class VKUsersArray : VKList<VKApiUserFull>
+    public class VkUsersArray : VkList<IvkApiUserFull>
     {
         //public VKApiModel parse(JObject response)
         //{

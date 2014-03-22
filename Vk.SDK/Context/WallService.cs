@@ -13,22 +13,22 @@ namespace Vk.SDK.Context
         {
         }
 
-        public VKRequest<VKPostArray> Get(VKParameters parameters)
+        public VKRequest<VkPostArray> Get(VKParameters parameters)
         {
             if (((int) parameters["extended"]) == 1)
             {
-                return PrepareRequest<VKPostArray>("get", parameters, AbstractRequest.HttpMethod.GET);
+                return PrepareRequest<VkPostArray>("get", parameters, AbstractRequest.HttpMethod.GET);
             }
-            return PrepareRequest<VKPostArray>("get", parameters);
+            return PrepareRequest<VkPostArray>("get", parameters);
         }
 
-        public VKRequest<VKPostArray> GetById(VKParameters parameters)
+        public VKRequest<VkPostArray> GetById(VKParameters parameters)
         {
             if (((int) parameters["extended"]) == 1)
             {
-                return PrepareRequest<VKPostArray>("get", parameters, AbstractRequest.HttpMethod.GET);
+                return PrepareRequest<VkPostArray>("get", parameters, AbstractRequest.HttpMethod.GET);
             }
-            return PrepareRequest<VKPostArray>("get", parameters);
+            return PrepareRequest<VkPostArray>("get", parameters);
         }
 
         public VkJsonRequest SavePost(VKParameters parameters)
@@ -67,9 +67,9 @@ namespace Vk.SDK.Context
             return PrepareJsonRequest("restore", parameters);
         }
 
-        public VKRequest<VKCommentArray> GetComments(VKParameters parameters)
+        public VKRequest<VkCommentArray> GetComments(VKParameters parameters)
         {
-            return PrepareRequest<VKCommentArray>("getComments", parameters, AbstractRequest.HttpMethod.GET);
+            return PrepareRequest<VkCommentArray>("getComments", parameters, AbstractRequest.HttpMethod.GET);
         }
 
         public VkJsonRequest AddComment(VKParameters parameters)

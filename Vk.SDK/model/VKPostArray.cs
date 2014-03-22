@@ -1,6 +1,6 @@
 namespace Vk.SDK.Model
 {
-    public class VKPostArray : VKList<VKApiPost>
+    public class VkPostArray : VkList<Post>
     {
     }
 }

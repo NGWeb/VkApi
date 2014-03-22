@@ -27,13 +27,13 @@ namespace Vk.SDK.Context
             _mMethodGroup = className.Replace("Service","").ToLower();
         }
 
-        protected VKRequest<T> PrepareRequest<T>(string methodName, VKParameters methodParameters) where T : VKApiModel
+        protected VKRequest<T> PrepareRequest<T>(string methodName, VKParameters methodParameters) where T : IVKApiModel
         {
             return PrepareRequest<T>(methodName, methodParameters, AbstractRequest.HttpMethod.GET);
         }
 
         protected VKRequest<T> PrepareRequest<T>(string methodName, VKParameters methodParameters,
-            AbstractRequest.HttpMethod httpMethod) where T : VKApiModel
+            AbstractRequest.HttpMethod httpMethod) where T : IVKApiModel
         {
             return new VKRequest<T>(string.Format("{0}.{1}", _mMethodGroup, methodName), methodParameters, httpMethod,_factory);
         }

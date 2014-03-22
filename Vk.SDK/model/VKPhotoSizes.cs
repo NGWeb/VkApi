@@ -1,6 +1,6 @@
 namespace Vk.SDK.Model
 {
-    public class VKPhotoSizes : VKList<VKApiPhotoSize>
+    public class VkPhotoSizes : VkList<IvkApiPhotoSize>
     {
         private static float sQuality = 1.0f;
 
@@ -78,7 +78,7 @@ namespace Vk.SDK.Model
 
         public string getByType(char type)
         {
-            foreach (VKApiPhotoSize size in this)
+            foreach (IvkApiPhotoSize size in this)
             {
                 if (size.type == type)
                 {
@@ -134,7 +134,7 @@ namespace Vk.SDK.Model
             mWidthThumb = null;
             width = (int) (width*sQuality);
 
-            foreach (VKApiPhotoSize size in this)
+            foreach (IvkApiPhotoSize size in this)
             {
                 if (size.width >= width)
                 {
@@ -155,7 +155,7 @@ namespace Vk.SDK.Model
             mHeightThumb = null;
             height = (int) (height*sQuality);
 
-            foreach (VKApiPhotoSize size in this)
+            foreach (IvkApiPhotoSize size in this)
             {
                 if (size.height >= height)
                 {

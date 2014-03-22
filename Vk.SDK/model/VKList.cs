@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 namespace Vk.SDK.Model
 {
-    public class VKList<T> : VKApiModel where T : VKApiModel
+    public class VkList<T> : IVKApiModel where T : IVKApiModel
     {
         private static readonly int NO_COUNT = -1;
 
@@ -25,7 +25,7 @@ namespace Vk.SDK.Model
      * Creates empty list.
      */
 
-        public VKList()
+        public VkList()
         {
             Items = new List<T>();
         }
@@ -34,7 +34,7 @@ namespace Vk.SDK.Model
      * Creates list and fills it according with given data.
      */
 
-        public VKList(IEnumerable<T> data)
+        public VkList(IEnumerable<T> data)
         {
             Items = new List<T>(data);
         }

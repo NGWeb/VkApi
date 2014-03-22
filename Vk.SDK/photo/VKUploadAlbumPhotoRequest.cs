@@ -12,7 +12,7 @@ using Vk.SDK.Util;
 
 namespace Vk.SDK.Photo
 {
-    public class VKUploadAlbumPhotoRequest : VKUploadPhotoBase<VKPhotoArray>
+    public class VKUploadAlbumPhotoRequest : VKUploadPhotoBase<VkPhotoArray>
     {
         private readonly IPhotosService _photosService;
         public VKUploadAlbumPhotoRequest(FileInfo[] image, long albumId, long groupId, IRequestFactory factory)
@@ -39,7 +39,7 @@ namespace Vk.SDK.Photo
         }
 
 
-        protected override VKRequest<VKPhotoArray> getSaveRequest(JObject response)
+        protected override VKRequest<VkPhotoArray> getSaveRequest(JObject response)
         {
             var saveRequest = _photosService.Save(new VKParameters(VKJsonHelper.toMap(response)));
             if (mAlbumId != 0)

@@ -59,13 +59,13 @@
     <Compile Include="Model\Contact.cs" />
     <Compile Include="Model\Genre.cs" />
     <Compile Include="Model\LifeMain.cs" />
-    <Compile Include="Model\Link.cs" />
     <Compile Include="Model\PeopleMain.cs" />
     <Compile Include="Model\Political.cs" />
     <Compile Include="Model\Relation.cs" />
     <Compile Include="Model\RelativeType.cs" />
     <Compile Include="Model\Sex.cs" />
     <Compile Include="Model\VKApiAttachment.cs" />
+    <Compile Include="Model\VkModelsList.cs" />
     <Compile Include="Photo\VKUploadImageOperation.cs" />
     <Compile Include="ProgressDelegate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -10,7 +10,7 @@ using Vk.SDK.Model;
 
 namespace Vk.SDK.Http
 {
-    public class VKModelOperation<T> : VKHttpOperation where T : VKApiModel
+    public class VKModelOperation<T> : VKHttpOperation where T : IVKApiModel
     {
         public T parsedModel;
 

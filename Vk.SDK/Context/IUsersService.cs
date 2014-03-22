@@ -1,17 +1,18 @@
+using System.Collections.Generic;
 using Vk.SDK.Model;
 
 namespace Vk.SDK.Context
 {
     public interface IUsersService
     {
-        VKRequest<VKApiUser> Get(VKParameters parameters);
-        VKRequest<VKUsersArray> Search(VKParameters parameters);
+        VKRequest<VkModelsList<IvkApiUser>> Get(VKParameters parameters);
+        VKRequest<VkUsersArray> Search(VKParameters parameters);
         VkJsonRequest IsAppUser();
         VkJsonRequest IsAppUser(int userID);
         VkJsonRequest GetSubscriptions();
         VkJsonRequest GetSubscriptions(VKParameters parameters);
-        VKRequest<VKUsersArray> GetFollowers();
-        VKRequest<VKUsersArray> GetFollowers(VKParameters parameters);
+        VKRequest<VkUsersArray> GetFollowers();
+        VKRequest<VkUsersArray> GetFollowers(VKParameters parameters);
         VkJsonRequest Report(VKParameters parameters);
     }
 }

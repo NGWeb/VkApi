@@ -8,11 +8,11 @@ using Vk.SDK.Model;
 
 namespace Vk.SDK
 {
-    public class VKDefaultParser<T> : VKParser where T : VKApiModel
+    public class VKDefaultParser<T> : VKParser where T : IVKApiModel
     {
-        public VKApiModel CreateModel(JObject jsobject)
+        public IVKApiModel CreateModel(JObject jsobject)
         {
-            VKApiModel model = JsonConvert.DeserializeObject<T>(jsobject.ToString());
+            IVKApiModel model = JsonConvert.DeserializeObject<T>(jsobject.ToString());
             return model;
         }
     }

@@ -9,7 +9,7 @@ using Vk.SDK.Model;
 
 namespace Vk.SDK.Photo
 {
-    public abstract class VKUploadPhotoBase<T> : AbstractRequest where T : VKApiModel
+    public abstract class VKUploadPhotoBase<T> : AbstractRequest where T : IVKApiModel
     {
         /**
      * ID of album to upload

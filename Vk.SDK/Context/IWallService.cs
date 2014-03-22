@@ -4,8 +4,8 @@ namespace Vk.SDK.Context
 {
     public interface IWallService
     {
-        VKRequest<VKPostArray> Get(VKParameters parameters);
-        VKRequest<VKPostArray> GetById(VKParameters parameters);
+        VKRequest<VkPostArray> Get(VKParameters parameters);
+        VKRequest<VkPostArray> GetById(VKParameters parameters);
         VkJsonRequest SavePost(VKParameters parameters);
         VkJsonRequest Post(VKParameters parameters);
         VkJsonRequest Repost(VKParameters parameters);
@@ -13,7 +13,7 @@ namespace Vk.SDK.Context
         VkJsonRequest Edit(VKParameters parameters);
         VkJsonRequest Delete(VKParameters parameters);
         VkJsonRequest Restore(VKParameters parameters);
-        VKRequest<VKCommentArray> GetComments(VKParameters parameters);
+        VKRequest<VkCommentArray> GetComments(VKParameters parameters);
         VkJsonRequest AddComment(VKParameters parameters);
         VkJsonRequest EditComment(VKParameters parameters);
         VkJsonRequest DeleteComment(VKParameters parameters);
