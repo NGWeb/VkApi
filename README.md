@@ -2,6 +2,7 @@
 
 ` PM> Install-Package VKSDK `
 
+[NuGet](https://www.nuget.org/packages/VKSDK/)
 [Документация ](https://github.com/NGWeb/VkApi/wiki)
 
 
