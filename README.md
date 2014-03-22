@@ -1,4 +1,10 @@
+Установка
+
+'PM> Install-Package VKSDK'
+
 [Документация ](https://github.com/NGWeb/VkApi/wiki)
+
+
 
 Фьючерсы:
 + AccessTokenManager
