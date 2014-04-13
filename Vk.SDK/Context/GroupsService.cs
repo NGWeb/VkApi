@@ -9,7 +9,8 @@ namespace Vk.SDK.Context
 {
     public class GroupsService : VKApiBase, IGroupsService
     {
-        public GroupsService(IRequestFactory factory) : base(factory)
+        public GroupsService(IRequestFactory factory)
+            : base(factory)
         {
         }
 
@@ -25,7 +26,7 @@ namespace Vk.SDK.Context
 
         public VKRequest<CommunityArray> Get(VKParameters parameters)
         {
-            if (((int)parameters["extended"]) == 1)
+            if ((parameters.ContainsKey("extended") && ((int)parameters["extended"]) == 1))
             {
                 return PrepareRequest<CommunityArray>("get", parameters, AbstractRequest.HttpMethod.GET);
             }

@@ -62,7 +62,7 @@ namespace Vk.SDK
      * @param httpMethod HTTP method for execution, e.g. GET, POST
      */
 
-        public AbstractRequest(string method, VKParameters parameters, HttpMethod httpMethod, IRequestFactory requestFactory)
+        protected AbstractRequest(string method, VKParameters parameters, HttpMethod httpMethod, IRequestFactory requestFactory)
         {
             methodName = method;
             if (parameters == null)
