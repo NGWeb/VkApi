@@ -18,7 +18,7 @@ namespace Vk.SDK.Context
 
         protected VKApiBase(IRequestFactory factory)
         {
-            this._factory = factory;
+            _factory = factory;
             string className = GetType().Name;
             if (className == null)
             {

@@ -4,6 +4,7 @@ using System.Net;
 using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Vk.SDK.Converters;
 using Vk.SDK.Model;
 
 #endregion
@@ -29,7 +30,10 @@ namespace Vk.SDK.Http
         protected void PostExecution(object sender)
         {
             JObject val = JObject.Parse(ResponseString);
-            parsedModel = val.GetValue("response").ToObject<T>();
+            var serializer = new JsonSerializer();
+          //  serializer.Converters.Add(new AttachmentListConverter());
+            serializer.Converters.Add(new AttachmentConverter());
+            parsedModel = val.GetValue("response").ToObject<T>(serializer);
         }
     }
 }

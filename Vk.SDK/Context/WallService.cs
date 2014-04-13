@@ -15,7 +15,7 @@ namespace Vk.SDK.Context
 
         public VKRequest<PostArray> Get(VKParameters parameters)
         {
-            if (((int) parameters["extended"]) == 1)
+            if (parameters.ContainsKey("extended") && ((int)parameters["extended"]) == 1)
             {
                 return PrepareRequest<PostArray>("get", parameters, AbstractRequest.HttpMethod.GET);
             }
