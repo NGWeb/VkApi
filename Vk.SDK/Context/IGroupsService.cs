@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Vk.SDK.Model;
 
 namespace Vk.SDK.Context
@@ -5,7 +6,7 @@ namespace Vk.SDK.Context
     public interface IGroupsService
     {
         VkJsonRequest IsMember(VKParameters parameters);
-        VKRequest<CommunityArray> GetById(VKParameters parameters);
+        VKRequest<IList<CommunityFull>> GetById(VKParameters parameters);
         VKRequest<CommunityArray> Get(VKParameters parameters);
         VKRequest<UserArray> GetMembers(VKParameters parameters);
         VkJsonRequest Join(VKParameters parameters);

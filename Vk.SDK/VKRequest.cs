@@ -7,7 +7,7 @@ using Vk.SDK.Model;
 
 namespace Vk.SDK
 {
-    public class VKRequest<T> : AbstractRequest where T : IVKApiModel
+    public class VKRequest<T> : AbstractRequest //where T : IVKApiModel
     {
         private VKModelOperation<T> mLoadingOperation;
 

@@ -64,14 +64,14 @@ namespace Vk.SDK.Model
         public string photo_200;
         public string photo_50;
         public string screen_name;
-        public int type;
+        public string Type { get; set; }
 
         /**
      * {@link #photo_50}, {@link #photo_100}, {@link #photo_200} included here in Photo Sizes format.
      */
 
 
-        public string ToString()
+        public override string ToString()
         {
             return name;
         }

@@ -1,5 +1,6 @@
 #region usings
 
+using System.Collections.Generic;
 using Vk.SDK.Http;
 using Vk.SDK.Model;
 
@@ -19,9 +20,9 @@ namespace Vk.SDK.Context
             return PrepareJsonRequest("isMember", parameters);
         }
 
-        public VKRequest<CommunityArray> GetById(VKParameters parameters)
+        public VKRequest<IList<CommunityFull>> GetById(VKParameters parameters)
         {
-            return PrepareRequest<CommunityArray>("getById", parameters, AbstractRequest.HttpMethod.GET);
+            return PrepareRequest<IList<CommunityFull>>("getById", parameters, AbstractRequest.HttpMethod.GET);
         }
 
         public VKRequest<CommunityArray> Get(VKParameters parameters)

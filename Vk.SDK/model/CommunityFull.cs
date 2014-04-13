@@ -1,4 +1,6 @@
-﻿namespace Vk.SDK.Model
+﻿using System.Collections.Generic;
+
+namespace Vk.SDK.Model
 {
     public class CommunityFull : Community
     {
@@ -108,7 +110,7 @@
      * City specified in information about community.
      */
         public City city;
-        public VkList<Contact> contacts;
+        public List<Contact> Contacts { get; set; }
         public Counters counters;
 
         /**
