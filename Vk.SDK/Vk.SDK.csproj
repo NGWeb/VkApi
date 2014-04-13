@@ -47,6 +47,7 @@
     <Compile Include="Context\IPhotosService.cs" />
     <Compile Include="Context\IUsersService.cs" />
     <Compile Include="Context\IWallService.cs" />
+    <Compile Include="Converters\AttachmentConverter.cs" />
     <Compile Include="Declarations\AttachmentType.cs" />
     <Compile Include="ErrorDelegate.cs" />
     <Compile Include="Http\BeginRequestDelegate.cs" />

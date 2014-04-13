@@ -12,13 +12,7 @@ namespace Vk.SDK.Test
     [TestClass]
     public class UsersTest
     {
-        public UsersTest()
-        {
-            //
-            // TODO: Add constructor logic here
-            //
-        }
-
+   
         private TestContext testContextInstance;
         private StandardKernel kernel;
 

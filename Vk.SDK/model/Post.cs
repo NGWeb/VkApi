@@ -1,5 +1,7 @@
 ﻿#region usings
 
+using System.Collections;
+using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json.Linq;
 
@@ -7,7 +9,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Vk.SDK.Model
 {
-    public class Post : Attachment
+    public class Post : IVKApiModel
     {
         /**
      * Post ID on the wall, positive number
@@ -16,12 +18,12 @@ namespace Vk.SDK.Model
         /**
      * Date (in Unix time) the post was added.
      */
-        public VkAttachments attachments = new VkAttachments();
+        public List<Attachment> Attachments { get; set; }
         public bool can_like;
         public bool can_post_comment;
         public bool can_publish;
         public int comments_count;
-        public VkList<Post> copy_history;
+        public List<Post> copy_history;
         public long date;
 
         /**
@@ -73,7 +75,7 @@ namespace Vk.SDK.Model
         public int to_id;
         public bool user_likes;
         public bool user_reposted;
-        public override int Id { get; set; }
+        public int Id { get; set; }
 
         /**
      * List of history of the reposts.
@@ -126,13 +128,13 @@ namespace Vk.SDK.Model
      */
 
 
-        public override string GetType()
+        public string GetType()
         {
             return AttachmentType.TYPE_POST;
         }
 
 
-        public override string ToAttachmentString()
+        public string ToAttachmentString()
         {
             return new StringBuilder(AttachmentType.TYPE_POST).Append(to_id).Append('_').Append(id).ToString();
         }
