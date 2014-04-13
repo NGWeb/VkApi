@@ -51,7 +51,7 @@ namespace Vk.SDK.Vk
 
         public void saveTokenToFile(string filePath)
         {
-            VKUtil.stringToFile(filePath, serialize());
+            VKUtil.stringToFile(filePath, ToString());
         }
 
         /**
@@ -60,13 +60,15 @@ namespace Vk.SDK.Vk
      * @return Serialized token string as query-string
      */
 
-        protected string serialize()
+        public override string ToString()
         {
-            VKParameters parameters = new VKParameters();
-            parameters.Add(ACCESS_TOKEN, accessToken);
-            parameters.Add(EXPIRES_IN, expiresIn);
-            parameters.Add(USER_ID, userId);
-            parameters.Add(CREATED, created);
+            var parameters = new VKParameters
+            {
+                {ACCESS_TOKEN, accessToken},
+                {EXPIRES_IN, expiresIn},
+                {USER_ID, userId},
+                {CREATED, created}
+            };
 
             if (secret != null)
             {

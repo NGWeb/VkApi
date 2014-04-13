@@ -26,6 +26,11 @@ namespace Vk.SDK
         {
         }
 
+        public T GetModel()
+        {
+            return (T)GetResponse();
+        }
+
         public override object GetResponse()
         {
             var operation = new VKModelOperation<T>(GetPreparedRequest());

@@ -13,7 +13,7 @@ namespace Vk.SDK.Util
         /**
          * Converts object to JSON object, if possible
          *
-         * @param object object to serialize to json
+         * @param object object to ToString to json
          * @return Completed json object
          * @throws JSONException
          */
