@@ -62,7 +62,7 @@ namespace Vk.SDK.Test
              * https://oauth.vk.com/authorize?client_id=4256757&scope=groups,photos,friends,offline,wall,photos,notify,status&redirect_uri=http://oauth.vk.com/blank.html&display=popup&response_type=token
              
              */
-            VKSdk.initialize("4256757", VKAccessToken.TokenFromUrlstring("access_token=ea48f85065e82dc41decc1931849f498a08ece7702b009cefb7c182f54b9831437c0dbacf46f6793b5&expires_in=0&user_id=125342956"));
+            VKSdk.initialize("4256757", VKAccessToken.TokenFromUrlstring("access_token=d471731b564c57eb98dc97c6f4c722ba413a3a7cf320b3f2dd97de743dd1fd656ac44aa007183802e86b8&expires_in=0&user_id=125342956"));
             kernel = new Ninject.StandardKernel();
             kernel.Bind<IRequestCreator>().To<RequestCreator>();
             kernel.Bind<IRequestFactory>().To<RequestFactory>();

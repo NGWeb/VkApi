@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Vk.SDK.Http;
 using Vk.SDK.Model;
 
 namespace Vk.SDK.Context
 {
-    public class MessagesService:VKApiBase,IMessagesService
+    public class MessagesService : VKApiBase, IMessagesService
     {
-        public MessagesService(IRequestFactory factory) : base(factory)
+        public MessagesService(IRequestFactory factory)
+            : base(factory)
         {
         }
 
@@ -19,9 +21,12 @@ namespace Vk.SDK.Context
             return PrepareRequest<Array<Message>>("get", parameters);
         }
 
-        public Array<Chat> GetDialogs(VKParameters parameters)
+        public VKRequest<Array<Message>> GetDialogs(VKParameters parameters = null)
         {
-            throw new NotImplementedException();
+            if (parameters == null)
+                parameters = new VKParameters();
+
+            return PrepareRequest<Array<Message>>("getDialogs", parameters);
         }
 
         public Array<Message> GetById(VKParameters parameters)
@@ -34,14 +39,31 @@ namespace Vk.SDK.Context
             throw new NotImplementedException();
         }
 
-        public Array<Message> GetHistory(VKParameters parameters)
+        public VKRequest<Array<Message>> GetHistory(int userid, VKParameters parameters = null)
         {
-            throw new NotImplementedException();
+            if (parameters == null)
+                parameters = new VKParameters();
+            if (parameters.ContainsKey(VKApiConst.USER_ID) == false)
+                parameters.Add(VKApiConst.USER_ID, userid);
+
+            return PrepareRequest<Array<Message>>("getHistory", parameters);
         }
 
-        public VkJsonRequest Send(VKParameters parameters)
+        public VkJsonRequest Send(Message message, params int[] id)
         {
-            throw new NotImplementedException();
+            var parameters = new VKParameters();
+
+            if (id.Length == 1)
+            {
+                parameters.Add(VKApiConst.USER_ID, id[0]);
+            }
+            else
+            {
+                parameters.Add(VKApiConst.USER_IDS, string.Join(",", id));
+            }
+
+            parameters.Add(VKApiConst.MESSAGE, message.body);
+            return PrepareJsonRequest("send", parameters, AbstractRequest.HttpMethod.GET);
         }
 
         public VkJsonRequest Delete(VKParameters parameters)

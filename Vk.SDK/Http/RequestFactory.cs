@@ -40,7 +40,7 @@ namespace Vk.SDK.Http
                     break;
 
                 case AbstractRequest.HttpMethod.POST:
-                    var post = _creator.Create(urlstringBuilder.ToString());
+                    request = _creator.Create(urlstringBuilder.ToString());
                     request.Method = "POST";
                     var pairs = new Dictionary<string, object>(preparedParameters.Count);
                     foreach (var entry in preparedParameters)
@@ -66,7 +66,7 @@ namespace Vk.SDK.Http
                                      "Content-Disposition: form-data; name=\"{0}\"" + newLine + newLine +
                                      "{1}" + newLine + newLine;
 
-                    using (var reqStream = post.GetRequestStream())
+                    using (var reqStream = request.GetRequestStream())
                     {
                         var reqWriter = new StreamWriter(reqStream);
                         StringBuilder bilBuilder = new StringBuilder();
@@ -79,9 +79,7 @@ namespace Vk.SDK.Http
                         reqWriter.Write(boundary + "--");
                         reqWriter.Flush();
                     }
-
-                    request = post;
-
+                    
                     break;
             }
             Dictionary<string, string> defaultHeaders = GetDefaultHeaders();

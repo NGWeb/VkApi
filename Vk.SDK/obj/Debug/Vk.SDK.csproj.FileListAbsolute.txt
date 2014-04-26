@@ -4,3 +4,4 @@ C:\Users\breat_000\Documents\Visual Studio 2013\Projects\Vk.SDK\Vk.SDK\bin\Debug
 C:\Users\breat_000\Documents\Visual Studio 2013\Projects\Vk.SDK\Vk.SDK\bin\Debug\Newtonsoft.Json.xml
 C:\Users\breat_000\Documents\Visual Studio 2013\Projects\Vk.SDK\Vk.SDK\obj\Debug\Vk.SDK.dll
 C:\Users\breat_000\Documents\Visual Studio 2013\Projects\Vk.SDK\Vk.SDK\obj\Debug\Vk.SDK.pdb
+C:\Users\breat_000\Documents\Visual Studio 2013\Projects\Vk.SDK\Vk.SDK\obj\Debug\Vk.SDK.csprojResolveAssemblyReference.cache

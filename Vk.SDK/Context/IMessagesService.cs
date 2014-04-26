@@ -10,11 +10,11 @@ namespace Vk.SDK.Context
     public interface IMessagesService
     {
         VKRequest<Array<Message>> Get(VKParameters parameters);
-        Array<Chat> GetDialogs(VKParameters parameters);
+        VKRequest<Array<Message>> GetDialogs(VKParameters parameters);
         Array<Message> GetById(VKParameters parameters);
         Array<Message> Search(VKParameters parameters);
-        Array<Message> GetHistory(VKParameters parameters);
-        VkJsonRequest Send(VKParameters parameters);
+        VKRequest<Array<Message>> GetHistory(int userid, VKParameters parameters=null);
+        VkJsonRequest Send(Message message, params int[] id);
         VkJsonRequest Delete(VKParameters parameters);
         VkJsonRequest DeleteDialog(VKParameters parameters);
         VkJsonRequest Restore(VKParameters parameters);

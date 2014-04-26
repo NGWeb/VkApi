@@ -9,7 +9,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Vk.SDK.Model
 {
-    public class Post : IVKApiModel
+    public class Post :Attachment, IVKApiModel
     {
         /**
      * Post ID on the wall, positive number
@@ -75,7 +75,7 @@ namespace Vk.SDK.Model
         public int to_id;
         public bool user_likes;
         public bool user_reposted;
-        public int Id { get; set; }
+        public override int Id { get; set; }
 
         /**
      * List of history of the reposts.
@@ -128,13 +128,13 @@ namespace Vk.SDK.Model
      */
 
 
-        public string GetType()
+        public override string GetType()
         {
             return AttachmentType.TYPE_POST;
         }
 
 
-        public string ToAttachmentString()
+        public override string ToAttachmentString()
         {
             return new StringBuilder(AttachmentType.TYPE_POST).Append(to_id).Append('_').Append(id).ToString();
         }

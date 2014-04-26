@@ -8,8 +8,9 @@ using Vk.SDK.Vk;
 namespace Vk.SDK.Test
 {
     [TestClass]
-    public class WallsTest
+    public class UnitTest1
     {
+
         private TestContext testContextInstance;
         private StandardKernel kernel;
 
@@ -29,6 +30,27 @@ namespace Vk.SDK.Test
             }
         }
 
+        #region Additional test attributes
+        //
+        // You can use the following additional attributes as you write your tests:
+        //
+        // Use ClassInitialize to run code before running the first test in the class
+        // [ClassInitialize()]
+        // public static void MyClassInitialize(TestContext testContext) { }
+        //
+        // Use ClassCleanup to run code after all tests in a class have run
+        // [ClassCleanup()]
+        // public static void MyClassCleanup() { }
+        //
+        // Use TestInitialize to run code before running each test 
+        // [TestInitialize()]
+        // public void MyTestInitialize() { }
+        //
+        // Use TestCleanup to run code after each test has run
+        // [TestCleanup()]
+        // public void MyTestCleanup() { }
+        //
+        #endregion
 
         [TestInitialize]
         public void InitTest()
@@ -43,16 +65,20 @@ namespace Vk.SDK.Test
             kernel.Bind<IRequestCreator>().To<RequestCreator>();
             kernel.Bind<IRequestFactory>().To<RequestFactory>();
             kernel.Bind<IUsersService>().To<UsersService>();
-            kernel.Bind<IWallService>().To<WallService>();
+            kernel.Bind<IMessagesService>().To<MessagesService>();
+            kernel.Bind<IFriendsService>().To<FriendsService>();
         }
 
 
         [TestMethod]
-        public void GetWallTest()
+        public void AddFriendTest()
         {
-            var service = kernel.Get<IWallService>();
-            var posts = service.Get(new VKParameters()).GetModel();
-            Assert.AreNotEqual(posts.Count, 0);
+            const int userid = 2391002;
+            var friendsService = kernel.Get<IFriendsService>();
+
+            var response = friendsService.Add(userid, "привет, добавь меня в друзья пожалуйста, я больше не буду ...").GetResponse();
+
+            Assert.AreNotEqual(response, null);
         }
     }
 }

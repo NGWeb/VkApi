@@ -9,7 +9,7 @@ namespace Vk.SDK.Context
         VKRequest<UserArray> GetMutual(VKParameters parameters);
         VKRequest<UserArray> GetRecent(VKParameters parameters);
         VKRequest<UserArray> GetRequests(VKParameters parameters);
-        VKRequest<UserArray> Add(VKParameters parameters);
+        VkJsonRequest Add(int userid,string greeting=null, VKParameters parameters = null);
         VKRequest<UserArray> Edit(VKParameters parameters);
         VKRequest<UserArray> Delete(VKParameters parameters);
         VKRequest<UserArray> GetLists(VKParameters parameters);

@@ -1,0 +1,12 @@
+C:\Users\breat_000\Documents\Visual Studio 2013\Projects\Vk.SDK\Vk.SDK.Test\bin\Debug\Vk.SDK.Test.dll
+C:\Users\breat_000\Documents\Visual Studio 2013\Projects\Vk.SDK\Vk.SDK.Test\bin\Debug\Vk.SDK.Test.pdb
+C:\Users\breat_000\Documents\Visual Studio 2013\Projects\Vk.SDK\Vk.SDK.Test\bin\Debug\Ninject.dll
+C:\Users\breat_000\Documents\Visual Studio 2013\Projects\Vk.SDK\Vk.SDK.Test\bin\Debug\Vk.SDK.dll
+C:\Users\breat_000\Documents\Visual Studio 2013\Projects\Vk.SDK\Vk.SDK.Test\bin\Debug\Newtonsoft.Json.dll
+C:\Users\breat_000\Documents\Visual Studio 2013\Projects\Vk.SDK\Vk.SDK.Test\bin\Debug\Vk.SDK.pdb
+C:\Users\breat_000\Documents\Visual Studio 2013\Projects\Vk.SDK\Vk.SDK.Test\bin\Debug\Ninject.pdb
+C:\Users\breat_000\Documents\Visual Studio 2013\Projects\Vk.SDK\Vk.SDK.Test\bin\Debug\Ninject.xml
+C:\Users\breat_000\Documents\Visual Studio 2013\Projects\Vk.SDK\Vk.SDK.Test\bin\Debug\Newtonsoft.Json.xml
+C:\Users\breat_000\Documents\Visual Studio 2013\Projects\Vk.SDK\Vk.SDK.Test\obj\Debug\Vk.SDK.Test.csprojResolveAssemblyReference.cache
+C:\Users\breat_000\Documents\Visual Studio 2013\Projects\Vk.SDK\Vk.SDK.Test\obj\Debug\Vk.SDK.Test.dll
+C:\Users\breat_000\Documents\Visual Studio 2013\Projects\Vk.SDK\Vk.SDK.Test\obj\Debug\Vk.SDK.Test.pdb

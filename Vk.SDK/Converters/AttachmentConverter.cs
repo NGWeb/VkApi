@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -45,7 +46,9 @@ namespace Vk.SDK.Converters
 
         protected override Attachment Create(Type objectType, JObject jsonObject)
         {
-            string typeName = (jsonObject["type"]).ToString();
+            string typeName = "wall";
+            if (jsonObject.Properties().Any(x => x.Name == "type"))
+                typeName = (jsonObject["type"]).ToString();
             switch (typeName)
             {
                 case "photo":
@@ -58,6 +61,10 @@ namespace Vk.SDK.Converters
                     return new PhotoAlbum();
                 case "doc":
                     return new Document();
+                case "video":
+                    return new Video();
+                case "wall":
+                    return new Post();
                 default:
                     return null;
             }

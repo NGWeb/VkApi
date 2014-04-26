@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Ninject;
 using Vk.SDK.Context;
 using Vk.SDK.Http;
 using Vk.SDK.Vk;
+using Vk.SDK.Model;
 
 namespace Vk.SDK.Test
 {
@@ -76,5 +78,41 @@ namespace Vk.SDK.Test
 
             Assert.AreNotEqual(model.Items.Count, 0);
         }
+
+        [TestMethod]
+        public void GetChats()
+        {
+
+            var service = kernel.Get<IMessagesService>();
+            var model = service.GetDialogs(new VKParameters()).GetModel();
+            Assert.AreNotEqual(model.Items.Count, 0);
+
+        }
+
+        [TestMethod]
+        public void Send()
+        {
+            var service = kernel.Get<IMessagesService>();
+            //      var model = service.Send(new Message() { body = "По одному" }, 2391002).GetResponse();
+            var model = service.Send(new Message() { body = "одному )" }, 29163158).GetResponse();
+            Assert.AreNotEqual(model, null);
+        }
+
+        [TestMethod]
+        public void GetHistory()
+        {
+            int userid = 29163158;
+            var service = kernel.Get<IMessagesService>();
+            var history = service.GetHistory(userid).GetModel();
+            Assert.AreNotEqual(history.Items.Count, 0);
+
+
+            foreach (var message in history.Items.Select(x => x.user_id))
+            {
+                Assert.AreEqual(message, userid);
+            }
+
+        }
+
     }
 }

@@ -61,6 +61,7 @@
     <Compile Include="Model\Answer.cs" />
     <Compile Include="Model\Attitude.cs" />
     <Compile Include="Model\Contact.cs" />
+    <Compile Include="Model\Dialog.cs" />
     <Compile Include="Model\Genre.cs" />
     <Compile Include="Model\LifeMain.cs" />
     <Compile Include="Model\PeopleMain.cs" />

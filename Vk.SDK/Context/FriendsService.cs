@@ -1,5 +1,6 @@
 #region usings
 
+using System.Linq;
 using Vk.SDK.Http;
 using Vk.SDK.Model;
 
@@ -9,7 +10,8 @@ namespace Vk.SDK.Context
 {
     public class FriendsService : VKApiBase, IFriendsService
     {
-        public FriendsService(IRequestFactory factory) : base(factory)
+        public FriendsService(IRequestFactory factory)
+            : base(factory)
         {
         }
 
@@ -42,9 +44,18 @@ namespace Vk.SDK.Context
             return PrepareRequest<UserArray>("getRequests", parameters);
         }
 
-        public VKRequest<UserArray> Add(VKParameters parameters)
+        public VkJsonRequest Add(int userId, string greeting = null, VKParameters parameters = null)
         {
-            return PrepareRequest<UserArray>("add", parameters);
+            if (parameters == null)
+                parameters = new VKParameters();
+
+            if (!parameters.Keys.Contains(VKApiConst.USER_ID))
+                parameters.Add(VKApiConst.USER_ID, userId);
+
+            if (!parameters.Keys.Contains("text") && greeting != null)
+                parameters.Add("text", greeting);
+
+            return PrepareJsonRequest("add", parameters);
         }
 
         public VKRequest<UserArray> Edit(VKParameters parameters)
