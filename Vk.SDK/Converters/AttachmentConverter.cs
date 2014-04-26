@@ -56,6 +56,8 @@ namespace Vk.SDK.Converters
                     return new Link();
                 case "album":
                     return new PhotoAlbum();
+                case "doc":
+                    return new Document();
                 default:
                     return null;
             }

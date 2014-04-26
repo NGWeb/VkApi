@@ -53,6 +53,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="MessageTest.cs" />
     <Compile Include="RequestCreator.cs" />
     <Compile Include="WallsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -44,9 +44,11 @@
     <Compile Include="CompleteDelegate.cs" />
     <Compile Include="Context\IFriendsService.cs" />
     <Compile Include="Context\IGroupsService.cs" />
+    <Compile Include="Context\IMessagesService.cs" />
     <Compile Include="Context\IPhotosService.cs" />
     <Compile Include="Context\IUsersService.cs" />
     <Compile Include="Context\IWallService.cs" />
+    <Compile Include="Context\MessagesService.cs" />
     <Compile Include="Converters\AttachmentConverter.cs" />
     <Compile Include="Declarations\AttachmentType.cs" />
     <Compile Include="ErrorDelegate.cs" />

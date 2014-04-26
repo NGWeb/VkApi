@@ -1,7 +1,14 @@
-﻿namespace Vk.SDK.Model
+﻿using System.Collections.Generic;
+
+namespace Vk.SDK.Model
 {
     public class Message : IVKApiModel, IIdentifiable
     {
+        public Message()
+        {
+            Attachments = new List<Attachment>();
+        }
+
         /**
      * 	Message ID. (Not returned for forwarded messages), positive number
      */
@@ -9,7 +16,7 @@
         /**
      * 	Date (in Unix time) when the message was sent.
      */
-        public VkAttachments attachments = new VkAttachments();
+        public List<Attachment> Attachments { get; set; }
         public string body;
         public long date;
         public bool deleted;

@@ -6,9 +6,15 @@ using System.Collections.Generic;
 
 namespace Vk.SDK.Model
 {
-    public abstract class Array<T> : IVKApiModel where T : IVKApiModel
+    public class Array<T> : IVKApiModel where T : IVKApiModel
     {
-        private int count;
-        private List<T> items;
+        public Array()
+        {
+            Items = new List<T>();
+        }
+
+        public int Count { get; set; }
+
+        public List<T> Items { get; set; }
     }
 }
