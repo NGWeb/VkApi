@@ -1,6 +1,7 @@
 #region usings
 
 using Vk.SDK.Http;
+using Vk.SDK.Interfaces;
 using Vk.SDK.Model;
 using Vk.SDK.Util;
 

@@ -32,7 +32,7 @@
   <ItemGroup>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.6.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -42,12 +42,12 @@
   <ItemGroup>
     <Compile Include="AbstractRequest.cs" />
     <Compile Include="CompleteDelegate.cs" />
-    <Compile Include="Context\IFriendsService.cs" />
-    <Compile Include="Context\IGroupsService.cs" />
-    <Compile Include="Context\IMessagesService.cs" />
-    <Compile Include="Context\IPhotosService.cs" />
-    <Compile Include="Context\IUsersService.cs" />
-    <Compile Include="Context\IWallService.cs" />
+    <Compile Include="Interfaces\IFriendsService.cs" />
+    <Compile Include="Interfaces\IGroupsService.cs" />
+    <Compile Include="Interfaces\IMessagesService.cs" />
+    <Compile Include="Interfaces\IPhotosService.cs" />
+    <Compile Include="Interfaces\IUsersService.cs" />
+    <Compile Include="Interfaces\IWallService.cs" />
     <Compile Include="Context\MessagesService.cs" />
     <Compile Include="Converters\AttachmentConverter.cs" />
     <Compile Include="Declarations\AttachmentType.cs" />

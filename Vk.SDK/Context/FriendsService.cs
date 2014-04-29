@@ -2,6 +2,7 @@
 
 using System.Linq;
 using Vk.SDK.Http;
+using Vk.SDK.Interfaces;
 using Vk.SDK.Model;
 
 #endregion

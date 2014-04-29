@@ -7,6 +7,7 @@ namespace Vk.SDK.Model
         public Message()
         {
             Attachments = new List<Attachment>();
+            fwd_messages = new List<Message>();
         }
 
         /**
@@ -21,7 +22,7 @@ namespace Vk.SDK.Model
         public long date;
         public bool deleted;
         public bool emoji;
-        public VkList<Message> fwd_messages;
+        public List<Message> fwd_messages;
         public int id;
 
         /**
@@ -39,15 +40,6 @@ namespace Vk.SDK.Model
      */
         public string title;
         public int user_id;
-
-        /**
-     * Body of the message.
-     */
-
-        /**
-     * Fills a Message instance from JObject.
-     */
-
 
         public int Id
         {

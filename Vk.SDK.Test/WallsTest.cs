@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Ninject;
 using Vk.SDK.Context;
 using Vk.SDK.Http;
+using Vk.SDK.Interfaces;
 using Vk.SDK.Vk;
 
 namespace Vk.SDK.Test

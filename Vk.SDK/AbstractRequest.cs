@@ -114,7 +114,7 @@ namespace Vk.SDK
         {
             return httpMethod;
         }
-    
+
         public VKParameters GetMethodParameters()
         {
             return mMethodParameters;
@@ -150,9 +150,11 @@ namespace Vk.SDK
                         secure = true;
                     }
                 //Set actual version of API
-                mPreparedParameters.Add(VKApiConst.VERSION, VKSdkVersion.API_VERSION);
+                if (!mPreparedParameters.ContainsKey(VKApiConst.VERSION))
+                    mPreparedParameters.Add(VKApiConst.VERSION, VKSdkVersion.API_VERSION);
                 //Set preferred language for request
-                mPreparedParameters.Add(VKApiConst.LANG, GetLang());
+                if (!mPreparedParameters.ContainsKey(VKApiConst.LANG))
+                    mPreparedParameters.Add(VKApiConst.LANG, GetLang());
 
                 if (secure)
                 {

@@ -1,7 +1,9 @@
 #region usings
 
 using System.Collections.Generic;
+using System.Linq;
 using Vk.SDK.Http;
+using Vk.SDK.Interfaces;
 using Vk.SDK.Model;
 
 #endregion
@@ -34,8 +36,17 @@ namespace Vk.SDK.Context
             return PrepareRequest<CommunityArray>("get", parameters);
         }
 
-        public VKRequest<UserArray> GetMembers(VKParameters parameters)
+        public VKRequest<UserArray> GetMembers(int groupId, VKParameters parameters = null)
         {
+            if (parameters == null)
+                parameters = new VKParameters();
+
+            if (!parameters.Keys.Contains(VKApiConst.GROUP_ID))
+                parameters.Add(VKApiConst.GROUP_ID, groupId);
+
+            if (!parameters.ContainsKey(VKApiConst.VERSION))
+                parameters.Add(VKApiConst.VERSION, "5.9");
+
             return PrepareRequest<UserArray>("getMembers", parameters);
         }
 

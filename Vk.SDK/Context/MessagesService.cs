@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Vk.SDK.Http;
+using Vk.SDK.Interfaces;
 using Vk.SDK.Model;
 
 namespace Vk.SDK.Context

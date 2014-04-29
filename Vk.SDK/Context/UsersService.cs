@@ -2,6 +2,7 @@
 
 using System.Collections.Generic;
 using Vk.SDK.Http;
+using Vk.SDK.Interfaces;
 using Vk.SDK.Model;
 
 #endregion
@@ -23,13 +24,20 @@ namespace Vk.SDK.Context
      * @return Request for load
      */
 
-        public UsersService(IRequestFactory factory) : base(factory)
+        public UsersService(IRequestFactory factory)
+            : base(factory)
         {
         }
 
-        public VKRequest<VkModelsList<User>> Get(VKParameters parameters)
+        public VKRequest<VkModelsList<UserFull>> Get(VKParameters parameters)
         {
-            return PrepareRequest<VkModelsList<User>>("get", parameters, AbstractRequest.HttpMethod.GET);
+            if (parameters == null)
+                parameters = new VKParameters();
+
+            if (!parameters.ContainsKey(VKApiConst.VERSION))
+                parameters.Add(VKApiConst.VERSION, "5.8");
+
+            return PrepareRequest<VkModelsList<UserFull>>("get", parameters, AbstractRequest.HttpMethod.GET);
         }
 
         /**
@@ -64,7 +72,7 @@ namespace Vk.SDK.Context
 
         public VkJsonRequest IsAppUser(int userID)
         {
-            return PrepareJsonRequest("isAppUser", new VKParameters {{VKApiConst.USER_ID, userID}});
+            return PrepareJsonRequest("isAppUser", new VKParameters { { VKApiConst.USER_ID, userID } });
         }
 
         /**

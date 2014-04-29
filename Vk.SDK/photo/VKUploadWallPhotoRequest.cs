@@ -5,6 +5,7 @@ using System.IO;
 using Newtonsoft.Json.Linq;
 using Vk.SDK.Context;
 using Vk.SDK.Http;
+using Vk.SDK.Interfaces;
 using Vk.SDK.Model;
 using Vk.SDK.Util;
 
