@@ -10,3 +10,15 @@ C:\Users\breat_000\Documents\Visual Studio 2013\Projects\Vk.SDK\Vk.SDK.Test\bin\
 C:\Users\breat_000\Documents\Visual Studio 2013\Projects\Vk.SDK\Vk.SDK.Test\obj\Release\Vk.SDK.Test.csprojResolveAssemblyReference.cache
 C:\Users\breat_000\Documents\Visual Studio 2013\Projects\Vk.SDK\Vk.SDK.Test\obj\Release\Vk.SDK.Test.dll
 C:\Users\breat_000\Documents\Visual Studio 2013\Projects\Vk.SDK\Vk.SDK.Test\obj\Release\Vk.SDK.Test.pdb
+C:\Users\breat_000\Documents\Visual Studio 2013\Projects\VkApi\Vk.SDK.Test\bin\Release\Vk.SDK.Test.dll
+C:\Users\breat_000\Documents\Visual Studio 2013\Projects\VkApi\Vk.SDK.Test\bin\Release\Vk.SDK.Test.pdb
+C:\Users\breat_000\Documents\Visual Studio 2013\Projects\VkApi\Vk.SDK.Test\bin\Release\Ninject.dll
+C:\Users\breat_000\Documents\Visual Studio 2013\Projects\VkApi\Vk.SDK.Test\bin\Release\Vk.SDK.dll
+C:\Users\breat_000\Documents\Visual Studio 2013\Projects\VkApi\Vk.SDK.Test\bin\Release\Newtonsoft.Json.dll
+C:\Users\breat_000\Documents\Visual Studio 2013\Projects\VkApi\Vk.SDK.Test\bin\Release\Vk.SDK.pdb
+C:\Users\breat_000\Documents\Visual Studio 2013\Projects\VkApi\Vk.SDK.Test\bin\Release\Ninject.pdb
+C:\Users\breat_000\Documents\Visual Studio 2013\Projects\VkApi\Vk.SDK.Test\bin\Release\Ninject.xml
+C:\Users\breat_000\Documents\Visual Studio 2013\Projects\VkApi\Vk.SDK.Test\bin\Release\Newtonsoft.Json.xml
+C:\Users\breat_000\Documents\Visual Studio 2013\Projects\VkApi\Vk.SDK.Test\obj\Release\Vk.SDK.Test.csprojResolveAssemblyReference.cache
+C:\Users\breat_000\Documents\Visual Studio 2013\Projects\VkApi\Vk.SDK.Test\obj\Release\Vk.SDK.Test.dll
+C:\Users\breat_000\Documents\Visual Studio 2013\Projects\VkApi\Vk.SDK.Test\obj\Release\Vk.SDK.Test.pdb

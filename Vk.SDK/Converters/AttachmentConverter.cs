@@ -53,7 +53,7 @@ namespace Vk.SDK.Converters
             {
                 case "photo":
                     return new Model.Photo();
-                case "Audio":
+                case "audio":
                     return new Audio();
                 case "link":
                     return new Link();

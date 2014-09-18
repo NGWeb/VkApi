@@ -39,17 +39,25 @@ namespace Vk.SDK.Test
              * https://oauth.vk.com/authorize?client_id=4256757&scope=groups,photos,friends,offline,wall,photos,notify,status&redirect_uri=http://oauth.vk.com/blank.html&display=popup&response_type=token
              
              */
-            VKSdk.initialize("4256757", VKAccessToken.TokenFromUrlstring("access_token=d471731b564c57eb98dc97c6f4c722ba413a3a7cf320b3f2dd97de743dd1fd656ac44aa007183802e86b8&expires_in=0&user_id=125342956"));
+   //         VKSdk.initialize("4256757", VKAccessToken.TokenFromUrlstring("access_token=d471731b564c57eb98dc97c6f4c722ba413a3a7cf320b3f2dd97de743dd1fd656ac44aa007183802e86b8&expires_in=0&user_id=125342956"));
             kernel = new Ninject.StandardKernel();
             kernel.Bind<IRequestCreator>().To<RequestCreator>();
             kernel.Bind<IRequestFactory>().To<RequestFactory>();
-            kernel.Bind<IUsersService>().To<UsersService>();
+        //    kernel.Bind<IUsersService>().To<UsersService>();
             kernel.Bind<IWallService>().To<WallService>();
         }
 
 
         [TestMethod]
         public void GetWallTest()
+        {
+            var service = kernel.Get<IWallService>();
+            var posts = service.Get(new VKParameters() { { VKApiConst.OWNER_ID, "-58812346" } }).GetModel();
+            Assert.AreNotEqual(posts.Count, 0);
+        }
+
+        [TestMethod]
+        public void GetWallPost()
         {
             var service = kernel.Get<IWallService>();
             var posts = service.Get(new VKParameters()).GetModel();
