@@ -5,7 +5,7 @@ namespace Vk.SDK.Interfaces
     public interface IWallService
     {
         VKRequest<PostArray> Get(VKParameters parameters);
-        VKRequest<PostArray> GetById(VKParameters parameters);
+        VKRequest<PostArray> GetById(int extended = 1, int copyHistoryDepth = 1, params string[] posts);
         VkJsonRequest SavePost(VKParameters parameters);
         VkJsonRequest Post(VKParameters parameters);
         VkJsonRequest Repost(VKParameters parameters);

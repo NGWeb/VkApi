@@ -1,5 +1,6 @@
 #region usings
 
+using System.Linq;
 using Vk.SDK.Http;
 using Vk.SDK.Interfaces;
 using Vk.SDK.Model;
@@ -10,7 +11,8 @@ namespace Vk.SDK.Context
 {
     public class WallService : VKApiBase, IWallService
     {
-        public WallService(IRequestFactory factory) : base(factory)
+        public WallService(IRequestFactory factory)
+            : base(factory)
         {
         }
 
@@ -23,13 +25,10 @@ namespace Vk.SDK.Context
             return PrepareRequest<PostArray>("get", parameters);
         }
 
-        public VKRequest<PostArray> GetById(VKParameters parameters)
+        public VKRequest<PostArray> GetById(int extended, int copyHistoryDepth, params string[] posts)
         {
-            if (((int) parameters["extended"]) == 1)
-            {
-                return PrepareRequest<PostArray>("get", parameters, AbstractRequest.HttpMethod.GET);
-            }
-            return PrepareRequest<PostArray>("get", parameters);
+            var parameters = new VKParameters{{VKApiConst.EXTENDED, extended},{"copy_history_depth", copyHistoryDepth},{"posts", string.Join(",", posts)}};
+            return extended == 1 ? PrepareRequest<PostArray>("getById", parameters, AbstractRequest.HttpMethod.GET) : PrepareRequest<PostArray>("getById", parameters);
         }
 
         public VkJsonRequest SavePost(VKParameters parameters)

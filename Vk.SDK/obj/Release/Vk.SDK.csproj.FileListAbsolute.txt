@@ -4,3 +4,10 @@ C:\Users\breat_000\Documents\Visual Studio 2013\Projects\VkApi\Vk.SDK\bin\Releas
 C:\Users\breat_000\Documents\Visual Studio 2013\Projects\VkApi\Vk.SDK\bin\Release\Newtonsoft.Json.xml
 C:\Users\breat_000\Documents\Visual Studio 2013\Projects\VkApi\Vk.SDK\obj\Release\Vk.SDK.dll
 C:\Users\breat_000\Documents\Visual Studio 2013\Projects\VkApi\Vk.SDK\obj\Release\Vk.SDK.pdb
+C:\Users\Pavel\Documents\Visual Studio 2013\Projects\vkAPI\VkApi\Vk.SDK\bin\Release\Vk.SDK.dll
+C:\Users\Pavel\Documents\Visual Studio 2013\Projects\vkAPI\VkApi\Vk.SDK\bin\Release\Vk.SDK.pdb
+C:\Users\Pavel\Documents\Visual Studio 2013\Projects\vkAPI\VkApi\Vk.SDK\bin\Release\Newtonsoft.Json.dll
+C:\Users\Pavel\Documents\Visual Studio 2013\Projects\vkAPI\VkApi\Vk.SDK\bin\Release\Newtonsoft.Json.xml
+C:\Users\Pavel\Documents\Visual Studio 2013\Projects\vkAPI\VkApi\Vk.SDK\obj\Release\Vk.SDK.csprojResolveAssemblyReference.cache
+C:\Users\Pavel\Documents\Visual Studio 2013\Projects\vkAPI\VkApi\Vk.SDK\obj\Release\Vk.SDK.dll
+C:\Users\Pavel\Documents\Visual Studio 2013\Projects\vkAPI\VkApi\Vk.SDK\obj\Release\Vk.SDK.pdb
