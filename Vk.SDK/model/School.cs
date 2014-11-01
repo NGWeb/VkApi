@@ -46,26 +46,6 @@ namespace Vk.SDK.Model
      * School class letter
      */
 
-        /**
-     * Fills a School instance from JObject.
-     */
-        ////public VKApiSchool parse(JObject from) {
-        ////    id = from.optInt("id");
-        ////    country_id = from.optInt("country_id");
-        ////    city_id = from.optInt("city_id");
-        ////    name = from.optstring("name");
-        ////    year_from = from.optInt("year_from");
-        ////    year_to = from.optInt("year_to");
-        ////    year_graduated = from.optInt("year_graduated");
-        ////    clazz = from.optstring("class");
-        ////    speciality = from.optstring("speciality");
-        ////    return this;
-        ////}
-
-        /**
-     * Creates a School instance from Parcel.
-     */
-
         public int Id
         {
             get { return id; }
@@ -80,7 +60,7 @@ namespace Vk.SDK.Model
                 if (year_graduated != 0)
                 {
                     builder.Append(" \'");
-                    builder.AppendFormat("{0}", year_graduated%100);
+                    builder.AppendFormat("{0}", year_graduated % 100);
                 }
                 if (year_from != 0 && year_to != 0)
                 {

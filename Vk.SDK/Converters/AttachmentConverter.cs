@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Vk.SDK.Model;
+using Vk.SDK.Model.AttachmentWarpers;
+
 
 namespace Vk.SDK.Converters
 {
@@ -52,17 +54,17 @@ namespace Vk.SDK.Converters
             switch (typeName)
             {
                 case "photo":
-                    return new Model.Photo();
+                    return new PhotoWarper();
                 case "audio":
-                    return new Audio();
+                    return new AudioWarper();
                 case "link":
-                    return new Link();
+                    return new LinkWarper();
                 case "album":
                     return new PhotoAlbum();
                 case "doc":
                     return new Document();
                 case "video":
-                    return new Video();
+                    return new VideoWarper();
                 case "wall":
                     return new Post();
                 default:
