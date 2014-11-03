@@ -71,5 +71,14 @@ namespace Vk.SDK.Test
             var posts = service.GetById(1, 1, "1_45558", "7446351_1312").GetModel();
             Assert.IsNotNull(posts);
         }
+
+        [TestMethod]
+        public void Post()
+        {
+            string ownreId = ""; // need write ownereId
+            var service = kernel.Get<IWallService>();
+            var post = service.Post("7446351", 1, "Test message from Unit test VKApiNGWeb").GetResponse();
+            Assert.IsNotNull(post);
+        }
     }
 }

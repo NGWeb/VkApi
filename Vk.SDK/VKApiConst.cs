@@ -10,6 +10,7 @@ namespace Vk.SDK
         public static readonly string OFFSET = "offset";
         public static readonly string COUNT = "count";
         public static readonly string OWNER_ID = "owner_id";
+        public static readonly string COPY_HISTORY_DEPTH = "copy_history_depth";
 
         //auth
         public static readonly string VERSION = "v";
@@ -62,6 +63,7 @@ namespace Vk.SDK
         public static readonly string LONG = "long";
         public static readonly string PLACE_ID = "place_id";
         public static readonly string POST_ID = "post_id";
+        public static readonly string POSTS = "posts";
 
         //Errors
         public static readonly string ERROR_CODE = "error_code";

@@ -7,7 +7,7 @@ namespace Vk.SDK.Interfaces
         VKRequest<PostArray> Get(VKParameters parameters);
         VKRequest<PostArray> GetById(int extended = 1, int copyHistoryDepth = 1, params string[] posts);
         VkJsonRequest SavePost(VKParameters parameters);
-        VkJsonRequest Post(VKParameters parameters);
+        VkJsonRequest Post(string ownerId, int fromGroup, string message);
         VkJsonRequest Repost(VKParameters parameters);
         VkJsonRequest GetReposts(VKParameters parameters);
         VkJsonRequest Edit(VKParameters parameters);

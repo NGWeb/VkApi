@@ -27,8 +27,16 @@ namespace Vk.SDK.Context
 
         public VKRequest<PostArray> GetById(int extended, int copyHistoryDepth, params string[] posts)
         {
-            var parameters = new VKParameters{{VKApiConst.EXTENDED, extended},{"copy_history_depth", copyHistoryDepth},{"posts", string.Join(",", posts)}};
-            return extended == 1 ? PrepareRequest<PostArray>("getById", parameters, AbstractRequest.HttpMethod.GET) : PrepareRequest<PostArray>("getById", parameters);
+            var parameters = new VKParameters
+            {
+                { VKApiConst.EXTENDED, extended }, 
+                { VKApiConst.COPY_HISTORY_DEPTH, copyHistoryDepth }, 
+                { VKApiConst.POSTS, string.Join(",", posts) }
+            };
+            
+            return extended == 1 ? 
+                PrepareRequest<PostArray>("getById", parameters, AbstractRequest.HttpMethod.GET) : 
+                PrepareRequest<PostArray>("getById", parameters);
         }
 
         public VkJsonRequest SavePost(VKParameters parameters)
@@ -36,12 +44,18 @@ namespace Vk.SDK.Context
             return PrepareJsonRequest("savePost", parameters);
         }
 
-
-        public VkJsonRequest Post(VKParameters parameters)
+        public VkJsonRequest Post(string ownerId, int fromGroup, string message)
         {
-            return PrepareJsonRequest("post", parameters, AbstractRequest.HttpMethod.POST);
-        }
+            var parameters = new VKParameters
+            {
+                {VKApiConst.OWNER_ID, ownerId},
+                {VKApiConst.FROM_GROUP, fromGroup},
+                {VKApiConst.MESSAGE, message}
+            };
 
+            return PrepareJsonRequest("post", parameters);
+        }
+        
         public VkJsonRequest Repost(VKParameters parameters)
         {
             return PrepareJsonRequest("repost", parameters);
